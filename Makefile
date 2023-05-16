@@ -1,7 +1,8 @@
 SRCS		= ./src/main.c \
 				./src/events/ft_key_down.c \
 				./src/init/ft_init_vars.c \
-				./src/render/ft_render_frame.c
+				./src/render/ft_render_frame.c \
+				./src/init/ft_init_img.c \
 
 OBJS		= ${SRCS:.c=.o}
 

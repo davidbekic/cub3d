@@ -6,7 +6,7 @@
 /*   By: dbekic <dbekic@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 14:00:11 by dbekic            #+#    #+#             */
-/*   Updated: 2023/05/16 14:50:40 by dbekic           ###   ########.fr       */
+/*   Updated: 2023/05/16 18:09:36 by dbekic           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,21 @@
 
 #include <stdlib.h>
 #include <unistd.h>
+#include <math.h>
 #include "../mlx/mlx.h"
 
 // UNALLOWED TEMPORARY INCLUDES
 #include <stdio.h>
 #include <time.h>
+
+// MACROS
+#define W 1080
+#define H 1920
+#define KEY_PRESS 2
+#define KEY_RELEASE 3
+
+
+
 
 // STRUCTS
 typedef struct s_img
@@ -74,6 +84,7 @@ typedef struct s_data
     t_rc_data rc;
     t_map map;
     t_img img;
+    t_img front_img_buffer;
 }   t_data;
 
 // FUNCTIONS
@@ -81,8 +92,10 @@ typedef struct s_data
 int ft_key_down(int keycode, t_data *d);
 // INIT
 void ft_init_vars(t_data *d);
+void    ft_init_img(t_data *d);
 // RENDER
-int ft_render_frame(t_data *d);
+int     ft_render_frame(t_data *d);
+void    ft_put_image(t_data *d);
 
 
 
