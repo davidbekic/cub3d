@@ -1,4 +1,7 @@
-SRCS		= ./main.c
+SRCS		= ./src/main.c \
+				./src/events/ft_key_down.c \
+				./src/init/ft_init_vars.c \
+				./src/render/ft_render_frame.c
 
 OBJS		= ${SRCS:.c=.o}
 
@@ -6,7 +9,7 @@ bold		= $(tput bold)
 
 NAME		= cub3d
 
-${NAME}:	${OBJS} 
+${NAME}:	${OBJS} cub3d.h
 			${CC}  -o ${NAME} ${LIBS} ${SRCS}
 			@echo "\033[92m${bold}FDF COMPILED!\033[0m"
 
