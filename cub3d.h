@@ -5,22 +5,22 @@
 #include <math.h>
 #include <time.h>
 #include "./mlx/mlx.h"
+#include <stdlib.h>
 
+// typedef struct s_img
+// {
+//     void *img;
+//     char *addr;
+//     int bits_per_pixel;
+//     int line_length;
+//     int endian;
+// } t_img;
 
-// typedef struct	s_img {
-// 	void	*img;
-// 	char	*addr;
-// 	int		bits_per_pixel;
-// 	int		line_length;
-// 	int		endian;
-// }				t_img;
-
-
-
-// typedef struct	s_vars {
-// 	void	*mlx;
-// 	void	*win;
-// }				t_vars;
+// typedef struct s_vars
+// {
+//     void *mlx;
+//     void *win;
+// } t_vars;
 
 typedef struct s_data
 {
@@ -47,8 +47,8 @@ typedef struct s_data
     // double perp_wall_dist = 0;
     // double time = clock(); //time of current frame
     // double old_time = 0; //time of previous frame
-    // t_vars	vars;
-    // t_img	img;
+    // t_vars vars;
+    // t_img img;
     int dir_x;
     int dir_y;
     double pos_x;
@@ -70,10 +70,10 @@ typedef struct s_data
     double delta_dist_x;
     double delta_dist_y;
     double perp_wall_dist;
-    double time; //time of current frame
-    double old_time; //time of previous frame
-    double moveSpeed; //the constant value is in squares/second
-    double rotSpeed; //the constant value is in radians/second
-}   t_data;
+    double time;      // time of current frame
+    double old_time;  // time of previous frame
+    double moveSpeed; // the constant value is in squares/second
+    double rotSpeed;  // the constant value is in radians/second
+} t_data;
 
 #endif
