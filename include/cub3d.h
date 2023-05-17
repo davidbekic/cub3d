@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbekic <dbekic@student.42.fr>              +#+  +:+       +#+        */
+/*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 14:00:11 by dbekic            #+#    #+#             */
-/*   Updated: 2023/05/16 18:09:36 by dbekic           ###   ########.fr       */
+/*   Updated: 2023/05/17 11:18:58 by davidbekic       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,10 @@
 #include <time.h>
 
 // MACROS
-#define W 1080
-#define H 1920
+#define W 1920 / 2
+#define H 1080 / 2
 #define KEY_PRESS 2
 #define KEY_RELEASE 3
-
-
-
 
 // STRUCTS
 typedef struct s_img
@@ -41,14 +38,14 @@ typedef struct s_img
     int bits_per_pixel;
     int line_length;
     int endian;
-}   t_img;
+} t_img;
 
 typedef struct s_map
 {
     int x;
     int y;
     int value;
-}   t_map;
+} t_map;
 
 typedef struct s_rc_data
 {
@@ -58,6 +55,8 @@ typedef struct s_rc_data
     int map_x;
     int map_y;
     char step_x;
+    int **map;
+    int **texture;
     char step_y;
     char side;
     double pos_x;
@@ -75,28 +74,31 @@ typedef struct s_rc_data
     double time;      // time of current frame
     double old_time;  // time of previous frame
     double moveSpeed; // the constant value is in squares/second
-    double rotSpeed; 
-}   t_rc_data;
+    double rotSpeed;
+} t_rc_data;
 
 typedef struct s_data
 {
-    
+
     t_rc_data rc;
     t_map map;
     t_img img;
     t_img front_img_buffer;
-}   t_data;
+} t_data;
 
 // FUNCTIONS
+
 // EVENTS
 int ft_key_down(int keycode, t_data *d);
 // INIT
 void ft_init_vars(t_data *d);
-void    ft_init_img(t_data *d);
+void ft_init_img(t_data *d);
 // RENDER
-int     ft_render_frame(t_data *d);
-void    ft_put_image(t_data *d);
-
+int ft_render_frame(t_data *d);
+void ft_put_image(t_data *d);
+void    ft_cast_rays(t_data *d);
+void ft_my_mlx_pixel_put(t_img *data, int x, int y, int color);
+void ft_draw_vertical_line(int x, int draw_start, int draw_end, int color, t_img *img);
 
 
 #endif

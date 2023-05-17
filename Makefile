@@ -1,35 +1,136 @@
+# SRCS		= ./src/main.c \
+# 				./src/events/ft_key_down.c \
+# 				./src/init/ft_init_vars.c \
+# 				./src/render/ft_cast_rays.c \
+# 				./src/render/ft_render_frame.c \
+# 				./src/render/ft_draw.c \
+# 				./src/init/ft_init_img.c \
+# 				./src/utils/ft_my_pixel_put.c
+
+# OBJS		= ${SRCS:.c=.o}
+
+# bold		= $(tput bold)
+
+# NAME		= cub3d
+
+# ${NAME}:	${OBJS} cub3d.h
+# 			${CC}  -o ${NAME} ${LIBS} ${SRCS}
+# 			@echo "\033[92m${bold}FDF COMPILED!\033[0m"
+
+# PRINTF		= ${OBJS} 
+
+# CC 		= cc
+# RM		= rm -f
+
+
+# LIBS		= -Lmlx -lmlx -framework OpenGL -framework AppKit
+
+# all:		${NAME} 
+
+# clean: 		
+# 		@echo "\033[91m${bold}CLEANING...\033[0m"
+# 		${RM} ${OBJS} 
+
+# fclean:		clean
+	
+# 		${RM} ${NAME} 
+
+# 			@echo "\033[92m${bol
+# SRCS		= ./src/main.c \
+# 				./src/events/ft_key_down.c \
+# 				./src/init/ft_init_vars.c \
+# 				./src/render/ft_cast_rays.c \
+# 				./src/render/ft_render_frame.c \
+# 				./src/render/ft_draw.c \
+# 				./src/init/ft_init_img.c \
+# 				./src/utils/ft_my_pixel_put.c
+
+# OBJS		= ${SRCS:.c=.o}
+
+# bold		= $(tput bold)
+
+# NAME		= cub3d
+
+# ${NAME}:	${OBJS} cub3d.h
+# 			${CC}  -o ${NAME} ${LIBS} ${SRCS}
+# 			@echo "\033[92m${bold}FDF COMPILED!\033[0m"
+
+# PRINTF		= ${OBJS} 
+
+# CC 		= cc
+# RM		= rm -f
+
+
+# LIBS		= -Lmlx -lmlx -framework OpenGL -framework AppKit
+
+# all:		${NAME} 
+
+# clean: 		
+# 		@echo "\033[91m${bold}CLEANING...\033[0m"
+# 		${RM} ${OBJS} 
+
+# fclean:		clean
+	
+# 		${RM} ${NAME} 
+
+# 			@echo "\033[92m${bol
+
+
+TARGET_EXEC := philo
+
+BUILD_DIR := ./build
+SRC_DIRS := ./src
+
+NAME :=	$(TARGET_EXEC)
+
+Y = "\033[33m"
+G = "\033[32m"
+X = "\033[0m"
+UP = "\033[A"
+CUT = "\033[K"
+
+all:	$(NAME)
+
 SRCS		= ./src/main.c \
 				./src/events/ft_key_down.c \
 				./src/init/ft_init_vars.c \
+				./src/render/ft_cast_rays.c \
 				./src/render/ft_render_frame.c \
+				./src/render/ft_draw.c \
 				./src/init/ft_init_img.c \
+				./src/utils/ft_my_pixel_put.c
 
-OBJS		= ${SRCS:.c=.o}
-
-bold		= $(tput bold)
-
-NAME		= cub3d
-
-${NAME}:	${OBJS} cub3d.h
-			${CC}  -o ${NAME} ${LIBS} ${SRCS}
-			@echo "\033[92m${bold}FDF COMPILED!\033[0m"
-
-PRINTF		= ${OBJS} 
-
-CC 		= cc
-RM		= rm -f
-
+OBJS := $(SRCS:%=$(BUILD_DIR)/%.o)
+DEPS := $(OBJS:.o=.d)
+INC_FLAGS := -I./include
 
 LIBS		= -Lmlx -lmlx -framework OpenGL -framework AppKit
 
-all:		${NAME} 
+CFLAGS := $(INC_FLAGS) -MMD -MP -Wall -Wextra -Werror
 
-clean: 		
-		@echo "\033[91m${bold}CLEANING...\033[0m"
-		${RM} ${OBJS} 
+$(NAME): $(OBJS)
+	@echo $(Y)Linking...$(X)
+	@$(CC) $(OBJS) ${LIBS} -o $../$(NAME)
+	@printf $(UP)$(CUT)
+	@echo $(G)COMPILED!$(X)
+
+$(BUILD_DIR)/%.c.o: %.c
+	@echo $(Y)Compiling [$<]...$(X)
+	@sleep 0.01
+	@mkdir -p $(dir $@)
+	@$(CC) $(CFLAGS) -c $< -o $@
+	@printf $(UP)$(CUT)
+
+clean:
+	@echo $(Y)Cleaning...$(X)
+	@rm -rf $(BUILD_DIR)
 
 fclean:		clean
-	
-		${RM} ${NAME} 
+	@echo $(Y)Removing binary...$(X)
+	@rm -f $(NAME)
 
-			@echo "\033[92m${bol
+re:	fclean all
+
+.PHONY: all re clean fclean
+
+-include $(DEPS)
