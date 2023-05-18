@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbekic <dbekic@student.42.fr>              +#+  +:+       +#+        */
+/*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 14:00:11 by dbekic            #+#    #+#             */
-/*   Updated: 2023/05/18 16:17:22 by dbekic           ###   ########.fr       */
+/*   Updated: 2023/05/19 00:09:03 by davidbekic       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,14 @@
 #define FRAMES 0.012
 #define MOVE_SPEED 0.039 * 10
 #define ROT_SPEED 0.033 * 10
+#define A_KEY 0
+#define D_KEY 2
+#define W_KEY 13
+#define S_KEY 1
+#define LEFT_KEY 123
+#define RIGHT_KEY 124
+// #define KEY_UP 125
+// #define  125
 
 // STRUCTS
 typedef struct s_img
@@ -87,12 +95,21 @@ typedef struct s_tex
     int img_height;
 }   t_tex;
 
+typedef struct s_keys
+{
+    int up;
+    int down;
+    int left;
+    int right;
+}   t_keys;
+
 typedef struct s_data
 {
 
     t_rc_data rc;
     t_map map;
     t_img img;
+    t_keys keys;
     t_img front_img_buffer;
     t_img back_img_buffer;
     t_tex texture_img[4];
@@ -119,6 +136,8 @@ unsigned char	ft_get_t(int trgb);
 unsigned char	ft_get_r(int trgb);
 unsigned char	ft_get_g(int trgb);
 unsigned char	ft_get_b(int trgb);
+int     ft_key_down_check(int keycode, t_data *d);
+int     ft_key_up_check(int keycode, t_data *d);
 
 
 #endif

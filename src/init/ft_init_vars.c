@@ -36,6 +36,10 @@ void ft_init_vars(t_data *d)
     d->rc.step_x = 0;
     d->rc.step_y = 0;
     d->rc.side = 0;
+    d->keys.up = 0;
+    d->keys.down = 0;
+    d->keys.left = 0;
+    d->keys.right = 0;
     d->rc.side_dist_x = 0;
     d->rc.side_dist_y = 0;
     d->rc.delta_dist_x = 0;

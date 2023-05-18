@@ -99,6 +99,7 @@ SRCS		= ./src/main.c \
 				./src/render/ft_draw.c \
 				./src/init/ft_init_img.c \
 				./src/utils/ft_my_pixel_put.c \
+				./src/utils/ft_key_check.c \
 				./src/utils/ft_create_trgb.c
 
 OBJS := $(SRCS:%=$(BUILD_DIR)/%.o)
