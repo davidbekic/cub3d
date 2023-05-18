@@ -6,7 +6,7 @@
 /*   By: dbekic <dbekic@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 11:00:51 by davidbekic        #+#    #+#             */
-/*   Updated: 2023/05/18 16:46:04 by dbekic           ###   ########.fr       */
+/*   Updated: 2023/05/18 17:51:29 by dbekic           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,7 +146,6 @@ void ft_cast_rays(t_data *d)
         // Starting texture coordinate
         double texPos = (draw_start - H / 2 + line_height / 2) * step;
         // double texPos = 0;
-        printf("%f\n", step);
         for(int y = draw_start; y<draw_end; y++)
         {
             // Cast the texture coordinate to integer, and mask with (64 - 1) in case of overflow
