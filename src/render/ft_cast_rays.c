@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cast_rays.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
+/*   By: dbekic <dbekic@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 11:00:51 by davidbekic        #+#    #+#             */
-/*   Updated: 2023/05/18 13:29:55 by davidbekic       ###   ########.fr       */
+/*   Updated: 2023/05/18 16:46:04 by dbekic           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ void ft_cast_rays(t_data *d)
 {
     int x = 0;
     // double frame_time = 0;
+    int buffer[H][W];
     while (x < W)
     {
         ft_init_rc_vars(d, x);
@@ -101,31 +102,73 @@ void ft_cast_rays(t_data *d)
             draw_end = (H * 1) - 1;
 
         // choose wall color
-        int color = 255;
-        switch (worldMap[d->rc.map_x][d->rc.map_y])
+        // int color = 255;
+        // switch (worldMap[d->rc.map_x][d->rc.map_y])
+        // {
+        // case 1:
+        //     color = 18593248;
+        //     break; // red
+        // case 2:
+        //     color = 534523;
+        //     break; // green
+        // case 3:
+        //     color = 392345;
+        //     break; // blue
+        // case 4:
+        //     color = 18593248;
+        //     break; // white
+        // default:
+        //     color = 134234;
+        //     break; // yellow
+        // }
+
+        // // give x and y sides different brightness
+        // if (d->rc.side == 1)
+        //     color = color / 2;
+
+
+        //texturing calculations
+        //   int texNum = worldMap[d->rc.map_x][d->rc.map_y] - 1; == d->texture_img;
+
+        //calculate value of wallX
+        double wallX; //where exactly the wall was hit
+        if (d->rc.side == 0) wallX = d->rc.pos_y + d->rc.perp_wall_dist * d->rc.ray_dir_y;
+        else           wallX = d->rc.pos_x + d->rc.perp_wall_dist * d->rc.ray_dir_x;
+        wallX -= floor((wallX));
+
+        //x coordinate on the texture
+        int texX = (int)(wallX * (double)(64));
+        if(d->rc.side == 0 && d->rc.ray_dir_x > 0) texX = d->texture_img[0].img_width - texX - 1;
+        if(d->rc.side == 1 && d->rc.ray_dir_y < 0) texX = d->texture_img[0].img_width - texX - 1;
+
+                    // How much to increase the texture coordinate per screen pixel
+        double step = 1.0 * d->texture_img[0].img_height / line_height;
+        // Starting texture coordinate
+        double texPos = (draw_start - H / 2 + line_height / 2) * step;
+        // double texPos = 0;
+        printf("%f\n", step);
+        for(int y = draw_start; y<draw_end; y++)
         {
-        case 1:
-            color = 18593248;
-            break; // red
-        case 2:
-            color = 534523;
-            break; // green
-        case 3:
-            color = 392345;
-            break; // blue
-        case 4:
-            color = 18593248;
-            break; // white
-        default:
-            color = 134234;
-            break; // yellow
+            // Cast the texture coordinate to integer, and mask with (64 - 1) in case of overflow
+            int texY = (int)texPos & (d->texture_img[0].img_height - 1);
+            texPos += step;
+            // int color = d->texture_img[0].img.addr[64 * texY + texX];
+            int color = *(int *)(d->texture_img[0].img.addr + (texY * d->texture_img[0].img.line_length
+                        + x * (d->texture_img[0].img.bits_per_pixel / 8)));
+            // printf("color: %d\n", color);
+            //make color darker for y-sides: R, G and B byte each divided through two with a "shift" and an "and"
+            if(d->rc.side == 1) color = (color >> 1) & 8355711;
+            // if (color > 100)
+                ft_my_mlx_pixel_put(&d->back_img_buffer, x, y, color);
+            // buffer[y][x] = color;
+            
         }
+        x++;
+    }
+        // ft_draw_buffer(d, buffer);
+        for(int y = 0; y < H; y++) for(int x = 0; x < W; x++) buffer[y][x] = 0; //clear the buffer instead of cls()
 
-        // give x and y sides different brightness
-        if (d->rc.side == 1)
-            color = color / 2;
-
-        ft_draw_vertical_line(x, draw_start, draw_end, color, &d->back_img_buffer);
+        // ft_draw_vertical_line(x, draw_start, draw_end, color, &d->back_img_buffer);
 
         // timing for input and FPS counter
         // d->rc.old_time = d->rc.time;
@@ -136,6 +179,4 @@ void ft_cast_rays(t_data *d)
         // d->rc.rotMOVE_SPEED = frame_time * 3.0;  // the constant value is in radians/second
         // printf("rotMOVE_SPEED: %f\n", d->rc.rotMOVE_SPEED);
 
-        x++;
     }
-}

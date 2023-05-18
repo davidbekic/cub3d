@@ -7,17 +7,26 @@ void ft_init_vars(t_data *d)
     ft_init_img(&d->img, d->img.mlx);
     ft_init_img(&d->back_img_buffer, d->img.mlx);
     ft_init_img(&d->front_img_buffer, d->img.mlx);
+    d->texture_img[0].img.img = mlx_xpm_file_to_image(d->img.mlx, "./textures/test/east.xpm", &d->texture_img[0].img_width, &d->texture_img[0].img_height);
+    d->texture_img[0].img.addr = mlx_get_data_addr(d->texture_img[0].img.img, &d->texture_img[0].img.bits_per_pixel, &d->texture_img[0].img.line_length,
+                                  &d->texture_img[0].img.endian);
+                                  
+    // ACCESS PIXELS OF TEXTURE int pixel_color = *(int *)(texture_img.addr + texture_img.line_length + (texture_img.bits_per_pixel / 8));
 
-    // d->img.img = mlx_new_image(d->img.mlx, W, H);
+    // mlx_put_image_to_window(d->img.mlx, d->img.mlx_win, texture_img, 0, 0);
+
+    // d->img.img = mlx_new_image(d->img.mlx, W, H);    
     // d->img.addr = mlx_get_data_addr(d->img.img, &d->img.bits_per_pixel, &d->img.line_length,
     //                                 &d->img.endian);
     // mlx_put_image_to_window(d->img.mlx, d->img.mlx_win, d->img.img, 0, 0);
-    d->rc.dir_x = -1;
+    printf("tex_width: %d\n", d->texture_img->img_width);
+    printf("tex_height: %d\n", d->texture_img->img_height);
+    d->rc.dir_x = 1;
     d->rc.dir_y = 0;
     d->rc.pos_x = 2;
     d->rc.pos_y = 2;
     d->rc.camera_plane_x = 0;
-    d->rc.camera_plane_y = .66;
+    d->rc.camera_plane_y = -.66;
     d->rc.hit = 0;
     d->rc.camera_x = 0;
     d->rc.ray_dir_x = 0;

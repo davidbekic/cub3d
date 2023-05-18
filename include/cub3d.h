@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
+/*   By: dbekic <dbekic@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 14:00:11 by dbekic            #+#    #+#             */
-/*   Updated: 2023/05/18 13:19:50 by davidbekic       ###   ########.fr       */
+/*   Updated: 2023/05/18 16:17:22 by dbekic           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,13 @@
 #include <time.h>
 
 // MACROS
-#define W 1920 / 1.4
-#define H 1080 / 1.4
+#define W 1920
+#define H 1080
 #define KEY_PRESS 2
 #define KEY_RELEASE 3
 #define FRAMES 0.012
-#define MOVE_SPEED 0.039 * 1
-#define ROT_SPEED 0.033 * 1
+#define MOVE_SPEED 0.039 * 10
+#define ROT_SPEED 0.033 * 10
 
 // STRUCTS
 typedef struct s_img
@@ -80,6 +80,13 @@ typedef struct s_rc_data
     double rotMOVE_SPEED;
 } t_rc_data;
 
+typedef struct s_tex
+{
+    t_img img;
+    int img_width;
+    int img_height;
+}   t_tex;
+
 typedef struct s_data
 {
 
@@ -88,6 +95,7 @@ typedef struct s_data
     t_img img;
     t_img front_img_buffer;
     t_img back_img_buffer;
+    t_tex texture_img[4];
 } t_data;
 
 // FUNCTIONS
@@ -101,10 +109,16 @@ void ft_init_img(t_img *img, void *mlx);
 int ft_render_frame(t_data *d);
 void ft_put_image(t_data *d);
 void ft_cast_rays(t_data *d);
+void	ft_draw_buffer(t_data *d, int buffer[1080][1920]);
 void ft_draw_vertical_line(int x, int draw_start, int draw_end, int color, t_img *img);
 void ft_draw_ceiling_and_floor(t_data *d);
 // UTILS
 void ft_my_mlx_pixel_put(t_img *data, int x, int y, int color);
-int ft_create_rgb(int r, int g, int b);
+int ft_create_trgb(int t, int r, int g, int b);
+unsigned char	ft_get_t(int trgb);
+unsigned char	ft_get_r(int trgb);
+unsigned char	ft_get_g(int trgb);
+unsigned char	ft_get_b(int trgb);
+
 
 #endif
