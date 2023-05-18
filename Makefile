@@ -76,7 +76,7 @@
 # 			@echo "\033[92m${bol
 
 
-TARGET_EXEC := philo
+TARGET_EXEC := cub3d
 
 BUILD_DIR := ./build
 SRC_DIRS := ./src
@@ -98,19 +98,23 @@ SRCS		= ./src/main.c \
 				./src/render/ft_render_frame.c \
 				./src/render/ft_draw.c \
 				./src/init/ft_init_img.c \
-				./src/utils/ft_my_pixel_put.c
+				./src/utils/ft_my_pixel_put.c \
+				./src/utils/ft_create_rgb.c
 
 OBJS := $(SRCS:%=$(BUILD_DIR)/%.o)
 DEPS := $(OBJS:.o=.d)
 INC_FLAGS := -I./include
 
-LIBS		= -Lmlx -lmlx -framework OpenGL -framework AppKit
+# LIBS		= -Lmlx -lmlx -framework OpenGL -framework AppKit
+LIBMLX_DIR	=	mlx/
+LIBMLX		=	$(addprefix $(LIBMLX_DIR), libmlx.a)
+LNK			=	 -L $(LIBMLX_DIR) -lmlx -framework OpenGL -framework AppKit
 
 CFLAGS := $(INC_FLAGS) -MMD -MP -Wall -Wextra -Werror
 
-$(NAME): $(OBJS)
+$(NAME): $(OBJS) $(LIBMLX)
 	@echo $(Y)Linking...$(X)
-	@$(CC) $(OBJS) ${LIBS} -o $../$(NAME)
+	@$(CC) $(OBJS) ${LNK} -o $../$(NAME)
 	@printf $(UP)$(CUT)
 	@echo $(G)COMPILED!$(X)
 

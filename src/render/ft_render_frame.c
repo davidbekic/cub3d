@@ -6,7 +6,7 @@
 /*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 14:51:05 by dbekic            #+#    #+#             */
-/*   Updated: 2023/05/17 11:10:57 by davidbekic       ###   ########.fr       */
+/*   Updated: 2023/05/18 13:31:07 by davidbekic       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,24 @@
 
 int ft_render_frame(t_data *d)
 {
+    // usleep(3750);
 
-    // t_img front_img_buffer;
-    // t_img temp_img_buffer;
-    // while (1)
-    //     {
-    // temp_img_buffer = front_img_buffer;
-    if (d->img.img)
-        d->front_img_buffer = d->img;
-    d->img.img = NULL;
-
-    ft_init_img(d);
+    // Perform the drawing operations.
+    ft_draw_ceiling_and_floor(d);
     ft_cast_rays(d);
 
-    // }
-    // printf("frame time: %f\n", 1.0 / frame_time);         // FPS counter
-    d->front_img_buffer = d->img;
-    mlx_put_image_to_window(d->img.mlx, d->img.mlx_win, d->front_img_buffer.img, 0, 0);
+    // Now all drawing is done, so we can put the image to the window.
+    // usleep(37500);
+    mlx_put_image_to_window(d->img.mlx, d->img.mlx_win, d->back_img_buffer.img, 0, 0);
+
+    // Destroy the old front buffer image.
+    mlx_destroy_image(d->img.mlx, d->front_img_buffer.img);
+
+    // Swap buffers: Move the back buffer to the front.
+    d->front_img_buffer = d->back_img_buffer;
+
+    // Create a new image for the back buffer for the next frame.
+    ft_init_img(&d->back_img_buffer, d->img.mlx);
 
     return (0);
 }

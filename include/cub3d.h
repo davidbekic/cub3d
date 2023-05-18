@@ -6,7 +6,7 @@
 /*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 14:00:11 by dbekic            #+#    #+#             */
-/*   Updated: 2023/05/17 11:18:58 by davidbekic       ###   ########.fr       */
+/*   Updated: 2023/05/18 13:19:50 by davidbekic       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,13 @@
 #include <time.h>
 
 // MACROS
-#define W 1920 / 2
-#define H 1080 / 2
+#define W 1920 / 1.4
+#define H 1080 / 1.4
 #define KEY_PRESS 2
 #define KEY_RELEASE 3
+#define FRAMES 0.012
+#define MOVE_SPEED 0.039 * 1
+#define ROT_SPEED 0.033 * 1
 
 // STRUCTS
 typedef struct s_img
@@ -49,8 +52,8 @@ typedef struct s_map
 
 typedef struct s_rc_data
 {
-    int dir_x;
-    int dir_y;
+    double dir_x;
+    double dir_y;
     int hit;
     int map_x;
     int map_y;
@@ -73,8 +76,8 @@ typedef struct s_rc_data
     double perp_wall_dist;
     double time;      // time of current frame
     double old_time;  // time of previous frame
-    double moveSpeed; // the constant value is in squares/second
-    double rotSpeed;
+    double moveMOVE_SPEED; // the constant value is in squares/second
+    double rotMOVE_SPEED;
 } t_rc_data;
 
 typedef struct s_data
@@ -84,6 +87,7 @@ typedef struct s_data
     t_map map;
     t_img img;
     t_img front_img_buffer;
+    t_img back_img_buffer;
 } t_data;
 
 // FUNCTIONS
@@ -92,13 +96,15 @@ typedef struct s_data
 int ft_key_down(int keycode, t_data *d);
 // INIT
 void ft_init_vars(t_data *d);
-void ft_init_img(t_data *d);
+void ft_init_img(t_img *img, void *mlx);
 // RENDER
 int ft_render_frame(t_data *d);
 void ft_put_image(t_data *d);
-void    ft_cast_rays(t_data *d);
-void ft_my_mlx_pixel_put(t_img *data, int x, int y, int color);
+void ft_cast_rays(t_data *d);
 void ft_draw_vertical_line(int x, int draw_start, int draw_end, int color, t_img *img);
-
+void ft_draw_ceiling_and_floor(t_data *d);
+// UTILS
+void ft_my_mlx_pixel_put(t_img *data, int x, int y, int color);
+int ft_create_rgb(int r, int g, int b);
 
 #endif

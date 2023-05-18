@@ -6,7 +6,7 @@
 /*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 11:00:51 by davidbekic        #+#    #+#             */
-/*   Updated: 2023/05/17 11:17:46 by davidbekic       ###   ########.fr       */
+/*   Updated: 2023/05/18 13:29:55 by davidbekic       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,69 +14,74 @@
 
 extern int worldMap[2400][2400];
 
+static void ft_init_rc_vars(t_data *d, int x)
+{
+    d->rc.camera_x = 2 * x / (double)W - 1; // value between -1 & 1. Normalised so that we can say how big "part of the camera plane" that part is
+    d->rc.ray_dir_x = d->rc.dir_x + d->rc.camera_plane_x * d->rc.camera_x;
+    d->rc.ray_dir_y = d->rc.dir_y + d->rc.camera_plane_y * d->rc.camera_x;
 
+    d->rc.map_x = (int)d->rc.pos_x;
+    d->rc.map_y = (int)d->rc.pos_y;
+    d->rc.hit = 0;
 
+    d->rc.delta_dist_x = (d->rc.ray_dir_x == 0) ? 1e30 : fabs(1 / d->rc.ray_dir_x);
+    d->rc.delta_dist_y = (d->rc.ray_dir_y == 0) ? 1e30 : fabs(1 / d->rc.ray_dir_y);
 
+    // calculate step and initial sideDist
+    if (d->rc.ray_dir_x < 0)
+    {
+        d->rc.step_x = -1;
+        d->rc.side_dist_x = (d->rc.pos_x - d->rc.map_x) * d->rc.delta_dist_x;
+    }
+    else
+    {
+        d->rc.step_x = 1;
+        d->rc.side_dist_x = (d->rc.map_x + 1.0 - d->rc.pos_x) * d->rc.delta_dist_x;
+    }
+    if (d->rc.ray_dir_y < 0)
+    {
+        d->rc.step_y = -1;
+        d->rc.side_dist_y = (d->rc.pos_y - d->rc.map_y) * d->rc.delta_dist_y;
+    }
+    else
+    {
+        d->rc.step_y = 1;
+        d->rc.side_dist_y = (d->rc.map_y + 1.0 - d->rc.pos_y) * d->rc.delta_dist_y;
+    }
+}
+
+static void ft_dda(t_data *d)
+{
+    while (d->rc.hit == 0)
+    {
+        // jump to next map square, either in x-direction, or in y-direction
+        if (d->rc.side_dist_x < d->rc.side_dist_y)
+        {
+            d->rc.side_dist_x += d->rc.delta_dist_x;
+            d->rc.map_x += d->rc.step_x;
+            d->rc.side = 0;
+        }
+        else
+        {
+            d->rc.side_dist_y += d->rc.delta_dist_y;
+            d->rc.map_y += d->rc.step_y;
+            d->rc.side = 1;
+        }
+        // Check if ray has hit a wall
+        if (worldMap[d->rc.map_x][d->rc.map_y] > 0)
+            d->rc.hit = 1;
+    }
+}
 
 void ft_cast_rays(t_data *d)
 {
     int x = 0;
-    double frame_time = 0;
+    // double frame_time = 0;
     while (x < W)
     {
-        d->rc.camera_x = 2 * x / (double)W - 1; // value between -1 & 1. Normalised so that we can say how big "part of the camera plane" that part is
-        d->rc.ray_dir_x = d->rc.dir_x + d->rc.camera_plane_x * d->rc.camera_x;
-        d->rc.ray_dir_y = d->rc.dir_y + d->rc.camera_plane_y * d->rc.camera_x;
+        ft_init_rc_vars(d, x);
+        ft_dda(d);
 
-        d->rc.map_x = (int)d->rc.pos_x;
-        d->rc.map_y = (int)d->rc.pos_y;
-        d->rc.hit = 0;
-
-        d->rc.delta_dist_x = (d->rc.ray_dir_x == 0) ? 1e30 : fabs(1 / d->rc.ray_dir_x);
-        d->rc.delta_dist_y = (d->rc.ray_dir_y == 0) ? 1e30 : fabs(1 / d->rc.ray_dir_y);
-
-        // calculate step and initial sideDist
-        if (d->rc.ray_dir_x < 0)
-        {
-            d->rc.step_x = -1;
-            d->rc.side_dist_x = (d->rc.pos_x - d->rc.map_x) * d->rc.delta_dist_x;
-        }
-        else
-        {
-            d->rc.step_x = 1;
-            d->rc.side_dist_x = (d->rc.map_x + 1.0 - d->rc.pos_x) * d->rc.delta_dist_x;
-        }
-        if (d->rc.ray_dir_y < 0)
-        {
-            d->rc.step_y = -1;
-            d->rc.side_dist_y = (d->rc.pos_y - d->rc.map_y) * d->rc.delta_dist_y;
-        }
-        else
-        {
-            d->rc.step_y = 1;
-            d->rc.side_dist_y = (d->rc.map_y + 1.0 - d->rc.pos_y) * d->rc.delta_dist_y;
-        }
-
-        // perform DDA
-        while (d->rc.hit == 0)
-        {
-            // jump to next map square, either in x-direction, or in y-direction
-            if (d->rc.side_dist_x < d->rc.side_dist_y)
-            {
-                d->rc.side_dist_x += d->rc.delta_dist_x;
-                d->rc.map_x += d->rc.step_x;
-                d->rc.side = 0;
-            }
-            else
-            {
-                d->rc.side_dist_y += d->rc.delta_dist_y;
-                d->rc.map_y += d->rc.step_y;
-                d->rc.side = 1;
-            }
-            // Check if ray has hit a wall
-            if (worldMap[d->rc.map_x][d->rc.map_y] > 0)
-                d->rc.hit = 1;
-        }
         // Calculate distance projected on camera direction. This is the shortest distance from the point where the wall is
         // hit to the camera plane
         if (d->rc.side == 0)
@@ -100,7 +105,7 @@ void ft_cast_rays(t_data *d)
         switch (worldMap[d->rc.map_x][d->rc.map_y])
         {
         case 1:
-            color = 25255;
+            color = 18593248;
             break; // red
         case 2:
             color = 534523;
@@ -120,16 +125,17 @@ void ft_cast_rays(t_data *d)
         if (d->rc.side == 1)
             color = color / 2;
 
-        // draw the pixels of the stripe as a vertical line
-
-        ft_draw_vertical_line(x, draw_start, draw_end, color, &d->img);
+        ft_draw_vertical_line(x, draw_start, draw_end, color, &d->back_img_buffer);
 
         // timing for input and FPS counter
-        d->rc.old_time = d->rc.time;
-        d->rc.time = clock();
-        frame_time = (d->rc.time - d->rc.old_time) / 1000; // frame_time is the time this frame has taken, in seconds
-        d->rc.moveSpeed = frame_time * 50.0;               // the constant value is in squares/second
-        d->rc.rotSpeed = frame_time * 30.0;                // the constant value is in radians/second
+        // d->rc.old_time = d->rc.time;
+        // d->rc.time = clock();
+        // frame_time = (d->rc.time - d->rc.old_time) / 1000; // frame_time is the time this frame has taken, in seconds
+        // printf("frame_time: %f\n", frame_time);
+        // d->rc.moveMOVE_SPEED = frame_time * 5.0; // the constant value is in squares/second
+        // d->rc.rotMOVE_SPEED = frame_time * 3.0;  // the constant value is in radians/second
+        // printf("rotMOVE_SPEED: %f\n", d->rc.rotMOVE_SPEED);
+
         x++;
     }
 }
