@@ -7,7 +7,7 @@ void ft_init_vars(t_data *d)
     ft_init_img(&d->img, d->img.mlx);
     ft_init_img(&d->back_img_buffer, d->img.mlx);
     ft_init_img(&d->front_img_buffer, d->img.mlx);
-    d->tex[0].img.img = mlx_xpm_file_to_image(d->img.mlx, "./textures/simonkraft/cobblestone.xpm", &d->tex[0].img_width, &d->tex[0].img_height);
+    d->tex[0].img.img = mlx_xpm_file_to_image(d->img.mlx, "./textures/test/east.xpm", &d->tex[0].img_width, &d->tex[0].img_height);
     d->tex[0].img.addr = mlx_get_data_addr(d->tex[0].img.img, &d->tex[0].img.bits_per_pixel, &d->tex[0].img.line_length,
                                   &d->tex[0].img.endian);
                                   
@@ -21,6 +21,10 @@ void ft_init_vars(t_data *d)
     // mlx_put_image_to_window(d->img.mlx, d->img.mlx_win, d->img.img, 0, 0);
     printf("tex_width: %d\n", d->tex->img_width);
     printf("tex_height: %d\n", d->tex->img_height);
+    d->rc.wall_height = 0;
+    d->rc.draw_start = 0;
+    d->rc.draw_end = 0;
+    d->rc.wall_x = 0;
     d->rc.dir_x = 1;
     d->rc.dir_y = 0;
     d->rc.pos_x = 4;
@@ -40,6 +44,8 @@ void ft_init_vars(t_data *d)
     d->keys.down = 0;
     d->keys.left = 0;
     d->keys.right = 0;
+    d->keys.rotate_left = 0;
+    d->keys.rotate_right = 0;
     d->rc.side_dist_x = 0;
     d->rc.side_dist_y = 0;
     d->rc.delta_dist_x = 0;

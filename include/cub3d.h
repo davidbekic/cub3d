@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
+/*   By: dbekic <dbekic@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 14:00:11 by dbekic            #+#    #+#             */
-/*   Updated: 2023/05/19 11:14:50 by davidbekic       ###   ########.fr       */
+/*   Updated: 2023/05/19 15:48:05 by dbekic           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@
 #define KEY_PRESS 2
 #define KEY_RELEASE 3
 #define FRAMES 0.012
-#define MOVE_SPEED 0.039 * 10
-#define ROT_SPEED 0.033 * 10
+#define MOVE_SPEED 0.039
+#define ROT_SPEED 0.033
 #define A_KEY 0
 #define D_KEY 2
 #define W_KEY 13
@@ -60,9 +60,13 @@ typedef struct s_rc_data
     int hit;
     int ray_map_coor_x;
     int ray_map_coor_y;
-    char step_x;
     int **map;
     int **texture;
+    int wall_height;
+    int draw_start;
+    int draw_end;
+    double wall_x;
+    char step_x;
     char step_y;
     char side;
     double pos_x;
@@ -103,6 +107,8 @@ typedef struct s_keys
     int down;
     int left;
     int right;
+    int rotate_left;
+    int rotate_right;
 }   t_keys;
 
 typedef struct s_data
@@ -142,6 +148,13 @@ unsigned char	ft_get_g(int trgb);
 unsigned char	ft_get_b(int trgb);
 int     ft_key_down_check(int keycode, t_data *d);
 int     ft_key_up_check(int keycode, t_data *d);
+// MOVEMENT
+void ft_move_forward(t_data *d);
+void ft_move_backward(t_data *d);
+void ft_move_left(t_data *d);
+void ft_move_right(t_data *d);
+void ft_rotate_left(t_data *d);
+void ft_rotate_right(t_data *d);
 
 
 #endif

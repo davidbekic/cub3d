@@ -3,77 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   ft_key_down.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
+/*   By: dbekic <dbekic@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 15:23:39 by dbekic            #+#    #+#             */
-/*   Updated: 2023/05/19 10:51:11 by davidbekic       ###   ########.fr       */
+/*   Updated: 2023/05/19 15:49:25 by dbekic           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 
-// extern int d->map.arr[24][24];
+extern int worldMap[24][24];
 
 int ft_key_down(int keycode, t_data *d)
 {
-    // ft_key_down_check(keycode, d);
-    ft_key_up_check(keycode, d);
-
-    printf("keycode: %d\n", keycode);
-    printf("d->keys.up: %d\n", d->keys.up);
+    ft_key_down_check(keycode, d);
     if (keycode == 53)
         exit(0);
-
-    if (d->keys.down)
-    {
-        if (d->map.arr[(int)(d->rc.pos_x + d->rc.dir_x * MOVE_SPEED)][(int)(d->rc.pos_y)] == 0)
-            d->rc.pos_x += d->rc.dir_x * MOVE_SPEED;
-        if (d->map.arr[(int)(d->rc.pos_x)][(int)(d->rc.pos_y + d->rc.dir_y * MOVE_SPEED)] == 0)
-            d->rc.pos_y += d->rc.dir_y * MOVE_SPEED;
-    }
     if (d->keys.up)
-    {
-        if (d->map.arr[(int)(d->rc.pos_x - d->rc.dir_x * MOVE_SPEED)][(int)(d->rc.pos_y)] == 0)
-            d->rc.pos_x -= d->rc.dir_x * MOVE_SPEED;
-        if (d->map.arr[(int)(d->rc.pos_x)][(int)(d->rc.pos_y - d->rc.dir_y * MOVE_SPEED)] == 0)
-            d->rc.pos_y -= d->rc.dir_y * MOVE_SPEED;
-    }
-    if (d->keys.left)
-    {
-        if (d->map.arr[(int)(d->rc.pos_x - d->rc.dir_x * MOVE_SPEED)][(int)(d->rc.pos_y)] == 0)
-            d->rc.pos_x -= d->rc.dir_y * MOVE_SPEED;
-        if (d->map.arr[(int)(d->rc.pos_x)][(int)(d->rc.pos_y - d->rc.dir_y * MOVE_SPEED)] == 0)
-            d->rc.pos_y -= d->rc.dir_x * MOVE_SPEED;
-    }
+        ft_move_forward(d);
+    if (d->keys.down)
+        ft_move_backward(d);
     if (d->keys.right)
-    // move backwards if no wall behind you if (keycode == 125)
-    {
-        if (d->map.arr[(int)(d->rc.pos_x - d->rc.dir_x * MOVE_SPEED)][(int)(d->rc.pos_y)] == 0)
-            d->rc.pos_x += d->rc.dir_y * MOVE_SPEED;
-        if (d->map.arr[(int)(d->rc.pos_x)][(int)(d->rc.pos_y - d->rc.dir_y * MOVE_SPEED)] == 0)
-            d->rc.pos_y += d->rc.dir_x * MOVE_SPEED;
-    }
-    // rotate to the right
-    if (keycode == 124)
-    {
-        //both camera direction and camera plane must be rotated
-        double old_dir_x = d->rc.dir_x;
-        d->rc.dir_x = d->rc.dir_x * cos(-ROT_SPEED) - d->rc.dir_y * sin(-ROT_SPEED);
-        d->rc.dir_y = old_dir_x * sin(-ROT_SPEED) + d->rc.dir_y * cos(-ROT_SPEED);
-        double old_camera_plane_x = d->rc.camera_plane_x;
-        d->rc.camera_plane_x = d->rc.camera_plane_x * cos(-ROT_SPEED) - d->rc.camera_plane_y * sin(-ROT_SPEED);
-        d->rc.camera_plane_y = old_camera_plane_x * sin(-ROT_SPEED) + d->rc.camera_plane_y * cos(-ROT_SPEED);
-    }
-    // rotate to the left
-    if (keycode == 123)
-    {
-        // both camera direction and camera plane must be rotated
-        double old_dir_x = d->rc.dir_x;
-        d->rc.dir_x = d->rc.dir_x * cos(ROT_SPEED) - d->rc.dir_y * sin(ROT_SPEED);
-        d->rc.dir_y = old_dir_x * sin(ROT_SPEED) + d->rc.dir_y * cos(ROT_SPEED);
-        double old_camera_plane_x = d->rc.camera_plane_x;
-        d->rc.camera_plane_x = d->rc.camera_plane_x * cos(ROT_SPEED) - d->rc.camera_plane_y * sin(ROT_SPEED);
-        d->rc.camera_plane_y = old_camera_plane_x * sin(ROT_SPEED) + d->rc.camera_plane_y * cos(ROT_SPEED);
-    }
+        ft_move_right(d);
+    if (d->keys.left)
+        ft_move_left(d);
+    if (d->keys.rotate_right)
+        ft_rotate_right(d);
+    if (d->keys.rotate_left)
+        ft_rotate_left(d);
     return (0);
 }

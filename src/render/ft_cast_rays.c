@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cast_rays.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
+/*   By: dbekic <dbekic@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 11:00:51 by davidbekic        #+#    #+#             */
-/*   Updated: 2023/05/19 10:50:40 by davidbekic       ###   ########.fr       */
+/*   Updated: 2023/05/19 15:49:50 by dbekic           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 
-// extern int d->map.arr[2400][2400];
+extern int worldMap[2400][2400];
 
 static void ft_init_rc_vars(t_data *d, int x)
 {
@@ -68,85 +68,53 @@ static void ft_dda(t_data *d)
             d->rc.side = 1;
         }
         // Check if ray has hit a wall
-        if (d->map.arr[d->rc.ray_map_coor_x][d->rc.ray_map_coor_y] > 0)
+        if (worldMap[d->rc.ray_map_coor_x][d->rc.ray_map_coor_y] > 0)
             d->rc.hit = 1;
     }
 }
 
-void ft_cast_rays(t_data *d)
+double ft_set_perp_wall_dist(t_data *d)
 {
-    int x = 0;
-    // double frame_time = 0;
-    int buffer[H][W];
-    while (x < W)
-    {
-        ft_init_rc_vars(d, x);
-        ft_dda(d);
+    // Calculate distance projected on camera direction. This is the shortest distance from the point where the wall is
+    // hit to the camera plane
+    if (d->rc.side == 0)
+        return (d->rc.side_dist_x - d->rc.delta_dist_x);
+    else
+        return (d->rc.side_dist_y - d->rc.delta_dist_y);
+}
 
-        // Calculate distance projected on camera direction. This is the shortest distance from the point where the wall is
-        // hit to the camera plane
-        if (d->rc.side == 0)
-            d->rc.perp_wall_dist = (d->rc.side_dist_x - d->rc.delta_dist_x);
-        else
-            d->rc.perp_wall_dist = (d->rc.side_dist_y - d->rc.delta_dist_y);
-
+void    ft_init_wall_props(t_data *d)
+{
         // Calculate height of line to draw on screen
-        int line_height = (int)(H / d->rc.perp_wall_dist);
+        d->rc.wall_height = (int)(H / d->rc.perp_wall_dist);
 
         // calculate lowest and highest pixel to fill in current stripe
-        int draw_start = -line_height / 2 + (H * 1) / 2;
-        if (draw_start < 0)
-            draw_start = 0;
-        int draw_end = line_height / 2 + (H * 1) / 2;
-        if (draw_end >= (H * 1))
-            draw_end = (H * 1) - 1;
+        d->rc.draw_start = -d->rc.wall_height / 2 + (H * 1) / 2;
+        if (d->rc.draw_start < 0)
+            d->rc.draw_start = 0;
+        d->rc.draw_end = d->rc.wall_height / 2 + (H * 1) / 2;
+        if (d->rc.draw_end >= (H * 1))
+            d->rc.draw_end = (H * 1) - 1;
 
-        // choose wall color
-        // int color = 255;
-        // switch (d->map.arr[d->rc.ray_map_coor_x][d->rc.ray_map_coor_y])
-        // {
-        // case 1:
-        //     color = 18593248;
-        //     break; // red
-        // case 2:
-        //     color = 534523;
-        //     break; // green
-        // case 3:
-        //     color = 392345;
-        //     break; // blue
-        // case 4:
-        //     color = 18593248;
-        //     break; // white
-        // default:
-        //     color = 134234;
-        //     break; // yellow
-        // }
+        //calculate value of d->rc.wall_x
+        if (d->rc.side == 0) d->rc.wall_x = d->rc.pos_y + d->rc.perp_wall_dist * d->rc.ray_dir_y;
+        else           d->rc.wall_x = d->rc.pos_x + d->rc.perp_wall_dist * d->rc.ray_dir_x;
+        d->rc.wall_x -= floor((d->rc.wall_x));
+}
 
-        // // give x and y sides different brightness
-        // if (d->rc.side == 1)
-        //     color = color / 2;
-
-
-        //texturing calculations
-        //   int texNum = d->map.arr[d->rc.ray_map_coor_x][d->rc.ray_map_coor_y] - 1; == d->tex;
-
-        //calculate value of wallX
-        double wallX; //where exactly the wall was hit
-        if (d->rc.side == 0) wallX = d->rc.pos_y + d->rc.perp_wall_dist * d->rc.ray_dir_y;
-        else           wallX = d->rc.pos_x + d->rc.perp_wall_dist * d->rc.ray_dir_x;
-        wallX -= floor((wallX));
-
+void    ft_map_texture(t_data *d, int x)
+{
         //x coordinate on the texture
-        int texX = (int)(wallX * (double)(64));
+        int texX = (int)(d->rc.wall_x * (double)(64));
         if(d->rc.side == 0 && d->rc.ray_dir_x > 0) texX = d->tex[0].img_width - texX - 1;
         if(d->rc.side == 1 && d->rc.ray_dir_y < 0) texX = d->tex[0].img_width - texX - 1;
 
                     // How much to increase the texture coordinate per screen pixel
-        double step = 1.0 * d->tex[0].img_height / line_height;
+        double step = 1.0 * d->tex[0].img_height / d->rc.wall_height;
         // Starting texture coordinate
-        double texPos = (draw_start - H / 2 + line_height / 2) * step;
+        double texPos = (d->rc.draw_start - H / 2 + d->rc.wall_height / 2) * step;
         // double texPos = 0;
-        for(int y = draw_start; y<draw_end; y++)
+        for(int y = d->rc.draw_start; y<d->rc.draw_end; y++)
         {
             // Cast the texture coordinate to integer, and mask with (64 - 1) in case of overflow
             int texY = (int)texPos & (d->tex[0].img_height - 1);
@@ -158,16 +126,28 @@ void ft_cast_rays(t_data *d)
             //make color darker for y-sides: R, G and B byte each divided through two with a "shift" and an "and"
             if(d->rc.side == 1) color = (color >> 1) & 8355711;
             // if (color > 100)
-                ft_my_mlx_pixel_put(&d->back_img_buffer, x, y, color);
+            ft_my_mlx_pixel_put(&d->back_img_buffer, x, y, 255255255);
             // buffer[y][x] = color;
-            
         }
-        x++;
+}
+
+void ft_cast_rays(t_data *d)
+{
+    int x = -1;
+    // double frame_time = 0;
+    // int buffer[H][W];
+    while (++x < W)
+    {
+        ft_init_rc_vars(d, x);
+        ft_dda(d);
+        d->rc.perp_wall_dist = ft_set_perp_wall_dist(d);
+        ft_init_wall_props(d);
+        ft_map_texture(d, x);
     }
         // ft_draw_buffer(d, buffer);
-        for(int y = 0; y < H; y++) for(int x = 0; x < W; x++) buffer[y][x] = 0; //clear the buffer instead of cls()
+        // for(int y = 0; y < H; y++) for(int x = 0; x < W; x++) buffer[y][x] = 0; //clear the buffer instead of cls()
 
-        // ft_draw_vertical_line(x, draw_start, draw_end, color, &d->back_img_buffer);
+        // ft_draw_vertical_line(x, d->rc.draw_start, d->rc.draw_end, color, &d->back_img_buffer);
 
         // timing for input and FPS counter
         // d->rc.old_time = d->rc.time;
