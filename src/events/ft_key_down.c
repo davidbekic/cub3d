@@ -6,13 +6,13 @@
 /*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 15:23:39 by dbekic            #+#    #+#             */
-/*   Updated: 2023/05/19 00:32:21 by davidbekic       ###   ########.fr       */
+/*   Updated: 2023/05/19 10:51:11 by davidbekic       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 
-extern int worldMap[24][24];
+// extern int d->map.arr[24][24];
 
 int ft_key_down(int keycode, t_data *d)
 {
@@ -26,31 +26,31 @@ int ft_key_down(int keycode, t_data *d)
 
     if (d->keys.down)
     {
-        if (worldMap[(int)(d->rc.pos_x + d->rc.dir_x * MOVE_SPEED)][(int)(d->rc.pos_y)] == 0)
+        if (d->map.arr[(int)(d->rc.pos_x + d->rc.dir_x * MOVE_SPEED)][(int)(d->rc.pos_y)] == 0)
             d->rc.pos_x += d->rc.dir_x * MOVE_SPEED;
-        if (worldMap[(int)(d->rc.pos_x)][(int)(d->rc.pos_y + d->rc.dir_y * MOVE_SPEED)] == 0)
+        if (d->map.arr[(int)(d->rc.pos_x)][(int)(d->rc.pos_y + d->rc.dir_y * MOVE_SPEED)] == 0)
             d->rc.pos_y += d->rc.dir_y * MOVE_SPEED;
     }
     if (d->keys.up)
     {
-        if (worldMap[(int)(d->rc.pos_x - d->rc.dir_x * MOVE_SPEED)][(int)(d->rc.pos_y)] == 0)
+        if (d->map.arr[(int)(d->rc.pos_x - d->rc.dir_x * MOVE_SPEED)][(int)(d->rc.pos_y)] == 0)
             d->rc.pos_x -= d->rc.dir_x * MOVE_SPEED;
-        if (worldMap[(int)(d->rc.pos_x)][(int)(d->rc.pos_y - d->rc.dir_y * MOVE_SPEED)] == 0)
+        if (d->map.arr[(int)(d->rc.pos_x)][(int)(d->rc.pos_y - d->rc.dir_y * MOVE_SPEED)] == 0)
             d->rc.pos_y -= d->rc.dir_y * MOVE_SPEED;
     }
     if (d->keys.left)
     {
-        if (worldMap[(int)(d->rc.pos_x - d->rc.dir_x * MOVE_SPEED)][(int)(d->rc.pos_y)] == 0)
+        if (d->map.arr[(int)(d->rc.pos_x - d->rc.dir_x * MOVE_SPEED)][(int)(d->rc.pos_y)] == 0)
             d->rc.pos_x -= d->rc.dir_y * MOVE_SPEED;
-        if (worldMap[(int)(d->rc.pos_x)][(int)(d->rc.pos_y - d->rc.dir_y * MOVE_SPEED)] == 0)
+        if (d->map.arr[(int)(d->rc.pos_x)][(int)(d->rc.pos_y - d->rc.dir_y * MOVE_SPEED)] == 0)
             d->rc.pos_y -= d->rc.dir_x * MOVE_SPEED;
     }
     if (d->keys.right)
     // move backwards if no wall behind you if (keycode == 125)
     {
-        if (worldMap[(int)(d->rc.pos_x - d->rc.dir_x * MOVE_SPEED)][(int)(d->rc.pos_y)] == 0)
+        if (d->map.arr[(int)(d->rc.pos_x - d->rc.dir_x * MOVE_SPEED)][(int)(d->rc.pos_y)] == 0)
             d->rc.pos_x += d->rc.dir_y * MOVE_SPEED;
-        if (worldMap[(int)(d->rc.pos_x)][(int)(d->rc.pos_y - d->rc.dir_y * MOVE_SPEED)] == 0)
+        if (d->map.arr[(int)(d->rc.pos_x)][(int)(d->rc.pos_y - d->rc.dir_y * MOVE_SPEED)] == 0)
             d->rc.pos_y += d->rc.dir_x * MOVE_SPEED;
     }
     // rotate to the right

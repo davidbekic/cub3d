@@ -6,7 +6,7 @@
 /*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 14:00:11 by dbekic            #+#    #+#             */
-/*   Updated: 2023/05/19 00:09:03 by davidbekic       ###   ########.fr       */
+/*   Updated: 2023/05/19 11:14:50 by davidbekic       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <math.h>
+#include <fcntl.h>
 #include "../mlx/mlx.h"
 
 // UNALLOWED TEMPORARY INCLUDES
@@ -51,20 +52,14 @@ typedef struct s_img
     int endian;
 } t_img;
 
-typedef struct s_map
-{
-    int x;
-    int y;
-    int value;
-} t_map;
 
 typedef struct s_rc_data
 {
     double dir_x;
     double dir_y;
     int hit;
-    int map_x;
-    int map_y;
+    int ray_map_coor_x;
+    int ray_map_coor_y;
     char step_x;
     int **map;
     int **texture;
@@ -87,6 +82,13 @@ typedef struct s_rc_data
     double moveMOVE_SPEED; // the constant value is in squares/second
     double rotMOVE_SPEED;
 } t_rc_data;
+
+typedef struct s_map
+{
+    int width;
+    int height;
+    int **arr;
+}   t_map;
 
 typedef struct s_tex
 {
@@ -112,7 +114,7 @@ typedef struct s_data
     t_keys keys;
     t_img front_img_buffer;
     t_img back_img_buffer;
-    t_tex texture_img[4];
+    t_tex tex[4];
 } t_data;
 
 // FUNCTIONS
@@ -129,6 +131,8 @@ void ft_cast_rays(t_data *d);
 void	ft_draw_buffer(t_data *d, int buffer[1080][1920]);
 void ft_draw_vertical_line(int x, int draw_start, int draw_end, int color, t_img *img);
 void ft_draw_ceiling_and_floor(t_data *d);
+// PARSE
+int ft_parse_map(t_data *d, char *path);
 // UTILS
 void ft_my_mlx_pixel_put(t_img *data, int x, int y, int color);
 int ft_create_trgb(int t, int r, int g, int b);

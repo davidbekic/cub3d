@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cast_rays.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbekic <dbekic@student.42.fr>              +#+  +:+       +#+        */
+/*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 11:00:51 by davidbekic        #+#    #+#             */
-/*   Updated: 2023/05/18 17:51:29 by dbekic           ###   ########.fr       */
+/*   Updated: 2023/05/19 10:50:40 by davidbekic       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 
-extern int worldMap[2400][2400];
+// extern int d->map.arr[2400][2400];
 
 static void ft_init_rc_vars(t_data *d, int x)
 {
@@ -20,8 +20,8 @@ static void ft_init_rc_vars(t_data *d, int x)
     d->rc.ray_dir_x = d->rc.dir_x + d->rc.camera_plane_x * d->rc.camera_x;
     d->rc.ray_dir_y = d->rc.dir_y + d->rc.camera_plane_y * d->rc.camera_x;
 
-    d->rc.map_x = (int)d->rc.pos_x;
-    d->rc.map_y = (int)d->rc.pos_y;
+    d->rc.ray_map_coor_x = (int)d->rc.pos_x;
+    d->rc.ray_map_coor_y = (int)d->rc.pos_y;
     d->rc.hit = 0;
 
     d->rc.delta_dist_x = (d->rc.ray_dir_x == 0) ? 1e30 : fabs(1 / d->rc.ray_dir_x);
@@ -31,22 +31,22 @@ static void ft_init_rc_vars(t_data *d, int x)
     if (d->rc.ray_dir_x < 0)
     {
         d->rc.step_x = -1;
-        d->rc.side_dist_x = (d->rc.pos_x - d->rc.map_x) * d->rc.delta_dist_x;
+        d->rc.side_dist_x = (d->rc.pos_x - d->rc.ray_map_coor_x) * d->rc.delta_dist_x;
     }
     else
     {
         d->rc.step_x = 1;
-        d->rc.side_dist_x = (d->rc.map_x + 1.0 - d->rc.pos_x) * d->rc.delta_dist_x;
+        d->rc.side_dist_x = (d->rc.ray_map_coor_x + 1.0 - d->rc.pos_x) * d->rc.delta_dist_x;
     }
     if (d->rc.ray_dir_y < 0)
     {
         d->rc.step_y = -1;
-        d->rc.side_dist_y = (d->rc.pos_y - d->rc.map_y) * d->rc.delta_dist_y;
+        d->rc.side_dist_y = (d->rc.pos_y - d->rc.ray_map_coor_y) * d->rc.delta_dist_y;
     }
     else
     {
         d->rc.step_y = 1;
-        d->rc.side_dist_y = (d->rc.map_y + 1.0 - d->rc.pos_y) * d->rc.delta_dist_y;
+        d->rc.side_dist_y = (d->rc.ray_map_coor_y + 1.0 - d->rc.pos_y) * d->rc.delta_dist_y;
     }
 }
 
@@ -58,17 +58,17 @@ static void ft_dda(t_data *d)
         if (d->rc.side_dist_x < d->rc.side_dist_y)
         {
             d->rc.side_dist_x += d->rc.delta_dist_x;
-            d->rc.map_x += d->rc.step_x;
+            d->rc.ray_map_coor_x += d->rc.step_x;
             d->rc.side = 0;
         }
         else
         {
             d->rc.side_dist_y += d->rc.delta_dist_y;
-            d->rc.map_y += d->rc.step_y;
+            d->rc.ray_map_coor_y += d->rc.step_y;
             d->rc.side = 1;
         }
         // Check if ray has hit a wall
-        if (worldMap[d->rc.map_x][d->rc.map_y] > 0)
+        if (d->map.arr[d->rc.ray_map_coor_x][d->rc.ray_map_coor_y] > 0)
             d->rc.hit = 1;
     }
 }
@@ -103,7 +103,7 @@ void ft_cast_rays(t_data *d)
 
         // choose wall color
         // int color = 255;
-        // switch (worldMap[d->rc.map_x][d->rc.map_y])
+        // switch (d->map.arr[d->rc.ray_map_coor_x][d->rc.ray_map_coor_y])
         // {
         // case 1:
         //     color = 18593248;
@@ -128,7 +128,7 @@ void ft_cast_rays(t_data *d)
 
 
         //texturing calculations
-        //   int texNum = worldMap[d->rc.map_x][d->rc.map_y] - 1; == d->texture_img;
+        //   int texNum = d->map.arr[d->rc.ray_map_coor_x][d->rc.ray_map_coor_y] - 1; == d->tex;
 
         //calculate value of wallX
         double wallX; //where exactly the wall was hit
@@ -138,22 +138,22 @@ void ft_cast_rays(t_data *d)
 
         //x coordinate on the texture
         int texX = (int)(wallX * (double)(64));
-        if(d->rc.side == 0 && d->rc.ray_dir_x > 0) texX = d->texture_img[0].img_width - texX - 1;
-        if(d->rc.side == 1 && d->rc.ray_dir_y < 0) texX = d->texture_img[0].img_width - texX - 1;
+        if(d->rc.side == 0 && d->rc.ray_dir_x > 0) texX = d->tex[0].img_width - texX - 1;
+        if(d->rc.side == 1 && d->rc.ray_dir_y < 0) texX = d->tex[0].img_width - texX - 1;
 
                     // How much to increase the texture coordinate per screen pixel
-        double step = 1.0 * d->texture_img[0].img_height / line_height;
+        double step = 1.0 * d->tex[0].img_height / line_height;
         // Starting texture coordinate
         double texPos = (draw_start - H / 2 + line_height / 2) * step;
         // double texPos = 0;
         for(int y = draw_start; y<draw_end; y++)
         {
             // Cast the texture coordinate to integer, and mask with (64 - 1) in case of overflow
-            int texY = (int)texPos & (d->texture_img[0].img_height - 1);
+            int texY = (int)texPos & (d->tex[0].img_height - 1);
             texPos += step;
-            // int color = d->texture_img[0].img.addr[64 * texY + texX];
-            int color = *(int *)(d->texture_img[0].img.addr + (texY * d->texture_img[0].img.line_length
-                        + x * (d->texture_img[0].img.bits_per_pixel / 8)));
+            // int color = d->tex[0].img.addr[64 * texY + texX];
+            int color = *(int *)(d->tex[0].img.addr + (texY * d->tex[0].img.line_length
+                        + x * (d->tex[0].img.bits_per_pixel / 8)));
             // printf("color: %d\n", color);
             //make color darker for y-sides: R, G and B byte each divided through two with a "shift" and an "and"
             if(d->rc.side == 1) color = (color >> 1) & 8355711;
