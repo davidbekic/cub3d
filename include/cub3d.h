@@ -6,7 +6,7 @@
 /*   By: dbekic <dbekic@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 14:00:11 by dbekic            #+#    #+#             */
-/*   Updated: 2023/05/19 15:48:05 by dbekic           ###   ########.fr       */
+/*   Updated: 2023/05/19 18:08:06 by dbekic           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,13 @@
 #include <time.h>
 
 // MACROS
-#define W 1920
-#define H 1080
+#define W 1000
+#define H 1000
 #define KEY_PRESS 2
 #define KEY_RELEASE 3
 #define FRAMES 0.012
-#define MOVE_SPEED 0.039
-#define ROT_SPEED 0.033
+#define MOVE_SPEED 0.039 * 2.0
+#define ROT_SPEED 0.033 * 1.0
 #define A_KEY 0
 #define D_KEY 2
 #define W_KEY 13
@@ -66,9 +66,9 @@ typedef struct s_rc_data
     int draw_start;
     int draw_end;
     double wall_x;
-    char step_x;
-    char step_y;
-    char side;
+    int step_x;
+    int step_y;
+    int side;
     double pos_x;
     double pos_y;
     double camera_plane_x;

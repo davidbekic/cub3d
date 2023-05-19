@@ -6,7 +6,7 @@
 /*   By: dbekic <dbekic@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 11:00:51 by davidbekic        #+#    #+#             */
-/*   Updated: 2023/05/19 15:49:50 by dbekic           ###   ########.fr       */
+/*   Updated: 2023/05/19 18:10:40 by dbekic           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ static void ft_init_rc_vars(t_data *d, int x)
     d->rc.ray_map_coor_y = (int)d->rc.pos_y;
     d->rc.hit = 0;
 
+    // d->rc.delta_dist_x = sqrt(1 + (d->rc.ray_dir_y * d->rc.ray_dir_y) / (d->rc.ray_dir_x * d->rc.ray_dir_x));
+    // d->rc.delta_dist_y = sqrt(1 + (d->rc.ray_dir_x * d->rc.ray_dir_x) / (d->rc.ray_dir_y* d->rc.ray_dir_y));
     d->rc.delta_dist_x = (d->rc.ray_dir_x == 0) ? 1e30 : fabs(1 / d->rc.ray_dir_x);
     d->rc.delta_dist_y = (d->rc.ray_dir_y == 0) ? 1e30 : fabs(1 / d->rc.ray_dir_y);
 
@@ -78,9 +80,9 @@ double ft_set_perp_wall_dist(t_data *d)
     // Calculate distance projected on camera direction. This is the shortest distance from the point where the wall is
     // hit to the camera plane
     if (d->rc.side == 0)
-        return (d->rc.side_dist_x - d->rc.delta_dist_x);
+        return ((d->rc.ray_map_coor_x - d->rc.pos_x + (1 - d->rc.step_x) / 2) / d->rc.ray_dir_x);
     else
-        return (d->rc.side_dist_y - d->rc.delta_dist_y);
+        return ((d->rc.ray_map_coor_y - d->rc.pos_y + (1 - d->rc.step_y) / 2) / d->rc.ray_dir_y);
 }
 
 void    ft_init_wall_props(t_data *d)
@@ -105,14 +107,15 @@ void    ft_init_wall_props(t_data *d)
 void    ft_map_texture(t_data *d, int x)
 {
         //x coordinate on the texture
-        int texX = (int)(d->rc.wall_x * (double)(64));
+        int texX = (int)(d->rc.wall_x * (double)d->tex[0].img_width);
         if(d->rc.side == 0 && d->rc.ray_dir_x > 0) texX = d->tex[0].img_width - texX - 1;
         if(d->rc.side == 1 && d->rc.ray_dir_y < 0) texX = d->tex[0].img_width - texX - 1;
 
-                    // How much to increase the texture coordinate per screen pixel
-        double step = 1.0 * d->tex[0].img_height / d->rc.wall_height;
+        // How much to increase the texture coordinate per screen pixel
+        double step = 1.0 * (d->tex[0].img_height / d->rc.wall_height);
         // Starting texture coordinate
         double texPos = (d->rc.draw_start - H / 2 + d->rc.wall_height / 2) * step;
+        // double texPos = 0;
         // double texPos = 0;
         for(int y = d->rc.draw_start; y<d->rc.draw_end; y++)
         {
@@ -120,13 +123,16 @@ void    ft_map_texture(t_data *d, int x)
             int texY = (int)texPos & (d->tex[0].img_height - 1);
             texPos += step;
             // int color = d->tex[0].img.addr[64 * texY + texX];
-            int color = *(int *)(d->tex[0].img.addr + (texY * d->tex[0].img.line_length
+            // int color = *(int *)(d->tex[0].img.addr + (texY * d->tex[0].img.line_length
+            //             + x * (d->tex[0].img.bits_per_pixel / 8)));
+            int color = *(int*)(d->tex[0].img.addr + (texY * d->tex[0].img.line_length
                         + x * (d->tex[0].img.bits_per_pixel / 8)));
+
             // printf("color: %d\n", color);
             //make color darker for y-sides: R, G and B byte each divided through two with a "shift" and an "and"
             if(d->rc.side == 1) color = (color >> 1) & 8355711;
             // if (color > 100)
-            ft_my_mlx_pixel_put(&d->back_img_buffer, x, y, 255255255);
+            ft_my_mlx_pixel_put(&d->back_img_buffer, x, y, color);
             // buffer[y][x] = color;
         }
 }
@@ -152,7 +158,7 @@ void ft_cast_rays(t_data *d)
         // timing for input and FPS counter
         // d->rc.old_time = d->rc.time;
         // d->rc.time = clock();
-        // frame_time = (d->rc.time - d->rc.old_time) / 1000; // frame_time is the time this frame has taken, in seconds
+        // double frame_time = (d->rc.time - d->rc.old_time) / 1000; // frame_time is the time this frame has taken, in seconds
         // printf("frame_time: %f\n", frame_time);
         // d->rc.moveMOVE_SPEED = frame_time * 5.0; // the constant value is in squares/second
         // d->rc.rotMOVE_SPEED = frame_time * 3.0;  // the constant value is in radians/second
