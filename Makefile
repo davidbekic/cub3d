@@ -98,9 +98,11 @@ SRCS		= ./src/main.c \
 				./src/render/ft_render_frame.c \
 				./src/render/ft_draw.c \
 				./src/init/ft_init_img.c \
+				./src/init/ft_init_textures.c \
 				./src/utils/ft_my_pixel_put.c \
 				./src/utils/ft_key_check.c \
 				./src/utils/ft_create_trgb.c \
+				./src/utils/ft_my_pixel_get.c \
 				./src/movement/ft_move.c \
 				./src/movement/ft_rotate.c \
 

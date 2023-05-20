@@ -1,33 +1,5 @@
 #include "../../include/cub3d.h"
 
-int my_mlx_pixel_get(t_img *img, int x, int y) {
-  int color;
-  char *dst;
-
-  dst = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
-  color = *(unsigned int *)dst;
-  return (color);
-}
-
-int **ft_fill_texture(t_tex tex) {
-  int x;
-  int y;
-  int **arr;
-
-  x = -1;
-  y = -1;
-  arr = malloc(tex.img_height * sizeof(int *));
-  while (++x < tex.img_height) {
-    arr[x] = malloc(tex.img_width * sizeof(int));
-    while (++y < tex.img_width) {
-      arr[x][y] = my_mlx_pixel_get(&tex.img, x, y);
-    }
-    if (y == 64)
-      y = 0;
-  }
-  return (arr);
-}
-
 void ft_init_vars(t_data *d)
 {
     d->img.mlx = mlx_init();
@@ -35,13 +7,15 @@ void ft_init_vars(t_data *d)
     ft_init_img(&d->img, d->img.mlx);
     ft_init_img(&d->back_img_buffer, d->img.mlx);
     ft_init_img(&d->front_img_buffer, d->img.mlx);
-    d->tex[0].img.img =
-        mlx_xpm_file_to_image(d->img.mlx, "./textures/test/east.xpm",
-                              &d->tex[0].img_width, &d->tex[0].img_height);
-    d->tex[0].img.addr = mlx_get_data_addr(d->tex[0].img.img, &d->tex[0].img.bits_per_pixel, &d->tex[0].img.line_length,
-                                  &d->tex[0].img.endian);
-    d->tex[0].arr = ft_fill_texture(d->tex[0]);
-    free(d->tex[0].img.addr);
+    ft_init_textures(d);
+    // d->tex[0].img.img =
+    //     mlx_xpm_file_to_image(d->img.mlx, "./textures/test/east.xpm",
+    //                           &d->tex[0].width, &d->tex[0].height);
+    // d->tex[0].img.addr = mlx_get_data_addr(d->tex[0].img.img,
+    // &d->tex[0].img.bits_per_pixel, &d->tex[0].img.line_length,
+    //                               &d->tex[0].img.endian);
+    // d->tex[0].arr = ft_fill_texture(d->tex[0]);
+    // free(d->tex[0].img.addr);
     // for (int x = 0; x < 64; x++)
     // {
     //     for (int y = 0; y < 64; y++)
@@ -62,8 +36,8 @@ void ft_init_vars(t_data *d)
     //                                 &d->img.endian);
     // mlx_put_image_to_window(d->img.mlx, d->img.mlx_win, d->img.img, 0,
     // 0);
-    printf("tex_width: %d\n", d->tex->img_width);
-    printf("tex_height: %d\n", d->tex->img_height);
+    printf("tex_width: %d\n", d->tex->width);
+    printf("tex_height: %d\n", d->tex->height);
     d->rc.wall_height = 0;
     d->rc.draw_start = 0;
     d->rc.draw_end = 0;

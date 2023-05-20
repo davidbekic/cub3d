@@ -6,7 +6,7 @@
 /*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 14:00:11 by dbekic            #+#    #+#             */
-/*   Updated: 2023/05/20 14:01:31 by davidbekic       ###   ########.fr       */
+/*   Updated: 2023/05/20 16:32:46 by davidbekic       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,8 +101,8 @@ typedef struct s_map
 typedef struct s_tex
 {
     t_img img;
-    int img_width;
-    int img_height;
+    int width;
+    int height;
     int **arr;
 }   t_tex;
 
@@ -135,6 +135,8 @@ int ft_key_down(int keycode, t_data *d);
 // INIT
 void ft_init_vars(t_data *d);
 void ft_init_img(t_img *img, void *mlx);
+int **ft_fill_texture(t_tex tex);
+void ft_init_textures(t_data *d);
 // RENDER
 int ft_render_frame(t_data *d);
 void ft_put_image(t_data *d);
@@ -153,6 +155,7 @@ unsigned char	ft_get_g(int trgb);
 unsigned char	ft_get_b(int trgb);
 int     ft_key_down_check(int keycode, t_data *d);
 int     ft_key_up_check(int keycode, t_data *d);
+int ft_my_pixel_get(t_img *img, int x, int y);
 // MOVEMENT
 void ft_move_forward(t_data *d);
 void ft_move_backward(t_data *d);
