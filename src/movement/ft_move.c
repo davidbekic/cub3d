@@ -6,7 +6,7 @@
 /*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 15:39:21 by dbekic            #+#    #+#             */
-/*   Updated: 2023/05/20 17:22:04 by davidbekic       ###   ########.fr       */
+/*   Updated: 2023/05/20 19:48:49 by davidbekic       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,6 @@ int	is_x_forwards_wall(t_data *data)
 	else
 		y = (int)((data->rc.pos_x + data->rc.dir_x * MOVE_SPEED) - WALL_DISTANCE);
 	x = (int)(data->rc.pos_y);
-    printf("x: %d\n", x);
-    printf("y: %d\n", y);
-    printf("worldMap[y][x]: %d\n", worldMap[y][x]);
-    printf("worldMap[y][x + 1]: %d\n", worldMap[y][x + 1]);
-    printf("worldMap[y][x -1]: %d\n", worldMap[y][x - 1]);
-
-
-    printf("rc.pos_x: %f\n", data->rc.pos_x);
-    printf("rc.pos_y: %f\n", data->rc.pos_y);
-    printf("CORENER DISTANCE: %f\n", CORNER_DISTANCE);
 	if (data->rc.pos_y - (int)data->rc.pos_y == 0 && ((worldMap[y][x - 1] != 0
 			&& 1 - (data->rc.pos_x - (int)data->rc.pos_x) < CORNER_DISTANCE)
 		|| (worldMap[y][x - 1] != 0 && (data->rc.pos_x - (int)data->rc.pos_x)
@@ -72,14 +62,14 @@ int	is_y_forwards_wall(t_data *data)
 
 void ft_move_forward(t_data *d)
 {
-        if (worldMap[(int)(d->rc.pos_x + d->rc.dir_x * MOVE_SPEED)]
-                    [(int)(d->rc.pos_y)] == 0)
-                // if (!is_x_forwards_wall(d))
-                d->rc.pos_x += d->rc.dir_x * MOVE_SPEED;
-        if (worldMap[(int)(d->rc.pos_x)]
-                    [(int)(d->rc.pos_y + d->rc.dir_y * MOVE_SPEED)] == 0)
-                // if (!is_y_forwards_wall(d))
-                d->rc.pos_y += d->rc.dir_y * MOVE_SPEED;
+	if (worldMap[(int)(d->rc.pos_x + d->rc.dir_x * MOVE_SPEED)]
+				[(int)(d->rc.pos_y)] == 0)
+		// if (!is_x_forwards_wall(d))
+		d->rc.pos_x += d->rc.dir_x * MOVE_SPEED;
+	if (worldMap[(int)(d->rc.pos_x)]
+				[(int)(d->rc.pos_y + d->rc.dir_y * MOVE_SPEED)] == 0)
+		// if (!is_y_forwards_wall(d))
+		d->rc.pos_y += d->rc.dir_y * MOVE_SPEED;
 }
 
 void ft_move_backward(t_data *d)

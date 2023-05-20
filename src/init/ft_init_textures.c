@@ -6,7 +6,7 @@
 /*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 16:23:54 by davidbekic        #+#    #+#             */
-/*   Updated: 2023/05/20 16:45:34 by davidbekic       ###   ########.fr       */
+/*   Updated: 2023/05/20 19:19:07 by davidbekic       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 char *ft_choose_texture(int i) {
   if (i == 0)
-    return ("./textures/test/west.xpm");
+    return ("./textures/wolfenstein/blue_stone.xpm");
   if (i == 1)
-    return ("./textures/test/east.xpm");
+    return ("./textures/wolfenstein/eagle.xpm");
   if (i == 2)
-    return ("./textures/test/south.xpm");
+    return ("./textures/wolfenstein/mossy.xpm");
   else
-    return ("./textures/test/north.xpm");
+    return ("./textures/wolfenstein/wood.xpm");
 }
 
 void ft_init_textures(t_data *d) {
