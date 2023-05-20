@@ -41,6 +41,7 @@ void ft_init_vars(t_data *d)
     d->tex[0].img.addr = mlx_get_data_addr(d->tex[0].img.img, &d->tex[0].img.bits_per_pixel, &d->tex[0].img.line_length,
                                   &d->tex[0].img.endian);
     d->tex[0].arr = ft_fill_texture(d->tex[0]);
+    free(d->tex[0].img.addr);
     // for (int x = 0; x < 64; x++)
     // {
     //     for (int y = 0; y < 64; y++)
@@ -50,14 +51,17 @@ void ft_init_vars(t_data *d)
     //     printf("\n");
     // }
 
-    // ACCESS PIXELS OF TEXTURE int pixel_color = *(int *)(tex.addr + tex.line_length + (tex.bits_per_pixel / 8));
+    // ACCESS PIXELS OF TEXTURE int pixel_color = *(int *)(tex.addr +
+    // tex.line_length + (tex.bits_per_pixel / 8));
 
     // mlx_put_image_to_window(d->img.mlx, d->img.mlx_win, tex, 0, 0);
 
-    // d->img.img = mlx_new_image(d->img.mlx, W, H);    
-    // d->img.addr = mlx_get_data_addr(d->img.img, &d->img.bits_per_pixel, &d->img.line_length,
+    // d->img.img = mlx_new_image(d->img.mlx, W, H);
+    // d->img.addr = mlx_get_data_addr(d->img.img, &d->img.bits_per_pixel,
+    // &d->img.line_length,
     //                                 &d->img.endian);
-    // mlx_put_image_to_window(d->img.mlx, d->img.mlx_win, d->img.img, 0, 0);
+    // mlx_put_image_to_window(d->img.mlx, d->img.mlx_win, d->img.img, 0,
+    // 0);
     printf("tex_width: %d\n", d->tex->img_width);
     printf("tex_height: %d\n", d->tex->img_height);
     d->rc.wall_height = 0;
