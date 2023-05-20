@@ -105,6 +105,7 @@ SRCS		= ./src/main.c \
 				./src/utils/ft_my_pixel_get.c \
 				./src/movement/ft_move.c \
 				./src/movement/ft_rotate.c \
+				./src/exit/ft_exit.c
 
 OBJS := $(SRCS:%=$(BUILD_DIR)/%.o)
 DEPS := $(OBJS:.o=.d)

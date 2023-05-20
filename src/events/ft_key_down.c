@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_key_down.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbekic <dbekic@student.42.fr>              +#+  +:+       +#+        */
+/*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 15:23:39 by dbekic            #+#    #+#             */
-/*   Updated: 2023/05/19 18:04:53 by dbekic           ###   ########.fr       */
+/*   Updated: 2023/05/20 17:25:27 by davidbekic       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int ft_key_down(int keycode, t_data *d)
 {
     ft_key_down_check(keycode, d);
     if (keycode == 53)
-        exit(0);
+      ft_exit(d);
     if (d->keys.up)
         ft_move_forward(d);
     if (d->keys.down)

@@ -6,7 +6,7 @@
 /*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 14:00:11 by dbekic            #+#    #+#             */
-/*   Updated: 2023/05/20 16:32:46 by davidbekic       ###   ########.fr       */
+/*   Updated: 2023/05/20 17:25:13 by davidbekic       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,6 +163,7 @@ void ft_move_left(t_data *d);
 void ft_move_right(t_data *d);
 void ft_rotate_left(t_data *d);
 void ft_rotate_right(t_data *d);
-
+// EXIT
+void ft_exit(t_data *d);
 
 #endif
