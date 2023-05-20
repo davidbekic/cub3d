@@ -6,7 +6,7 @@
 /*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 11:00:51 by davidbekic        #+#    #+#             */
-/*   Updated: 2023/05/20 13:32:25 by davidbekic       ###   ########.fr       */
+/*   Updated: 2023/05/20 14:24:10 by davidbekic       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,28 +112,40 @@ void    ft_map_texture(t_data *d, int x)
         if(d->rc.side == 1 && d->rc.ray_dir_y < 0) texX = d->tex[0].img_width - texX - 1;
 
         // How much to increase the texture coordinate per screen pixel
-        double step = 1.0 * (d->tex[0].img_height / d->rc.wall_height);
-        // Starting texture coordinate
-        double texPos = (d->rc.draw_start - H / 2 + d->rc.wall_height / 2) * step;
+        // double step = 1.0 * (d->tex[0].img_height / d->rc.wall_height);
+        // // Starting texture coordinate
+        // double texPos = (d->rc.draw_start - H / 2 + d->rc.wall_height / 2) *
+        // step;
+
+        double step = (1.0 * 64 / d->rc.wall_height);
+        double texPos =
+            (d->rc.draw_start - H / 2 + d->rc.wall_height / 2) * step;
+        // double texPos = 0;
+
         // double texPos = 0;
         // double texPos = 0;
         for(int y = d->rc.draw_start; y<d->rc.draw_end; y++)
         {
-            // Cast the texture coordinate to integer, and mask with (64 - 1) in case of overflow
-            int texY = (int)texPos & (d->tex[0].img_height - 1);
+            // Cast the texture coordinate to integer, and mask with (64 - 1) in
+            // case of overflow int texY = (int)texPos & (d->tex[0].img_height -
+            // 1);
+            int texY = (int)texPos & (64 - 1);
             texPos += step;
             // int color = d->tex[0].img.addr[64 * texY + texX];
             // int color = *(int *)(d->tex[0].img.addr + (texY * d->tex[0].img.line_length
             //             + x * (d->tex[0].img.bits_per_pixel / 8)));
-            // int color = d->tex[0].img.addr[texX][y];
-            // int color = *(int*)(d->tex[0].img.addr + (texY * d->tex[0].img.line_length
+            int color = d->tex[0].arr[texX][texY];
+            // int color = *(int*)(d->tex[0].img.addr + (texY *
+            // d->tex[0].img.line_length
             //             + x * (d->tex[0].img.bits_per_pixel / 8)));
-            int color = *(int*) d->tex[0].img.addr + (texY * d->img.line_length + x * (d->img.bits_per_pixel / 8));
+            // int color =
+            // int color = *(int*) d->tex[0].img.addr + (texY *
+            // d->img.line_length + x * (d->img.bits_per_pixel / 8));
 
             // printf("color: %d\n", color);
             //make color darker for y-sides: R, G and B byte each divided through two with a "shift" and an "and"
             if(d->rc.side == 1) color = (color >> 1) & 8355711;
-            // if (color > 100)
+            // if (color > 100)j
             ft_my_mlx_pixel_put(&d->back_img_buffer, x, y, color);
             // buffer[y][x] = color;
         }

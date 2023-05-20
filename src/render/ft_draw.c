@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_draw.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbekic <dbekic@student.42.fr>              +#+  +:+       +#+        */
+/*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 11:15:37 by davidbekic        #+#    #+#             */
-/*   Updated: 2023/05/18 15:58:09 by dbekic           ###   ########.fr       */
+/*   Updated: 2023/05/20 14:25:17 by davidbekic       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,11 @@ void ft_draw_ceiling_and_floor(t_data *d)
         while (x < W)
         {
             if (y > (H / 2))
-                ft_my_mlx_pixel_put(&d->back_img_buffer, x, y, ft_create_trgb(1, 50, 0, 0));
+              ft_my_mlx_pixel_put(&d->back_img_buffer, x, y,
+                                  ft_create_trgb(1, 100, 100, 100));
             else
-                ft_my_mlx_pixel_put(&d->back_img_buffer, x, y, ft_create_trgb(1, 0, 0, 50));
+                ft_my_mlx_pixel_put(&d->back_img_buffer, x, y,
+                                    ft_create_trgb(1, 200, 200, 245));
             x++;
         }
         y++;

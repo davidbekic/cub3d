@@ -6,7 +6,7 @@
 /*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 14:00:11 by dbekic            #+#    #+#             */
-/*   Updated: 2023/05/20 13:03:51 by davidbekic       ###   ########.fr       */
+/*   Updated: 2023/05/20 14:01:31 by davidbekic       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,16 @@
 #define KEY_PRESS 2
 #define KEY_RELEASE 3
 #define FRAMES 0.012
-#define MOVE_SPEED 0.039
-#define ROT_SPEED 0.033
 #define A_KEY 0
 #define D_KEY 2
 #define W_KEY 13
 #define S_KEY 1
 #define LEFT_KEY 123
 #define RIGHT_KEY 124
+
+// MOVEMENT
+#define MOVE_SPEED 0.039 * 3
+#define ROT_SPEED 0.033 * 3
 #define CORNER_DISTANCE 0.25
 #define WALL_DISTANCE 0.3
 // #define KEY_UP 125
@@ -101,6 +103,7 @@ typedef struct s_tex
     t_img img;
     int img_width;
     int img_height;
+    int **arr;
 }   t_tex;
 
 typedef struct s_keys

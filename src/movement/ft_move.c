@@ -6,7 +6,7 @@
 /*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 15:39:21 by dbekic            #+#    #+#             */
-/*   Updated: 2023/05/20 13:15:11 by davidbekic       ###   ########.fr       */
+/*   Updated: 2023/05/20 14:06:25 by davidbekic       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,12 +72,14 @@ int	is_y_forwards_wall(t_data *data)
 
 void ft_move_forward(t_data *d)
 {
-    // if (worldMap[(int)(d->rc.pos_x + d->rc.dir_x * MOVE_SPEED)][(int)(d->rc.pos_y)] == 0)
-    if (!is_x_forwards_wall(d))
-        d->rc.pos_x += d->rc.dir_x * MOVE_SPEED;
-    // if (worldMap[(int)(d->rc.pos_x)][(int)(d->rc.pos_y + d->rc.dir_y * MOVE_SPEED)] == 0)
-    if (!is_y_forwards_wall(d))
-        d->rc.pos_y += d->rc.dir_y * MOVE_SPEED;
+        if (worldMap[(int)(d->rc.pos_x + d->rc.dir_x * MOVE_SPEED)]
+                    [(int)(d->rc.pos_y)] == 0)
+                // if (!is_x_forwards_wall(d))
+                d->rc.pos_x += d->rc.dir_x * MOVE_SPEED;
+        if (worldMap[(int)(d->rc.pos_x)]
+                    [(int)(d->rc.pos_y + d->rc.dir_y * MOVE_SPEED)] == 0)
+                // if (!is_y_forwards_wall(d))
+                d->rc.pos_y += d->rc.dir_y * MOVE_SPEED;
 }
 
 void ft_move_backward(t_data *d)
