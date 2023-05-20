@@ -25,12 +25,12 @@ void ft_init_vars(t_data *d)
     d->rc.draw_start = 0;
     d->rc.draw_end = 0;
     d->rc.wall_x = 0;
-    d->rc.dir_x = 1;
+    d->rc.dir_x = -1;
     d->rc.dir_y = 0;
     d->rc.pos_x = 4;
     d->rc.pos_y = 4;
-    d->rc.camera_plane_x = 1*0;
-    d->rc.camera_plane_y = 1*-.55;
+    d->rc.camera_plane_x = 0;
+    d->rc.camera_plane_y = .71;
     d->rc.hit = 0;
     d->rc.camera_x = 0;
     d->rc.ray_dir_x = 0;

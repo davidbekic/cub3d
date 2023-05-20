@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cast_rays.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbekic <dbekic@student.42.fr>              +#+  +:+       +#+        */
+/*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 11:00:51 by davidbekic        #+#    #+#             */
-/*   Updated: 2023/05/19 18:10:40 by dbekic           ###   ########.fr       */
+/*   Updated: 2023/05/20 13:32:25 by davidbekic       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,8 +125,10 @@ void    ft_map_texture(t_data *d, int x)
             // int color = d->tex[0].img.addr[64 * texY + texX];
             // int color = *(int *)(d->tex[0].img.addr + (texY * d->tex[0].img.line_length
             //             + x * (d->tex[0].img.bits_per_pixel / 8)));
-            int color = *(int*)(d->tex[0].img.addr + (texY * d->tex[0].img.line_length
-                        + x * (d->tex[0].img.bits_per_pixel / 8)));
+            // int color = d->tex[0].img.addr[texX][y];
+            // int color = *(int*)(d->tex[0].img.addr + (texY * d->tex[0].img.line_length
+            //             + x * (d->tex[0].img.bits_per_pixel / 8)));
+            int color = *(int*) d->tex[0].img.addr + (texY * d->img.line_length + x * (d->img.bits_per_pixel / 8));
 
             // printf("color: %d\n", color);
             //make color darker for y-sides: R, G and B byte each divided through two with a "shift" and an "and"

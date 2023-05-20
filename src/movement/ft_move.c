@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_move.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbekic <dbekic@student.42.fr>              +#+  +:+       +#+        */
+/*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 15:39:21 by dbekic            #+#    #+#             */
-/*   Updated: 2023/05/19 17:43:04 by dbekic           ###   ########.fr       */
+/*   Updated: 2023/05/20 13:15:11 by davidbekic       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,69 @@
 
 extern int worldMap[24][24];
 
+int	is_x_forwards_wall(t_data *data)
+{
+	int			y;
+	int			x;
+
+
+	if (data->rc.dir_x > 0)
+		y = (int)((data->rc.pos_x + data->rc.dir_x * MOVE_SPEED) + WALL_DISTANCE);
+	else
+		y = (int)((data->rc.pos_x + data->rc.dir_x * MOVE_SPEED) - WALL_DISTANCE);
+	x = (int)(data->rc.pos_y);
+    printf("x: %d\n", x);
+    printf("y: %d\n", y);
+    printf("worldMap[y][x]: %d\n", worldMap[y][x]);
+    printf("worldMap[y][x + 1]: %d\n", worldMap[y][x + 1]);
+    printf("worldMap[y][x -1]: %d\n", worldMap[y][x - 1]);
+
+
+    printf("rc.pos_x: %f\n", data->rc.pos_x);
+    printf("rc.pos_y: %f\n", data->rc.pos_y);
+    printf("CORENER DISTANCE: %f\n", CORNER_DISTANCE);
+	if (data->rc.pos_y - (int)data->rc.pos_y == 0 && ((worldMap[y][x - 1] != 0
+			&& 1 - (data->rc.pos_x - (int)data->rc.pos_x) < CORNER_DISTANCE)
+		|| (worldMap[y][x - 1] != 0 && (data->rc.pos_x - (int)data->rc.pos_x)
+		< CORNER_DISTANCE) || (worldMap[y][x + 1] != 0
+		&& sqrt(pow((data->rc.pos_x - (int)data->rc.pos_x), 2)
+		+ pow(1 - (data->rc.pos_y - (int)data->rc.pos_y), 2)) < CORNER_DISTANCE)))
+		return (1);
+	if (worldMap[y][x] == 0)
+		return (0);
+	return (1);
+}
+
+int	is_y_forwards_wall(t_data *data)
+{
+	int			y;
+	int			x;
+
+	if (data->rc.dir_y > 0)
+		y = (int)(data->rc.pos_y + data->rc.dir_y * MOVE_SPEED + WALL_DISTANCE);
+	else
+		y = (int)(data->rc.pos_y + data->rc.dir_y * MOVE_SPEED - WALL_DISTANCE);
+	x = (int)(data->rc.pos_x);
+	if (data->rc.pos_x - (int)data->rc.pos_x == 0 && ((worldMap[x - 1][y] != '0'
+			&& (1 - (data->rc.pos_y - (int)data->rc.pos_y) < CORNER_DISTANCE))
+		|| (worldMap[x - 1][y] != '0' && (data->rc.pos_y - (int)data->rc.pos_y)
+		< CORNER_DISTANCE) || (worldMap[x + 1][y] != '0'
+		&& sqrt(pow(1 - (data->rc.pos_x - (int)data->rc.pos_x), 2)
+		+ pow(1 - (data->rc.pos_y - (int)data->rc.pos_y), 2)) < CORNER_DISTANCE)))
+		return (1);
+	if (worldMap[x][y] == '0')
+		return (0);
+	return (1);
+}
+
+
 void ft_move_forward(t_data *d)
 {
-    if (worldMap[(int)(d->rc.pos_x + d->rc.dir_x * MOVE_SPEED)][(int)(d->rc.pos_y)] == 0)
+    // if (worldMap[(int)(d->rc.pos_x + d->rc.dir_x * MOVE_SPEED)][(int)(d->rc.pos_y)] == 0)
+    if (!is_x_forwards_wall(d))
         d->rc.pos_x += d->rc.dir_x * MOVE_SPEED;
-    if (worldMap[(int)(d->rc.pos_x)][(int)(d->rc.pos_y + d->rc.dir_y * MOVE_SPEED)] == 0)
+    // if (worldMap[(int)(d->rc.pos_x)][(int)(d->rc.pos_y + d->rc.dir_y * MOVE_SPEED)] == 0)
+    if (!is_y_forwards_wall(d))
         d->rc.pos_y += d->rc.dir_y * MOVE_SPEED;
 }
 

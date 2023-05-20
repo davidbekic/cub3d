@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbekic <dbekic@student.42.fr>              +#+  +:+       +#+        */
+/*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 14:00:11 by dbekic            #+#    #+#             */
-/*   Updated: 2023/05/19 18:08:06 by dbekic           ###   ########.fr       */
+/*   Updated: 2023/05/20 13:03:51 by davidbekic       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,19 +24,21 @@
 #include <time.h>
 
 // MACROS
-#define W 1000
-#define H 1000
+#define W 1024
+#define H 512
 #define KEY_PRESS 2
 #define KEY_RELEASE 3
 #define FRAMES 0.012
-#define MOVE_SPEED 0.039 * 2.0
-#define ROT_SPEED 0.033 * 1.0
+#define MOVE_SPEED 0.039
+#define ROT_SPEED 0.033
 #define A_KEY 0
 #define D_KEY 2
 #define W_KEY 13
 #define S_KEY 1
 #define LEFT_KEY 123
 #define RIGHT_KEY 124
+#define CORNER_DISTANCE 0.25
+#define WALL_DISTANCE 0.3
 // #define KEY_UP 125
 // #define  125
 
