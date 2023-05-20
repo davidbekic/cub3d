@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_key_check.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbekic <dbekic@student.42.fr>              +#+  +:+       +#+        */
+/*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 00:01:39 by davidbekic        #+#    #+#             */
-/*   Updated: 2023/05/19 18:07:06 by dbekic           ###   ########.fr       */
+/*   Updated: 2023/05/21 00:04:29 by davidbekic       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ int     ft_key_down_check(int keycode, t_data *d)
         d->keys.rotate_left = 1;
     if (keycode == RIGHT_KEY)
         d->keys.rotate_right = 1;
+    if (keycode == EXIT_KEY)
+        d->keys.exit_key = 1;
     return (0);
 }
 
@@ -43,5 +45,7 @@ int     ft_key_up_check(int keycode, t_data *d)
         d->keys.rotate_left = 0;
     if (keycode == RIGHT_KEY)
         d->keys.rotate_right = 0;
+    if (keycode == EXIT_KEY)
+        d->keys.exit_key = 0;
     return (0);
 }

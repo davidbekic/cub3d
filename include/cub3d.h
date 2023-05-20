@@ -6,7 +6,7 @@
 /*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 14:00:11 by dbekic            #+#    #+#             */
-/*   Updated: 2023/05/20 17:25:13 by davidbekic       ###   ########.fr       */
+/*   Updated: 2023/05/21 00:06:28 by davidbekic       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,11 @@
 #define S_KEY 1
 #define LEFT_KEY 123
 #define RIGHT_KEY 124
+#define EXIT_KEY 53
 
 // MOVEMENT
-#define MOVE_SPEED 0.039 * 3
-#define ROT_SPEED 0.033 * 3
+#define MOVE_SPEED 0.039
+#define ROT_SPEED 0.033
 #define CORNER_DISTANCE 0.25
 #define WALL_DISTANCE 0.3
 // #define KEY_UP 125
@@ -114,6 +115,7 @@ typedef struct s_keys
     int right;
     int rotate_left;
     int rotate_right;
+    int exit_key;
 }   t_keys;
 
 typedef struct s_data
@@ -131,7 +133,7 @@ typedef struct s_data
 // FUNCTIONS
 
 // EVENTS
-int ft_key_down(int keycode, t_data *d);
+int ft_key_down(t_data *d);
 // INIT
 void ft_init_vars(t_data *d);
 void ft_init_img(t_img *img, void *mlx);

@@ -8,6 +8,7 @@ static void ft_init_keys(t_keys *keys)
     keys->right = 0;
     keys->rotate_left = 0;
     keys->rotate_right = 0;
+    keys->exit_key = 0;
 }
 
 static void ft_init_rc(t_rc_data *rc)

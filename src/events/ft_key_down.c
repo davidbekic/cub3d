@@ -6,7 +6,7 @@
 /*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 15:23:39 by dbekic            #+#    #+#             */
-/*   Updated: 2023/05/20 17:43:11 by davidbekic       ###   ########.fr       */
+/*   Updated: 2023/05/21 00:05:30 by davidbekic       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 extern int worldMap[24][24];
 
-int ft_key_down(int keycode, t_data *d)
+int ft_key_down(t_data *d)
 {
-    ft_key_down_check(keycode, d);
-    if (keycode == 53)
+    // ft_key_down_check(keycode, d);
+    if (d->keys.exit_key)
       ft_exit(d);
     if (d->keys.up)
         ft_move_forward(d);

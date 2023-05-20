@@ -6,7 +6,7 @@
 /*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 14:51:05 by dbekic            #+#    #+#             */
-/*   Updated: 2023/05/20 19:22:41 by davidbekic       ###   ########.fr       */
+/*   Updated: 2023/05/21 00:05:06 by davidbekic       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 int ft_render_frame(t_data *d)
 {
-    usleep(3750);
+    // usleep(3750);
+    ft_key_down(d);
     ft_draw_ceiling_and_floor(d);
     ft_cast_rays(d);
     mlx_put_image_to_window(d->img.mlx, d->img.mlx_win, d->back_img_buffer.img,
