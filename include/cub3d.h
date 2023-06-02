@@ -6,7 +6,7 @@
 /*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 14:00:11 by dbekic            #+#    #+#             */
-/*   Updated: 2023/05/21 00:06:28 by davidbekic       ###   ########.fr       */
+/*   Updated: 2023/05/22 14:50:46 by dbekic           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@
 #include <time.h>
 
 // MACROS
-#define W 1024
-#define H 512
+#define W 1920
+#define H 1080
 #define KEY_PRESS 2
 #define KEY_RELEASE 3
 #define FRAMES 0.012
