@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
+/*   By: dbekic <dbekic@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 17:23:25 by davidbekic        #+#    #+#             */
-/*   Updated: 2023/05/20 19:21:35 by davidbekic       ###   ########.fr       */
+/*   Updated: 2023/06/02 12:50:39 by dbekic           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void ft_exit(t_data *d) {
   free(d->tex[0].arr);
-  free(d->tex[1].arr);
+  free(d->tex[1].arr);ake
   free(d->tex[2].arr);
   free(d->tex[3].arr);
   exit(0);
