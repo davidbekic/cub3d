@@ -105,6 +105,10 @@ SRCS		= ./src/main.c \
 				./src/utils/ft_my_pixel_get.c \
 				./src/movement/ft_move.c \
 				./src/movement/ft_rotate.c \
+				./src/parse/ft_parse_cub.c \
+				./src/utils/get_next_line/get_next_line.c \
+				./src/utils/get_next_line/get_next_line_utils.c \
+				./src/utils/ft_is_digit.c \
 				./src/exit/ft_exit.c
 
 OBJS := $(SRCS:%=$(BUILD_DIR)/%.o)

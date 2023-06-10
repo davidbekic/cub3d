@@ -6,7 +6,7 @@
 /*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 14:00:11 by dbekic            #+#    #+#             */
-/*   Updated: 2023/05/22 14:50:46 by dbekic           ###   ########.fr       */
+/*   Updated: 2023/06/10 19:27:50 by davidbekic       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 #include <math.h>
 #include <fcntl.h>
 #include "../mlx/mlx.h"
+#include <stdbool.h>
+#include <string.h>
 
 // UNALLOWED TEMPORARY INCLUDES
 #include <stdio.h>
@@ -36,6 +38,12 @@
 #define LEFT_KEY 123
 #define RIGHT_KEY 124
 #define EXIT_KEY 53
+#define MAX_ROWS 100
+#define MAX_COLS 100
+#define NORTH_TEX_INDEX 0
+#define EAST_TEX_INDEX 1
+#define SOUTH_TEX_INDEX 2
+#define WEST_TEX_INDEX 3
 
 // MOVEMENT
 #define MOVE_SPEED 0.039
@@ -102,6 +110,7 @@ typedef struct s_map
 typedef struct s_tex
 {
     t_img img;
+    char *path;
     int width;
     int height;
     int **arr;
@@ -118,9 +127,15 @@ typedef struct s_keys
     int exit_key;
 }   t_keys;
 
+typedef struct s_color
+{
+    int r;
+    int g;
+    int b;
+}   t_color;
+
 typedef struct s_data
 {
-
     t_rc_data rc;
     t_map map;
     t_img img;
@@ -128,6 +143,8 @@ typedef struct s_data
     t_img front_img_buffer;
     t_img back_img_buffer;
     t_tex tex[4];
+    t_color floor;
+    t_color ceiling;
 } t_data;
 
 // FUNCTIONS
@@ -147,7 +164,10 @@ void	ft_draw_buffer(t_data *d, int buffer[1080][1920]);
 void ft_draw_vertical_line(int x, int draw_start, int draw_end, int color, t_img *img);
 void ft_draw_ceiling_and_floor(t_data *d);
 // PARSE
-int ft_parse_map(t_data *d, char *path);
+int ft_parse_cub(t_data *d, char *path);
+int ft_forefront_parser(char *path);
+bool ft_gpt_parser(const char* path, char map[MAX_ROWS][MAX_COLS], int* numRows, int* numCols);
+char *get_next_line(int fd);
 // UTILS
 void ft_my_mlx_pixel_put(t_img *data, int x, int y, int color);
 int ft_create_trgb(int t, int r, int g, int b);
@@ -158,6 +178,7 @@ unsigned char	ft_get_b(int trgb);
 int     ft_key_down_check(int keycode, t_data *d);
 int     ft_key_up_check(int keycode, t_data *d);
 int ft_my_pixel_get(t_img *img, int x, int y);
+int ft_is_digit(char c);
 // MOVEMENT
 void ft_move_forward(t_data *d);
 void ft_move_backward(t_data *d);

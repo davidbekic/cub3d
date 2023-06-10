@@ -6,7 +6,7 @@
 /*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 11:15:37 by davidbekic        #+#    #+#             */
-/*   Updated: 2023/05/20 17:49:09 by davidbekic       ###   ########.fr       */
+/*   Updated: 2023/06/10 19:31:14 by davidbekic       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,10 @@ void ft_draw_ceiling_and_floor(t_data *d)
         {
             if (y > (H / 2))
               ft_my_mlx_pixel_put(&d->back_img_buffer, x, y,
-                                  ft_create_trgb(1, 60, 60, 60));
+                                  ft_create_trgb(1, d->floor.r, d->floor.g, d->floor.b));
             else
                 ft_my_mlx_pixel_put(&d->back_img_buffer, x, y,
-                                    ft_create_trgb(1, 200, 200, 245));
+                                    ft_create_trgb(1, d->ceiling.r, d->ceiling.g, d->ceiling.b));
             x++;
         }
         y++;
