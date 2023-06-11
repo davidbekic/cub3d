@@ -6,33 +6,13 @@
 /*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 10:27:47 by davidbekic        #+#    #+#             */
-/*   Updated: 2023/06/10 19:36:16 by davidbekic       ###   ########.fr       */
+/*   Updated: 2023/06/11 14:25:29 by davidbekic       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 #include <ctype.h>
 
-// int ft_get_map_height(char *path) {
-//     int n;
-//     int fd;
-//     char *buf = "ha";
-
-//     fd = open(path, O_RDONLY);
-
-//     if (fd == -1) {
-//         printf("file didnt open\n");
-//         return (1);
-//     }
-//     n = 0;
-
-//     while (buf) {
-//         buf = get_next_line(fd);
-//         n++;
-//         free(buf);
-//     }
-//     return (n);
-// }
 
 int ft_is_configurated(t_data *d)
 {
@@ -51,6 +31,38 @@ int ft_is_configurated(t_data *d)
         return (0);
     else 
         return (1);
+}
+
+int ft_get_map_height(t_data *d, char *path) {
+    int n;
+    int fd;
+    char *buf = "ha";
+    int start_count;
+
+    start_count = 0;
+
+    fd = open(path, O_RDONLY);
+    printf("fd in get map height: %d\n", fd);
+
+    if (fd == -1) {
+        printf("file didnt open\n");
+        return (1);
+    }
+    // printf("d->map.height = %d\n", d->map.height);
+    n = 0;
+
+    while (buf != NULL) {
+        buf = get_next_line(fd);
+        if (!buf)
+            break;
+        if ((buf[0] == '1' || (buf[0] == ' ')) && ((ft_is_configurated(d))))
+            start_count = 1;
+        if (start_count)
+            n++;
+        free(buf);
+    }
+    close(fd);
+    return (n);
 }
 
 void ft_parse_tex_path(t_data *d, char *line, int index)
@@ -96,7 +108,9 @@ void ft_parse_color(char* line, t_color *color)
     printf("color->b: %d\n", color->b);
 }
 
-void ft_parse_line(t_data *d, char *line)
+
+
+void ft_parse_line(t_data *d, char *line, char *path, int fd)
 {
     if (!strncmp(line, "NO ", 3))
         ft_parse_tex_path(d, line + 3, NORTH_TEX_INDEX);
@@ -111,8 +125,14 @@ void ft_parse_line(t_data *d, char *line)
     else if (!strncmp(line, "C ", 2))
         ft_parse_color(line + 2, &d->ceiling);
     if ((line[0] == '1' || (line[0] == ' ')) && ((ft_is_configurated(d))))
-        printf("GONNA PARSE MAP\n");
-        // ft_parse_map();
+    {
+        d->map.height = ft_get_map_height(d, path);
+        printf("map height: %d\n", d->map.height);
+        d->map.arr = malloc(sizeof(char *) * d->map.height);
+        d->map.arr[0] = strdup(line);
+        printf("dying here\n");
+        ft_parse_map(d, fd);
+    }
 
 }
 
@@ -123,6 +143,7 @@ int ft_parse_cub(t_data *d, char *path) {
     d->floor.r = -1;
     d->ceiling.r = -1;
     fd = open(path, O_RDONLY);
+    printf("fd in orase cub: %d\n", fd);
     printf("d->map.height = %d\n", d->map.height);
     if (fd == -1) {
         printf("file didnt open\n");
@@ -130,10 +151,17 @@ int ft_parse_cub(t_data *d, char *path) {
     }
     line = get_next_line(fd);
     while (line) {
-        printf("%s\n", line);
-        ft_parse_line(d, line);
+        // printf("line in first loop: %s\n", line);
+        ft_parse_line(d, line, path, fd);
         free(line);
         line = get_next_line(fd);
+    }
+
+    // print d->map.arr
+    int i = 0;
+    while (i < d->map.height) {
+        printf("d->map.arr[%d]: %s\n", i, d->map.arr[i]);
+        i++;
     }
 
 

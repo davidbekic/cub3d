@@ -17,10 +17,18 @@ static void ft_init_rc(t_rc_data *rc)
     rc->draw_start = 0;
     rc->draw_end = 0;
     rc->wall_x = 0;
-    rc->dir_x = -1;
-    rc->dir_y = 0;
-    rc->pos_x = 4;
-    rc->pos_y = 4;
+    if (rc->dir_x == 0 && rc->dir_y == 0)
+    {
+        rc->dir_x = 1;
+        rc->dir_y = 0;
+    }
+    // rc->dir_x = -1;
+    // rc->dir_y = 0;
+    if (rc->pos_x == 0 && rc->pos_y == 0)
+    {
+        rc->pos_x = 4;
+        rc->pos_y = 4;
+    }
     rc->camera_plane_x = 0;
     rc->camera_plane_y = .71;
     rc->hit = 0;

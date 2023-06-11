@@ -6,7 +6,7 @@
 /*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 14:00:11 by dbekic            #+#    #+#             */
-/*   Updated: 2023/06/10 19:27:50 by davidbekic       ###   ########.fr       */
+/*   Updated: 2023/06/11 14:41:36 by davidbekic       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ typedef struct s_map
 {
     int width;
     int height;
-    int **arr;
+    char **arr;
 }   t_map;
 
 typedef struct s_tex
@@ -156,6 +156,7 @@ void ft_init_vars(t_data *d);
 void ft_init_img(t_img *img, void *mlx);
 int **ft_fill_texture(t_tex tex);
 void ft_init_textures(t_data *d);
+void ft_init_pos(t_data *d, int i, int j, char pos);
 // RENDER
 int ft_render_frame(t_data *d);
 void ft_put_image(t_data *d);
@@ -168,6 +169,7 @@ int ft_parse_cub(t_data *d, char *path);
 int ft_forefront_parser(char *path);
 bool ft_gpt_parser(const char* path, char map[MAX_ROWS][MAX_COLS], int* numRows, int* numCols);
 char *get_next_line(int fd);
+void ft_parse_map(t_data *d, int fd);
 // UTILS
 void ft_my_mlx_pixel_put(t_img *data, int x, int y, int color);
 int ft_create_trgb(int t, int r, int g, int b);

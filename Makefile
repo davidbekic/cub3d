@@ -99,6 +99,7 @@ SRCS		= ./src/main.c \
 				./src/render/ft_draw.c \
 				./src/init/ft_init_img.c \
 				./src/init/ft_init_textures.c \
+				./src/init/ft_init_pos.c \
 				./src/utils/ft_my_pixel_put.c \
 				./src/utils/ft_key_check.c \
 				./src/utils/ft_create_trgb.c \
@@ -106,6 +107,7 @@ SRCS		= ./src/main.c \
 				./src/movement/ft_move.c \
 				./src/movement/ft_rotate.c \
 				./src/parse/ft_parse_cub.c \
+				./src/parse/ft_parse_map.c \
 				./src/utils/get_next_line/get_next_line.c \
 				./src/utils/get_next_line/get_next_line_utils.c \
 				./src/utils/ft_is_digit.c \
