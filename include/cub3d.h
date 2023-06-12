@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
+/*   By: dbekic <dbekic@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 14:00:11 by dbekic            #+#    #+#             */
-/*   Updated: 2023/06/11 14:41:36 by davidbekic       ###   ########.fr       */
+/*   Updated: 2023/06/12 12:51:02 by dbekic           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@
 #include <time.h>
 
 // MACROS
-#define W 1920
-#define H 1080
+#define W 1920/1.3
+#define H 1080/1.3
 #define KEY_PRESS 2
 #define KEY_RELEASE 3
 #define FRAMES 0.012
@@ -171,6 +171,7 @@ bool ft_gpt_parser(const char* path, char map[MAX_ROWS][MAX_COLS], int* numRows,
 char *get_next_line(int fd);
 void ft_parse_map(t_data *d, int fd);
 // UTILS
+char	*ft_strdup(const char *src);
 void ft_my_mlx_pixel_put(t_img *data, int x, int y, int color);
 int ft_create_trgb(int t, int r, int g, int b);
 unsigned char	ft_get_t(int trgb);

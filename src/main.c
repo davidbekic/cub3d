@@ -31,6 +31,8 @@ bool hasValidBorder(char map[MAX_ROWS][MAX_COLS], int numRows, int numCols) {
     return true;
 }
 
+
+
 int main(int ac, char **av)
 {
     // char map[MAX_ROWS][MAX_COLS];

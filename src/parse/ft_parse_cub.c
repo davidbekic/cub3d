@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse_cub.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
+/*   By: dbekic <dbekic@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 10:27:47 by davidbekic        #+#    #+#             */
-/*   Updated: 2023/06/11 14:25:29 by davidbekic       ###   ########.fr       */
+/*   Updated: 2023/06/12 12:56:29 by dbekic           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,8 +127,7 @@ void ft_parse_line(t_data *d, char *line, char *path, int fd)
     if ((line[0] == '1' || (line[0] == ' ')) && ((ft_is_configurated(d))))
     {
         d->map.height = ft_get_map_height(d, path);
-        printf("map height: %d\n", d->map.height);
-        d->map.arr = malloc(sizeof(char *) * d->map.height);
+        d->map.arr = malloc(sizeof(char *) * d->map.height + 1);
         d->map.arr[0] = strdup(line);
         printf("dying here\n");
         ft_parse_map(d, fd);
@@ -151,7 +150,6 @@ int ft_parse_cub(t_data *d, char *path) {
     }
     line = get_next_line(fd);
     while (line) {
-        // printf("line in first loop: %s\n", line);
         ft_parse_line(d, line, path, fd);
         free(line);
         line = get_next_line(fd);
