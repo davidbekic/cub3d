@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_render_frame.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
+/*   By: dbekic <dbekic@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 14:51:05 by dbekic            #+#    #+#             */
-/*   Updated: 2023/05/21 00:05:06 by davidbekic       ###   ########.fr       */
+/*   Updated: 2023/06/12 18:56:38 by dbekic           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,11 @@ int ft_render_frame(t_data *d)
     d->front_img_buffer = d->back_img_buffer;
     // Create a new image for the back buffer for the next frame.
     ft_init_img(&d->back_img_buffer, d->img.mlx);
+    printf("d->rc.dir_x = %f\n", d->rc.dir_x);
+    printf("d->rc.dir_y = %f\n", d->rc.dir_y);
+    printf("d->rc.camera_plane_x: %f\n", d->rc.camera_plane_x);
+    printf("d->rc.camera_plane_y: %f\n", d->rc.camera_plane_y);
+    printf("d->rc.pos_x: %f\n", d->rc.pos_x);
+    printf("d->rc.pos_y: %f\n", d->rc.pos_y);
     return (0);
 }

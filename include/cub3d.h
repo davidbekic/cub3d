@@ -6,7 +6,7 @@
 /*   By: dbekic <dbekic@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 14:00:11 by dbekic            #+#    #+#             */
-/*   Updated: 2023/06/12 12:51:02 by dbekic           ###   ########.fr       */
+/*   Updated: 2023/06/12 18:38:52 by dbekic           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 #include <time.h>
 
 // MACROS
-#define W 1920/1.3
+#define W 1920/1
 #define H 1080/1.3
 #define KEY_PRESS 2
 #define KEY_RELEASE 3
@@ -46,10 +46,10 @@
 #define WEST_TEX_INDEX 3
 
 // MOVEMENT
-#define MOVE_SPEED 0.039
+#define MOVE_SPEED 0.049
 #define ROT_SPEED 0.033
-#define CORNER_DISTANCE 0.25
-#define WALL_DISTANCE 0.3
+#define CORNER_DISTANCE 0.025
+#define WALL_DISTANCE 0.03
 // #define KEY_UP 125
 // #define  125
 
@@ -96,8 +96,6 @@ typedef struct s_rc_data
     double perp_wall_dist;
     double time;      // time of current frame
     double old_time;  // time of previous frame
-    double moveMOVE_SPEED; // the constant value is in squares/second
-    double rotMOVE_SPEED;
 } t_rc_data;
 
 typedef struct s_map
