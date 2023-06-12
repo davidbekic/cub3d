@@ -6,7 +6,7 @@
 /*   By: dbekic <dbekic@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 14:00:11 by dbekic            #+#    #+#             */
-/*   Updated: 2023/06/12 18:38:52 by dbekic           ###   ########.fr       */
+/*   Updated: 2023/06/12 19:21:26 by dbekic           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 
 // MACROS
 #define W 1920/1
-#define H 1080/1.3
+#define H 1080/1.5
 #define KEY_PRESS 2
 #define KEY_RELEASE 3
 #define FRAMES 0.012
