@@ -6,7 +6,7 @@
 /*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 14:25:30 by davidbekic        #+#    #+#             */
-/*   Updated: 2023/06/12 00:51:51 by davidbekic       ###   ########.fr       */
+/*   Updated: 2023/06/12 09:25:02 by davidbekic       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void ft_parse_map(t_data *d, int fd)
     line = get_next_line(fd);
     while (line)
     {
-        printf("line in parse map: %s\n", line);f
+        printf("line in parse map: %s\n", line);
         d->map.arr[++i] = strdup(line);
         free(line);
         line = get_next_line(fd);
