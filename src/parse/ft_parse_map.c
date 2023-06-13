@@ -6,7 +6,7 @@
 /*   By: dbekic <dbekic@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 14:25:30 by davidbekic        #+#    #+#             */
-/*   Updated: 2023/06/13 16:29:41 by dbekic           ###   ########.fr       */
+/*   Updated: 2023/06/13 17:35:45 by dbekic           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,11 +80,15 @@ void ft_check_if_surrounded_by_walls(t_data *d)
     j = 0;
     while (i < d->map.height)
     {
+        printf("line = %s\n", d->map.arr[i]);
         while (d->map.arr[i][j] != 0)
         {
             if (d->map.arr[i][j] == '0')
             {
-                if (d->map.arr[i][j - 1] == '.' || d->map.arr[i][j + 1] == '.' || d->map.arr[i - 1][j] == '.' || d->map.arr[i + 1][j] == '.' || d->map.arr[i + 1][j] == 10)
+                //print map values
+                printf("d->map.arr[%d][%d] = %c\n", i, j, d->map.arr[i][j]);
+                
+                if (d->map.arr[i][j - 1] == '.' || d->map.arr[i][j + 1] == '.' || d->map.arr[i - 1][j] == '.' || d->map.arr[i + 1][j] == '.' || d->map.arr[i][j + 1] == 10)
                 {
                     printf("map not surrounded by walls\n");
                     ft_exit(d);
@@ -143,6 +147,60 @@ void ft_check_if_first_and_last_line_is_one_or_point(t_data *d)
     }
 }
 
+void ft_check_if_first_and_last_columns_is_one_or_point(t_data *d)
+{
+    int i;
+
+    i = 0;
+    while (i < d->map.height)
+    {
+        if (d->map.arr[i][0] != '1' && d->map.arr[i][0] != '.' && d->map.arr[i][0] != 10)
+        {
+            printf("first column not 1 or point\n");
+            ft_exit(d);
+        }
+        i++;
+    }
+    i = 0;
+    while (i < d->map.height)
+    {
+        if (d->map.arr[i][strlen(d->map.arr[i]) - 1] != '1' && d->map.arr[i][strlen(d->map.arr[i]) - 1] != '.' && d->map.arr[i][strlen(d->map.arr[i]) - 1] != 10)
+        {
+            printf("map not surrounded by walls\n");
+            ft_exit(d);
+        }
+        i++;
+    }
+}
+
+void ft_check_if_map_has_player_pos_and_dir(t_data *d)
+{
+    int i;
+    int j;
+    int count;
+
+    i = 0;
+    j = 0;
+    count = 0;
+    while (i < d->map.height)
+    {
+        while (d->map.arr[i][j] != 0)
+        {
+            if (d->map.arr[i][j] == 'N' || d->map.arr[i][j] == 'S' || d->map.arr[i][j] == 'E' || d->map.arr[i][j] == 'W')
+                count++;
+            j++;
+        }
+        i++;
+        j = 0;
+    }
+    printf("count = %d\n", count);
+    if (count != 1)
+    {
+        printf("map has no player\n");
+        ft_exit(d);
+    }
+}
+
 void ft_parse_map(t_data *d, int fd)
 {
     char *line;
@@ -158,9 +216,11 @@ void ft_parse_map(t_data *d, int fd)
         line = get_next_line(fd);
     }
     d->map.arr[++i] = NULL;
+    ft_check_if_map_has_player_pos_and_dir(d);
     ft_parse_player_pos(d);
     ft_check_allowed_chars(d);
     ft_fill_spaces_with_points(d);
     ft_check_if_surrounded_by_walls(d);
     ft_check_if_first_and_last_line_is_one_or_point(d);
+    ft_check_if_first_and_last_columns_is_one_or_point(d);
 }
