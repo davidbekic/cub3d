@@ -6,7 +6,7 @@
 /*   By: dbekic <dbekic@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 14:00:11 by dbekic            #+#    #+#             */
-/*   Updated: 2023/06/12 19:22:30 by dbekic           ###   ########.fr       */
+/*   Updated: 2023/06/13 14:26:28 by dbekic           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@
 // MOVEMENT
 #define MOVE_SPEED 0.049
 #define ROT_SPEED 0.033
-#define CORNER_DISTANCE 0.025
-#define WALL_DISTANCE 0.03
+#define CORNER_DISTANCE 0.25
+#define WALL_DISTANCE 0.3
 // #define KEY_UP 125
 // #define  125
 

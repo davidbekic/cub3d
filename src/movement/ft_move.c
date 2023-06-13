@@ -6,7 +6,7 @@
 /*   By: dbekic <dbekic@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 15:39:21 by dbekic            #+#    #+#             */
-/*   Updated: 2023/06/12 18:49:46 by dbekic           ###   ########.fr       */
+/*   Updated: 2023/06/13 16:14:11 by dbekic           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,10 +101,10 @@ void ft_move_right(t_data *d)
 		ft_slow_down(&move_speed);
 
     if (d->map.arr[(int)(d->rc.pos_x - d->rc.dir_x * move_speed)][(int)(d->rc.pos_y)] == '0')
-        d->rc.pos_x += d->rc.dir_y * move_speed;
+        d->rc.pos_x += d->rc.dir_y * move_speed * .7;
 
     if (d->map.arr[(int)(d->rc.pos_x)][(int)(d->rc.pos_y - d->rc.dir_y * move_speed)] == '0')
-        d->rc.pos_y -= d->rc.dir_x * move_speed;
+        d->rc.pos_y -= d->rc.dir_x * move_speed * .7;
 }
 
 void ft_move_left(t_data *d)
@@ -115,7 +115,7 @@ void ft_move_left(t_data *d)
 		ft_slow_down(&move_speed);
 	
     if (d->map.arr[(int)(d->rc.pos_x - d->rc.dir_x * move_speed)][(int)(d->rc.pos_y)] == '0')
-        d->rc.pos_x -= d->rc.dir_y * move_speed;
+        d->rc.pos_x -= d->rc.dir_y * move_speed * .7;
     if (d->map.arr[(int)(d->rc.pos_x)][(int)(d->rc.pos_y - d->rc.dir_y * move_speed)] == '0')
-        d->rc.pos_y += d->rc.dir_x * move_speed;
+        d->rc.pos_y += d->rc.dir_x * move_speed  * .7;
 }
