@@ -6,7 +6,7 @@
 /*   By: dbekic <dbekic@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 15:39:21 by dbekic            #+#    #+#             */
-/*   Updated: 2023/06/13 16:14:11 by dbekic           ###   ########.fr       */
+/*   Updated: 2023/06/14 15:31:12 by dbekic           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ int	is_y_forwards_wall(t_data *d)
 }
 
 
+
 void ft_slow_down(double *speed)
 {
 	*speed /= 1.5;
@@ -73,12 +74,16 @@ void ft_move_forward(t_data *d)
 		ft_slow_down(&move_speed);
 	if (d->map.arr[(int)(d->rc.pos_x + d->rc.dir_x * move_speed)]
 				[(int)(d->rc.pos_y)] == '0')
+	{
 		if (!is_x_forwards_wall(d))
 			d->rc.pos_x += d->rc.dir_x * move_speed;
+	}
 	if (d->map.arr[(int)(d->rc.pos_x)]
 				[(int)(d->rc.pos_y + d->rc.dir_y * move_speed)] == '0')
+	{
 		if (!is_y_forwards_wall(d))
-		d->rc.pos_y += d->rc.dir_y * move_speed;
+			d->rc.pos_y += d->rc.dir_y * move_speed;
+	}
 }
 
 void ft_move_backward(t_data *d)
@@ -96,14 +101,17 @@ void ft_move_backward(t_data *d)
 void ft_move_right(t_data *d)
 {
 	double move_speed = MOVE_SPEED;
+
 	
 	if ((d->keys.up && d->keys.right) || (d->keys.up && d->keys.left))	
 		ft_slow_down(&move_speed);
 
-    if (d->map.arr[(int)(d->rc.pos_x - d->rc.dir_x * move_speed)][(int)(d->rc.pos_y)] == '0')
-        d->rc.pos_x += d->rc.dir_y * move_speed * .7;
+    if (d->map.arr[(int)(d->rc.pos_x - d->rc.dir_x * move_speed - WALL_DISTANCE)][(int)(d->rc.pos_y)] == '0'
+		&& d->map.arr[(int)(d->rc.pos_x - d->rc.dir_x * move_speed + WALL_DISTANCE)][(int)(d->rc.pos_y)] == '0')
+		d->rc.pos_x += d->rc.dir_y * move_speed * .7;
 
-    if (d->map.arr[(int)(d->rc.pos_x)][(int)(d->rc.pos_y - d->rc.dir_y * move_speed)] == '0')
+    if (d->map.arr[(int)(d->rc.pos_x)][(int)(d->rc.pos_y - d->rc.dir_y * move_speed  - WALL_DISTANCE)] == '0'
+		&& d->map.arr[(int)(d->rc.pos_x)][(int)(d->rc.pos_y - d->rc.dir_y * move_speed  + WALL_DISTANCE)] == '0')
         d->rc.pos_y -= d->rc.dir_x * move_speed * .7;
 }
 
@@ -111,11 +119,18 @@ void ft_move_left(t_data *d)
 {
 	double move_speed = MOVE_SPEED;
 
+	printf("d->map.arr[(int)(d->rc.pos_x - d->rc.dir_x * move_speed)][(int)(d->rc.pos_y)]: %d\n", d->map.arr[(int)(d->rc.pos_x - d->rc.dir_x * move_speed)][(int)(d->rc.pos_y)]);
+
 	if ((d->keys.up && d->keys.right) || (d->keys.up && d->keys.left))	
 		ft_slow_down(&move_speed);
+
+		
+    if (d->map.arr[(int)(d->rc.pos_x - d->rc.dir_x * move_speed - WALL_DISTANCE)][(int)(d->rc.pos_y)] == '0'
+		&& d->map.arr[(int)(d->rc.pos_x - d->rc.dir_x * move_speed + WALL_DISTANCE)][(int)(d->rc.pos_y)] == '0')
+		d->rc.pos_x -= d->rc.dir_y * move_speed * .7;
+
+    if (d->map.arr[(int)(d->rc.pos_x)][(int)(d->rc.pos_y - d->rc.dir_y * move_speed  - WALL_DISTANCE)] == '0'
+		&& d->map.arr[(int)(d->rc.pos_x)][(int)(d->rc.pos_y - d->rc.dir_y * move_speed  + WALL_DISTANCE)] == '0')
+        d->rc.pos_y += d->rc.dir_x * move_speed * .7;
 	
-    if (d->map.arr[(int)(d->rc.pos_x - d->rc.dir_x * move_speed)][(int)(d->rc.pos_y)] == '0')
-        d->rc.pos_x -= d->rc.dir_y * move_speed * .7;
-    if (d->map.arr[(int)(d->rc.pos_x)][(int)(d->rc.pos_y - d->rc.dir_y * move_speed)] == '0')
-        d->rc.pos_y += d->rc.dir_x * move_speed  * .7;
 }

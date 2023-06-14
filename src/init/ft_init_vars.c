@@ -43,4 +43,5 @@ void ft_init_vars(t_data *d)
     ft_init_textures(d);
     ft_init_rc(&d->rc);
     ft_init_keys(&d->keys);
+
 }

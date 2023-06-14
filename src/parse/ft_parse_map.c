@@ -6,7 +6,7 @@
 /*   By: dbekic <dbekic@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 14:25:30 by davidbekic        #+#    #+#             */
-/*   Updated: 2023/06/13 17:35:45 by dbekic           ###   ########.fr       */
+/*   Updated: 2023/06/14 16:44:37 by dbekic           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,11 +108,16 @@ void ft_fill_spaces_with_points(t_data *d)
 
     i = 0;
     j = 0;
+
+    printf("map height = %d\n", d->map.height);
+    printf("map width = %d\n", d->map.width);
+
     while (i < d->map.height)
     {
-        while (d->map.arr[i][j] != 0)
+        while (j < d->map.width - 1)
         {
-            if (d->map.arr[i][j] == ' ')
+            printf("d->map.arr[%d][%d] = %c\n", i, j, d->map.arr[i][j]);
+            if (d->map.arr[i][j] == ' ' || (d->map.arr[i][j] == 0 && j != d->map.width - 1) || d->map.arr[i][j] == 10)
                 d->map.arr[i][j] = '.';
             j++;
         }
@@ -201,6 +206,26 @@ void ft_check_if_map_has_player_pos_and_dir(t_data *d)
     }
 }
 
+// void ft_fill_zeros_that_are_not_null_termination_with_points(t_data *d)
+// {
+//     int i;
+//     int j;
+
+//     i = 0;
+//     j = 0;
+//     while (i < d->map.height)
+//     {
+//         while (d->map.arr[i][j] != 0)
+//         {
+//             if (d->map.arr[i][j] == 0 && j != d->map.width - 1)
+//                 d->map.arr[i][j] = '.';
+//             j++;
+//         }
+//         i++;
+//         j = 0;
+//     }
+// }
+
 void ft_parse_map(t_data *d, int fd)
 {
     char *line;
@@ -211,7 +236,9 @@ void ft_parse_map(t_data *d, int fd)
     line = get_next_line(fd);
     while (line)
     {
-        d->map.arr[++i] = ft_strdup(line);
+        // d->map.arr[++i] = ft_strdup(line);
+        d->map.arr[++i] = (char *) calloc(sizeof(char) * (d->map.width + 1), 1);
+        strcpy(d->map.arr[i], line);
         free(line);
         line = get_next_line(fd);
     }
@@ -220,6 +247,7 @@ void ft_parse_map(t_data *d, int fd)
     ft_parse_player_pos(d);
     ft_check_allowed_chars(d);
     ft_fill_spaces_with_points(d);
+    // ft_fill_zeros_that_are_not_null_termination_with_points(d);
     ft_check_if_surrounded_by_walls(d);
     ft_check_if_first_and_last_line_is_one_or_point(d);
     ft_check_if_first_and_last_columns_is_one_or_point(d);

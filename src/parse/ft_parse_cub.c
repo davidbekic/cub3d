@@ -6,7 +6,7 @@
 /*   By: dbekic <dbekic@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 10:27:47 by davidbekic        #+#    #+#             */
-/*   Updated: 2023/06/12 12:56:29 by dbekic           ###   ########.fr       */
+/*   Updated: 2023/06/14 16:39:00 by dbekic           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int ft_is_configurated(t_data *d)
         return (1);
 }
 
+
 int ft_get_map_height(t_data *d, char *path) {
     int n;
     int fd;
@@ -51,14 +52,20 @@ int ft_get_map_height(t_data *d, char *path) {
     // printf("d->map.height = %d\n", d->map.height);
     n = 0;
 
+    printf("d->map.width = %d\n", d->map.width);
     while (buf != NULL) {
         buf = get_next_line(fd);
         if (!buf)
             break;
+
         if ((buf[0] == '1' || (buf[0] == ' ')) && ((ft_is_configurated(d))))
             start_count = 1;
         if (start_count)
+        {
+            if (d->map.width < (int)strlen(buf))
+                d->map.width = (int)strlen(buf);
             n++;
+        }
         free(buf);
     }
     close(fd);
@@ -126,7 +133,9 @@ void ft_parse_line(t_data *d, char *line, char *path, int fd)
         ft_parse_color(line + 2, &d->ceiling);
     if ((line[0] == '1' || (line[0] == ' ')) && ((ft_is_configurated(d))))
     {
+        d->map.width = 0;
         d->map.height = ft_get_map_height(d, path);
+        printf("d->map.width: %d\n", d->map.width);
         d->map.arr = malloc(sizeof(char *) * d->map.height + 1);
         d->map.arr[0] = strdup(line);
         printf("dying here\n");
