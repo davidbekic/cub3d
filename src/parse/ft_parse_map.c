@@ -6,7 +6,7 @@
 /*   By: dbekic <dbekic@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 14:25:30 by davidbekic        #+#    #+#             */
-/*   Updated: 2023/06/14 16:44:37 by dbekic           ###   ########.fr       */
+/*   Updated: 2023/06/14 18:19:43 by dbekic           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void ft_parse_player_pos(t_data *d)
     i = 0;
     j = 0;
     pos_char_found = 0;
-    while (i < d->map.height)
+    while (d->map.arr[i] != NULL)
     {
         while (d->map.arr[i][j] != 0)
         {
@@ -47,7 +47,7 @@ void ft_check_allowed_chars(t_data *d)
 
     i = 0;
     j = 0;
-    while (i < d->map.height)
+    while (d->map.arr[i] != NULL)
     {
         while (d->map.arr[i][j] != 0)
         {
@@ -78,15 +78,13 @@ void ft_check_if_surrounded_by_walls(t_data *d)
 
     i = 0;
     j = 0;
-    while (i < d->map.height)
+    while (d->map.arr[i] != NULL)
     {
-        printf("line = %s\n", d->map.arr[i]);
         while (d->map.arr[i][j] != 0)
         {
             if (d->map.arr[i][j] == '0')
             {
                 //print map values
-                printf("d->map.arr[%d][%d] = %c\n", i, j, d->map.arr[i][j]);
                 
                 if (d->map.arr[i][j - 1] == '.' || d->map.arr[i][j + 1] == '.' || d->map.arr[i - 1][j] == '.' || d->map.arr[i + 1][j] == '.' || d->map.arr[i][j + 1] == 10)
                 {
@@ -112,11 +110,10 @@ void ft_fill_spaces_with_points(t_data *d)
     printf("map height = %d\n", d->map.height);
     printf("map width = %d\n", d->map.width);
 
-    while (i < d->map.height)
+    while (d->map.arr[i] != NULL)
     {
-        while (j < d->map.width - 1)
+        while (j < d->map.width)
         {
-            printf("d->map.arr[%d][%d] = %c\n", i, j, d->map.arr[i][j]);
             if (d->map.arr[i][j] == ' ' || (d->map.arr[i][j] == 0 && j != d->map.width - 1) || d->map.arr[i][j] == 10)
                 d->map.arr[i][j] = '.';
             j++;
@@ -157,7 +154,7 @@ void ft_check_if_first_and_last_columns_is_one_or_point(t_data *d)
     int i;
 
     i = 0;
-    while (i < d->map.height)
+    while (d->map.arr[i] != NULL)
     {
         if (d->map.arr[i][0] != '1' && d->map.arr[i][0] != '.' && d->map.arr[i][0] != 10)
         {
@@ -167,7 +164,7 @@ void ft_check_if_first_and_last_columns_is_one_or_point(t_data *d)
         i++;
     }
     i = 0;
-    while (i < d->map.height)
+    while (d->map.arr[i] != NULL)
     {
         if (d->map.arr[i][strlen(d->map.arr[i]) - 1] != '1' && d->map.arr[i][strlen(d->map.arr[i]) - 1] != '.' && d->map.arr[i][strlen(d->map.arr[i]) - 1] != 10)
         {
@@ -187,8 +184,9 @@ void ft_check_if_map_has_player_pos_and_dir(t_data *d)
     i = 0;
     j = 0;
     count = 0;
-    while (i < d->map.height)
+    while (d->map.arr[i] != NULL)
     {
+        printf("line = %s\n", d->map.arr[i]);
         while (d->map.arr[i][j] != 0)
         {
             if (d->map.arr[i][j] == 'N' || d->map.arr[i][j] == 'S' || d->map.arr[i][j] == 'E' || d->map.arr[i][j] == 'W')
@@ -232,7 +230,9 @@ void ft_parse_map(t_data *d, int fd)
     int i;
 
     i = 0;
+
     printf("d->map.height = %d\n", d->map.height);
+    printf("d->map.width = %d\n", d->map.width);
     line = get_next_line(fd);
     while (line)
     {
@@ -242,12 +242,13 @@ void ft_parse_map(t_data *d, int fd)
         free(line);
         line = get_next_line(fd);
     }
+    printf("dying here\n");
     d->map.arr[++i] = NULL;
     ft_check_if_map_has_player_pos_and_dir(d);
     ft_parse_player_pos(d);
+
     ft_check_allowed_chars(d);
     ft_fill_spaces_with_points(d);
-    // ft_fill_zeros_that_are_not_null_termination_with_points(d);
     ft_check_if_surrounded_by_walls(d);
     ft_check_if_first_and_last_line_is_one_or_point(d);
     ft_check_if_first_and_last_columns_is_one_or_point(d);

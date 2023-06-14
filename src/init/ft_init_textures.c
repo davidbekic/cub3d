@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_init_textures.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
+/*   By: dbekic <dbekic@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 16:23:54 by davidbekic        #+#    #+#             */
-/*   Updated: 2023/06/10 19:05:39 by davidbekic       ###   ########.fr       */
+/*   Updated: 2023/06/14 18:28:13 by dbekic           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void ft_init_textures(t_data *d) {
         mlx_get_data_addr(d->tex[i].img.img, &d->tex[i].img.bits_per_pixel,
                           &d->tex[i].img.line_length, &d->tex[i].img.endian);
     d->tex[i].arr = ft_fill_texture(d->tex[i]);
+    d->tex[i].ready = 1;
     free(d->tex[i].img.addr);
   }
 }

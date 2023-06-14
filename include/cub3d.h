@@ -6,7 +6,7 @@
 /*   By: dbekic <dbekic@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 14:00:11 by dbekic            #+#    #+#             */
-/*   Updated: 2023/06/14 15:32:56 by dbekic           ###   ########.fr       */
+/*   Updated: 2023/06/14 18:15:17 by dbekic           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ typedef struct s_rc_data
 
 typedef struct s_map
 {
+    int start_line;
     int width;
     int height;
     char **arr;
@@ -112,6 +113,7 @@ typedef struct s_tex
     int width;
     int height;
     int **arr;
+    int ready;
 }   t_tex;
 
 typedef struct s_keys
