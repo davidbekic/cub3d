@@ -6,7 +6,7 @@
 /*   By: dbekic <dbekic@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 14:00:11 by dbekic            #+#    #+#             */
-/*   Updated: 2023/06/14 19:08:41 by dbekic           ###   ########.fr       */
+/*   Updated: 2023/06/15 15:54:51 by dbekic           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,7 +154,8 @@ int ft_key_down(t_data *d);
 // INIT
 void ft_init_vars(t_data *d);
 void ft_init_img(t_img *img, void *mlx);
-int **ft_fill_texture(t_tex tex);
+// int **ft_fill_texture(t_tex tex);
+void ft_fill_texture(t_data *d, int i);
 void ft_init_textures(t_data *d);
 void ft_init_pos(t_data *d, int i, int j, char pos);
 // RENDER
@@ -182,6 +183,7 @@ int     ft_key_down_check(int keycode, t_data *d);
 int     ft_key_up_check(int keycode, t_data *d);
 int ft_my_pixel_get(t_img *img, int x, int y);
 int ft_is_digit(char c);
+void	*ft_calloc(size_t count, size_t size);
 // MOVEMENT
 void ft_move_forward(t_data *d);
 void ft_move_backward(t_data *d);
@@ -190,6 +192,6 @@ void ft_move_right(t_data *d);
 void ft_rotate_left(t_data *d);
 void ft_rotate_right(t_data *d);
 // EXIT
-void ft_exit(t_data *d);
+void ft_exit(t_data *d, char *message, int flag);
 
 #endif

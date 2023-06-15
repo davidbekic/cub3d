@@ -6,13 +6,13 @@
 /*   By: dbekic <dbekic@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 16:23:54 by davidbekic        #+#    #+#             */
-/*   Updated: 2023/06/14 18:28:13 by dbekic           ###   ########.fr       */
+/*   Updated: 2023/06/15 15:44:46 by dbekic           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 
-char *ft_choose_texture(t_data *d, int i) {
+static char *ft_choose_texture(t_data *d, int i) {
   printf("d->tex[%d].path: %s\n", i, d->tex[i].path);
   if (i == 0)
   {
@@ -33,30 +33,37 @@ void ft_init_textures(t_data *d) {
   while (++i < 4) {
     d->tex[i].img.img = mlx_xpm_file_to_image(
         d->img.mlx, ft_choose_texture(d, i), &d->tex[i].width, &d->tex[i].height);
+    if (!d->tex[i].img.img)
+    {
+     ft_exit(d, "Texture not found", 1);
+    }
     d->tex[i].img.addr =
         mlx_get_data_addr(d->tex[i].img.img, &d->tex[i].img.bits_per_pixel,
                           &d->tex[i].img.line_length, &d->tex[i].img.endian);
-    d->tex[i].arr = ft_fill_texture(d->tex[i]);
+    ft_fill_texture(d, i);
     d->tex[i].ready = 1;
     free(d->tex[i].img.addr);
   }
 }
 
-int **ft_fill_texture(t_tex tex) {
+void ft_fill_texture(t_data *d, int i) {
   int x;
   int y;
-  int **arr;
 
   x = -1;
   y = -1;
-  arr = malloc(tex.height * sizeof(int *));
-  while (++y < tex.height) {
-    arr[y] = malloc(tex.width * sizeof(int));
-    while (++x < tex.width) {
-      arr[y][x] = ft_my_pixel_get(&tex.img, y, x);
+  d->tex[i].arr = malloc(d->tex[i].height * sizeof(int *));
+  printf("address of d->tex[%d].arr: %p\n", i, d->tex[i].arr);
+  if (!d->tex[i].arr)
+    ft_exit(d, "Malloc failed", 1);
+  while (++y < d->tex[i].height) {
+    d->tex[i].arr[y] = malloc(d->tex[i].width * sizeof(int));
+    if (!d->tex[i].arr[y])
+      ft_exit(d, "Malloc failed", 1);
+    while (++x < d->tex[i].width) {
+      d->tex[i].arr[y][x] = ft_my_pixel_get(&d->tex[i].img, y, x);
     }
-    if (x == tex.width)
+    if (x == d->tex[i].width)
       x = 0;
   }
-  return (arr);
 }

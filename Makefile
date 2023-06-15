@@ -112,6 +112,7 @@ SRCS		= ./src/main.c \
 				./src/utils/get_next_line/get_next_line.c \
 				./src/utils/get_next_line/get_next_line_utils.c \
 				./src/utils/ft_is_digit.c \
+				./src/utils/ft_calloc.c \
 				./src/exit/ft_exit.c
 
 OBJS := $(SRCS:%=$(BUILD_DIR)/%.o)
@@ -123,7 +124,7 @@ LIBMLX_DIR	=	mlx/
 LIBMLX		=	$(addprefix $(LIBMLX_DIR), libmlx.a)
 LNK			=	 -L $(LIBMLX_DIR) -lmlx -framework OpenGL -framework AppKit
 
-CFLAGS := $(INC_FLAGS) -MMD -MP -Wall -Wextra -Werror
+CFLAGS := $(INC_FLAGS) -MMD -MP -Wall -Wextra -Werror 
 
 $(NAME): $(OBJS) $(LIBMLX)
 	@echo $(Y)Linking...$(X)

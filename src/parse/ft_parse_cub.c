@@ -6,7 +6,7 @@
 /*   By: dbekic <dbekic@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 10:27:47 by davidbekic        #+#    #+#             */
-/*   Updated: 2023/06/14 19:03:31 by dbekic           ###   ########.fr       */
+/*   Updated: 2023/06/15 13:54:33 by dbekic           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,9 +81,9 @@ void ft_parse_tex_path(t_data *d, char *line, int index)
     while (line[i] == 32)
         i++;
     d->tex[index].path = ft_strdup(line + i);
-    d->tex[index].ready = 1;
     if (!d->tex[index].path)
-        ft_exit(d);
+        ft_exit(d, "Malloc failed\n", 1);
+    d->tex[index].ready = 1;
     d->tex[index].path[strlen(line) - 1 - i] = 0;
     printf("strlen of path: %lu\n", strlen(line));
 }   
@@ -138,17 +138,16 @@ void ft_parse_line(t_data *d, char *line, char *path, int fd)
         ft_parse_color(line + 2, &d->ceiling);
     else if ((line[0] == '1' || (line[0] == ' ')) && ((ft_is_configurated(d))))
     {
-        printf("ft_is_configurated(d): %d\n", ft_is_configurated(d));
-        printf("map start line: %d\n", d->map.start_line);
         d->map.width = 0;
         d->map.height = ft_get_map_height(d, path);
-        printf("d->map.width: %d\n", d->map.width);
         d->map.arr = malloc(sizeof(char *) * d->map.height + 1);
-        d->map.arr[0] = (char *) calloc(d->map.width + 1, sizeof(char));
+        if (!d->map.arr)
+            ft_exit(d, "malloc error", 1);
+        d->map.arr[0] = (char *) ft_calloc(d->map.width + 1, sizeof(char));
+        if (!d->map.arr[0])
+            ft_exit(d, "malloc error", 1);
         strcpy(d->map.arr[0], line);
-        printf("d->map.arr[0]: %s\n", d->map.arr[0]);
         ft_parse_map(d, fd);
-        printf("dying here\n");
     }
 
 }
@@ -165,11 +164,8 @@ int ft_parse_cub(t_data *d, char *path) {
     d->tex[2].ready = 0;
     d->tex[3].ready = 0;
     fd = open(path, O_RDONLY);
-    printf("fd in orase cub: %d\n", fd);
-    printf("d->map.height = %d\n", d->map.height);
     if (fd == -1) {
-        printf("file didnt open\n");
-        return (1);
+        ft_exit(d, "File reading error", 1);
     }
     line = get_next_line(fd);
     while (line) {

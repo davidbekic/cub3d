@@ -6,7 +6,7 @@
 /*   By: dbekic <dbekic@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 14:25:30 by davidbekic        #+#    #+#             */
-/*   Updated: 2023/06/14 18:19:43 by dbekic           ###   ########.fr       */
+/*   Updated: 2023/06/15 16:00:25 by dbekic           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void ft_parse_player_pos(t_data *d)
             if (d->map.arr[i][j] == 'N' || d->map.arr[i][j] == 'S' || d->map.arr[i][j] == 'E' || d->map.arr[i][j] == 'W')
             {
                 if (pos_char_found)
-                    ft_exit(d);
+                    ft_exit(d, "Multiple player positions found", 1);
                 ft_init_pos(d, i, j, d->map.arr[i][j]);
                 pos_char_found = 1;
                 d->map.arr[i][j] = '0';
@@ -61,8 +61,7 @@ void ft_check_allowed_chars(t_data *d)
                 && d->map.arr[i][j] != 10
                 && d->map.arr[i][j] != ' ')
                 {
-                    printf("invalid char\n");
-                    ft_exit(d);
+                    ft_exit(d, "Invalid character in map", 1);
                 }
             j++;
         }
@@ -88,8 +87,7 @@ void ft_check_if_surrounded_by_walls(t_data *d)
                 
                 if (d->map.arr[i][j - 1] == '.' || d->map.arr[i][j + 1] == '.' || d->map.arr[i - 1][j] == '.' || d->map.arr[i + 1][j] == '.' || d->map.arr[i][j + 1] == 10)
                 {
-                    printf("map not surrounded by walls\n");
-                    ft_exit(d);
+                    ft_exit(d, "Map is not surrounded by walls", 1);
                 }
             }
             j++;
@@ -131,20 +129,14 @@ void ft_check_if_first_and_last_line_is_one_or_point(t_data *d)
     while (d->map.arr[0][i] != 0)
     {
         if (d->map.arr[0][i] != '1' && d->map.arr[0][i] != '.' && d->map.arr[0][i] != 10)
-        {
-            printf("first line not 1 or point\n");
-            ft_exit(d);
-        }
+            ft_exit(d, "Map is not surrounded by walls", 1);
         i++;
     }
     i = 0;
     while (d->map.arr[d->map.height - 1][i] != 0)
     {
         if (d->map.arr[d->map.height - 1][i] != '1' && d->map.arr[d->map.height - 1][i] != '.' && d->map.arr[d->map.height - 1][i] != 10 )
-        {
-            printf("last line not 1 or point\n");
-            ft_exit(d);
-        }
+            ft_exit(d, "Map is not surrounded by walls", 1);
         i++;
     }
 }
@@ -157,20 +149,14 @@ void ft_check_if_first_and_last_columns_is_one_or_point(t_data *d)
     while (d->map.arr[i] != NULL)
     {
         if (d->map.arr[i][0] != '1' && d->map.arr[i][0] != '.' && d->map.arr[i][0] != 10)
-        {
-            printf("first column not 1 or point\n");
-            ft_exit(d);
-        }
+            ft_exit(d, "Map is not surrounded by walls", 1);
         i++;
     }
     i = 0;
     while (d->map.arr[i] != NULL)
     {
         if (d->map.arr[i][strlen(d->map.arr[i]) - 1] != '1' && d->map.arr[i][strlen(d->map.arr[i]) - 1] != '.' && d->map.arr[i][strlen(d->map.arr[i]) - 1] != 10)
-        {
-            printf("map not surrounded by walls\n");
-            ft_exit(d);
-        }
+            ft_exit(d, "Map is not surrounded by walls", 1);
         i++;
     }
 }
@@ -186,7 +172,6 @@ void ft_check_if_map_has_player_pos_and_dir(t_data *d)
     count = 0;
     while (d->map.arr[i] != NULL)
     {
-        printf("line = %s\n", d->map.arr[i]);
         while (d->map.arr[i][j] != 0)
         {
             if (d->map.arr[i][j] == 'N' || d->map.arr[i][j] == 'S' || d->map.arr[i][j] == 'E' || d->map.arr[i][j] == 'W')
@@ -198,31 +183,10 @@ void ft_check_if_map_has_player_pos_and_dir(t_data *d)
     }
     printf("count = %d\n", count);
     if (count != 1)
-    {
-        printf("map has no player\n");
-        ft_exit(d);
-    }
+        ft_exit(d, "Map has no player", 1);
 }
 
-// void ft_fill_zeros_that_are_not_null_termination_with_points(t_data *d)
-// {
-//     int i;
-//     int j;
 
-//     i = 0;
-//     j = 0;
-//     while (i < d->map.height)
-//     {
-//         while (d->map.arr[i][j] != 0)
-//         {
-//             if (d->map.arr[i][j] == 0 && j != d->map.width - 1)
-//                 d->map.arr[i][j] = '.';
-//             j++;
-//         }
-//         i++;
-//         j = 0;
-//     }
-// }
 
 void ft_parse_map(t_data *d, int fd)
 {
@@ -237,7 +201,9 @@ void ft_parse_map(t_data *d, int fd)
     while (line)
     {
         // d->map.arr[++i] = ft_strdup(line);
-        d->map.arr[++i] = (char *) calloc(sizeof(char) * (d->map.width + 1), 1);
+        d->map.arr[++i] = (char *) ft_calloc(sizeof(char) * (d->map.width + 1), 1);
+        if (!d->map.arr[i])
+            ft_exit(d, "Malloc error", 1);
         strcpy(d->map.arr[i], line);
         free(line);
         line = get_next_line(fd);
