@@ -37,7 +37,7 @@ int main(int ac, char **av)
     // ft_gpt_parser(av[1], map, &numRows, &numCols);
 
     ft_init_vars(&d);
-
+    d.map.width = 0;
 
     mlx_loop_hook(d.img.mlx, ft_render_frame, &d);
     mlx_hook(d.img.mlx_win, 17, 1L << 17, ft_exit_bruh, &d);

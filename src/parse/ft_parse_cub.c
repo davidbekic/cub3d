@@ -6,7 +6,7 @@
 /*   By: dbekic <dbekic@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 10:27:47 by davidbekic        #+#    #+#             */
-/*   Updated: 2023/06/15 13:54:33 by dbekic           ###   ########.fr       */
+/*   Updated: 2023/06/15 17:40:05 by dbekic           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,6 +152,21 @@ void ft_parse_line(t_data *d, char *line, char *path, int fd)
 
 }
 
+static void ft_check_extension(char *str)
+{
+    int i;
+
+    i = 0;
+    str[strlen(str)] = 0;
+    while (str[i] != 0)
+    {
+        printf("str[i]: %c\n", str[i]);
+        i++;
+    }
+    if (!(str[i - 1] == 'b' && str[i - 2] == 'u' && str[i - 3] == 'c' && str[i - 4] == '.'))
+        ft_exit(NULL, "Wrong file extension", 1);
+}
+
 int ft_parse_cub(t_data *d, char *path) {
     char *line;
     int fd;
@@ -163,6 +178,7 @@ int ft_parse_cub(t_data *d, char *path) {
     d->tex[1].ready = 0;
     d->tex[2].ready = 0;
     d->tex[3].ready = 0;
+    ft_check_extension(path);
     fd = open(path, O_RDONLY);
     if (fd == -1) {
         ft_exit(d, "File reading error", 1);
