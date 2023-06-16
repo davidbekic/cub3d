@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse_map.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
+/*   By: dbekic <dbekic@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 14:25:30 by davidbekic        #+#    #+#             */
-/*   Updated: 2023/06/16 11:46:57 by davidbekic       ###   ########.fr       */
+/*   Updated: 2023/06/16 14:02:12 by dbekic           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,8 @@ void ft_parse_map(t_data *d, int fd)
         ft_strcpy(d->map.arr[i], line);
         free(line);
         line = get_next_line(fd);
+        if (i > 2000 || ft_strlen(line) > 2000)
+            ft_exit(d, "Too big map", 1);
     }
     printf("dying here\n");
     d->map.arr[++i] = NULL;

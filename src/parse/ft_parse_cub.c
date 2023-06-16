@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse_cub.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
+/*   By: dbekic <dbekic@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 10:27:47 by davidbekic        #+#    #+#             */
-/*   Updated: 2023/06/16 12:05:16 by davidbekic       ###   ########.fr       */
+/*   Updated: 2023/06/16 14:16:45 by dbekic           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,12 @@
 void ft_remove_isspace_from_end_of_str(char *str)
 {
     int i;
-
+    
     i = strlen(str) - 1;
-    while (str[i] == 32)
+    printf("str[i]: %d\n", str[i]);
+    while (str[i] == 32 || str[i] == 10)
     {
+        printf("iterating\n");
         str[i] = 0;
         i--;
     }
@@ -90,13 +92,13 @@ void ft_parse_tex_path(t_data *d, char *line, int index)
     i = 0;
     while (line[i] == 32)
         i++;
+    ft_remove_isspace_from_end_of_str(line + i);
     d->tex[index].path = ft_strdup(line + i);
+    d->tex[index].path[strlen(line) - i] = 0;
     if (!d->tex[index].path)
         ft_exit(d, "Malloc failed\n", 1);
-    ft_remove_isspace_from_end_of_str(line);
+    printf("line[strlen]: %c\n", line[ft_strlen(line) - 1]); 
     d->tex[index].ready = 1;
-    d->tex[index].path[strlen(line) - 1 - i] = 0;
-    printf("strlen of path: %lu\n", strlen(line));
 }   
 
 void ft_parse_color(char* line, t_color *color)
