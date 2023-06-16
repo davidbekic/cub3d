@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse_cub.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbekic <dbekic@student.42.fr>              +#+  +:+       +#+        */
+/*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 10:27:47 by davidbekic        #+#    #+#             */
-/*   Updated: 2023/06/15 17:40:05 by dbekic           ###   ########.fr       */
+/*   Updated: 2023/06/16 12:05:16 by davidbekic       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,20 @@
 #include <ctype.h>
 
 
+void ft_remove_isspace_from_end_of_str(char *str)
+{
+    int i;
+
+    i = strlen(str) - 1;
+    while (str[i] == 32)
+    {
+        str[i] = 0;
+        i--;
+    }
+}
+
 int ft_is_configurated(t_data *d)
 {
-    // check if all textures and floor and ceiling colors exist
     if (!d->tex[NORTH_TEX_INDEX].ready)
         return (0);
     else if (!d->tex[SOUTH_TEX_INDEX].ready)
@@ -48,7 +59,6 @@ int ft_get_map_height(t_data *d, char *path) {
         printf("file didnt open\n");
         return (1);
     }
-    // printf("d->map.height = %d\n", d->map.height);
     n = 0;
 
     printf("d->map.width = %d\n", d->map.width);
@@ -83,6 +93,7 @@ void ft_parse_tex_path(t_data *d, char *line, int index)
     d->tex[index].path = ft_strdup(line + i);
     if (!d->tex[index].path)
         ft_exit(d, "Malloc failed\n", 1);
+    ft_remove_isspace_from_end_of_str(line);
     d->tex[index].ready = 1;
     d->tex[index].path[strlen(line) - 1 - i] = 0;
     printf("strlen of path: %lu\n", strlen(line));
@@ -156,13 +167,11 @@ static void ft_check_extension(char *str)
 {
     int i;
 
+    ft_remove_isspace_from_end_of_str(str);
     i = 0;
     str[strlen(str)] = 0;
     while (str[i] != 0)
-    {
-        printf("str[i]: %c\n", str[i]);
         i++;
-    }
     if (!(str[i - 1] == 'b' && str[i - 2] == 'u' && str[i - 3] == 'c' && str[i - 4] == '.'))
         ft_exit(NULL, "Wrong file extension", 1);
 }
@@ -180,13 +189,11 @@ int ft_parse_cub(t_data *d, char *path) {
     d->tex[3].ready = 0;
     ft_check_extension(path);
     fd = open(path, O_RDONLY);
-    if (fd == -1) {
+    if (fd == -1)
         ft_exit(d, "File reading error", 1);
-    }
     line = get_next_line(fd);
     while (line) {
         d->map.start_line++;
-        printf("d->map.start_line: %d\n", d->map.start_line);
         ft_parse_line(d, line, path, fd);
         free(line);
         line = get_next_line(fd);

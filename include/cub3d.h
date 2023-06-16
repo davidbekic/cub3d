@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbekic <dbekic@student.42.fr>              +#+  +:+       +#+        */
+/*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 14:00:11 by dbekic            #+#    #+#             */
-/*   Updated: 2023/06/15 15:54:51 by dbekic           ###   ########.fr       */
+/*   Updated: 2023/06/16 11:52:50 by davidbekic       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,6 +171,12 @@ int ft_forefront_parser(char *path);
 bool ft_gpt_parser(const char* path, char map[MAX_ROWS][MAX_COLS], int* numRows, int* numCols);
 char *get_next_line(int fd);
 void ft_parse_map(t_data *d, int fd);
+void ft_check_if_first_and_last_line_is_one_or_point(t_data *d);
+void ft_check_if_first_and_last_columns_is_one_or_point(t_data *d);
+void ft_check_if_map_has_player_pos_and_dir(t_data *d);
+void ft_check_allowed_chars(t_data *d);
+void ft_check_if_surrounded_by_walls(t_data *d);
+
 // UTILS
 char	*ft_strdup(const char *src);
 void ft_my_mlx_pixel_put(t_img *data, int x, int y, int color);
@@ -184,6 +190,8 @@ int     ft_key_up_check(int keycode, t_data *d);
 int ft_my_pixel_get(t_img *img, int x, int y);
 int ft_is_digit(char c);
 void	*ft_calloc(size_t count, size_t size);
+char    *ft_strcpy(char *s1, char *s2);
+size_t	ft_strlen(char *s);
 // MOVEMENT
 void ft_move_forward(t_data *d);
 void ft_move_backward(t_data *d);

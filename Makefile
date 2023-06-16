@@ -109,10 +109,13 @@ SRCS		= ./src/main.c \
 				./src/movement/ft_rotate.c \
 				./src/parse/ft_parse_cub.c \
 				./src/parse/ft_parse_map.c \
+				./src/parse/ft_map_error_check.c \
 				./src/utils/get_next_line/get_next_line.c \
 				./src/utils/get_next_line/get_next_line_utils.c \
 				./src/utils/ft_is_digit.c \
 				./src/utils/ft_calloc.c \
+				./src/utils/ft_strcpy.c \
+				./src/utils/ft_strlen.c \
 				./src/exit/ft_exit.c
 
 OBJS := $(SRCS:%=$(BUILD_DIR)/%.o)

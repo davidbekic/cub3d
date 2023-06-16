@@ -1,12 +1,14 @@
 F      20,20,20
 
 C      50,50,255
-  NO ./textures/wolfenstein/blue_stone.xpm
 
-    EA ./textures/wolfenstein/blue_stone.xpm
-        WE         ./textures/wolfenstein/blue_stone.xpm
+  NO textures/wolfenstein/blue_stone.xpm 
 
-  SO ./textures/wolfenstein/blue_stone.xpm
+    EA textures/wolfenstein/blue_stone.xpm
+        WE         textures/wolfenstein/blue_stone.xpm
+
+  SO textures/wolfenstein/blue_stone.xpm
+
 
 
 
@@ -14,22 +16,5 @@ C      50,50,255
 
 
     111111111111111
-111111000000001
-1110000000000001111
-   10000000000000001
-1111E00001111111111
-10000000001
-1000000001
-10000000001
-10000000001
-10000010001
-100001 1001
-10000010001
-10000000001
-10000000001
-10000000001
-10000000001
-10000000001
-10000000001
-10000000001
-11111111111
+111111000001E11
+111111111111111
