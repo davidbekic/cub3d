@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse_cub.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbekic <dbekic@student.42.fr>              +#+  +:+       +#+        */
+/*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 10:27:47 by davidbekic        #+#    #+#             */
-/*   Updated: 2023/06/16 14:16:45 by dbekic           ###   ########.fr       */
+/*   Updated: 2023/06/17 16:48:45 by davidbekic       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,6 +162,8 @@ void ft_parse_line(t_data *d, char *line, char *path, int fd)
         strcpy(d->map.arr[0], line);
         ft_parse_map(d, fd);
     }
+    else if ((line[0] == '1' || (line[0] == ' ') || line[0] == '0') && ft_strlen(line))
+        ft_exit(d, "Map is not the last element in the file", 1);
 
 }
 

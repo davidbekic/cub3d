@@ -6,7 +6,7 @@
 /*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 11:36:57 by davidbekic        #+#    #+#             */
-/*   Updated: 2023/06/16 11:38:26 by davidbekic       ###   ########.fr       */
+/*   Updated: 2023/06/17 16:55:47 by davidbekic       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,13 +67,16 @@ void ft_check_if_map_has_player_pos_and_dir(t_data *d)
         while (d->map.arr[i][j] != 0)
         {
             if (d->map.arr[i][j] == 'N' || d->map.arr[i][j] == 'S' || d->map.arr[i][j] == 'E' || d->map.arr[i][j] == 'W')
+            {
+                if (i == 0 || i == d->map.height - 1 || j == 0 || (size_t) j ==  ft_strlen(d->map.arr[i]) - 1)
+                    ft_exit(d, "Player position is not valid", 1);
                 count++;
+            }
             j++;
         }
         i++;
         j = 0;
     }
-    printf("count = %d\n", count);
     if (count != 1)
         ft_exit(d, "Map has no player", 1);
 }
