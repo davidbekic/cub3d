@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbekic <dbekic@student.42.fr>              +#+  +:+       +#+        */
+/*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 14:00:11 by dbekic            #+#    #+#             */
-/*   Updated: 2023/06/16 14:07:10 by dbekic           ###   ########.fr       */
+/*   Updated: 2023/06/18 13:30:11 by davidbekic       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@
 #define MOVE_SPEED 0.049
 #define ROT_SPEED 0.033
 #define CORNER_DISTANCE 0.25/2
-#define WALL_DISTANCE 0.3/2
+#define WALL_DISTANCE 0
 // #define KEY_UP 125
 // #define  125
 

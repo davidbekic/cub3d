@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_init_pos.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbekic <dbekic@student.42.fr>              +#+  +:+       +#+        */
+/*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 14:39:06 by davidbekic        #+#    #+#             */
-/*   Updated: 2023/06/13 14:29:06 by dbekic           ###   ########.fr       */
+/*   Updated: 2023/06/18 13:31:59 by davidbekic       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void ft_init_pos(t_data *d, int i, int j, char pos)
 {
-    d->rc.pos_x = i + WALL_DISTANCE;
-    d->rc.pos_y = j + WALL_DISTANCE;
+    d->rc.pos_x = i + CORNER_DISTANCE;
+    d->rc.pos_y = j + CORNER_DISTANCE;
     if (pos == 'N')
     {
         d->rc.dir_x = -1;
