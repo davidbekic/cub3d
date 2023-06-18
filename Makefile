@@ -142,8 +142,13 @@ $(BUILD_DIR)/%.c.o: %.c
 	@$(CC) $(CFLAGS) -c $< -o $@
 	@printf $(UP)$(CUT)
 
+$(LIBMLX): $(LIBMLX_DIR)/Makefile
+	@echo $(Y)Building library...$(X)
+	@$(MAKE) -C $(LIBMLX_DIR)
+
 clean:
 	@echo $(Y)Cleaning...$(X)
+	@$(MAKE) -C $(LIBMLX_DIR) clean
 	@rm -rf $(BUILD_DIR)
 
 fclean:		clean
