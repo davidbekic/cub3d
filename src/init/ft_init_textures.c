@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_init_textures.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbekic <dbekic@student.42.fr>              +#+  +:+       +#+        */
+/*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 16:23:54 by davidbekic        #+#    #+#             */
-/*   Updated: 2023/06/15 15:44:46 by dbekic           ###   ########.fr       */
+/*   Updated: 2023/06/18 17:14:51 by davidbekic       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 
 static char *ft_choose_texture(t_data *d, int i) {
-  printf("d->tex[%d].path: %s\n", i, d->tex[i].path);
   if (i == 0)
   {
     return (d->tex[0].path);
@@ -53,7 +52,6 @@ void ft_fill_texture(t_data *d, int i) {
   x = -1;
   y = -1;
   d->tex[i].arr = malloc(d->tex[i].height * sizeof(int *));
-  printf("address of d->tex[%d].arr: %p\n", i, d->tex[i].arr);
   if (!d->tex[i].arr)
     ft_exit(d, "Malloc failed", 1);
   while (++y < d->tex[i].height) {

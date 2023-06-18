@@ -12,24 +12,21 @@
 
 #include "../../include/cub3d.h"
 
-extern int worldMap[24][24];
-
 int ft_key_down(t_data *d)
 {
-    // ft_key_down_check(keycode, d);
-    if (d->keys.exit_key)
-      ft_exit(d, "Exit successfully", 0);
-    if (d->keys.up)
-        ft_move_forward(d);
-    if (d->keys.down)
-        ft_move_backward(d);
-    if (d->keys.right)
-        ft_move_right(d);
-    if (d->keys.left)
-        ft_move_left(d);
-    if (d->keys.rotate_right)
-        ft_rotate_right(d);
-    if (d->keys.rotate_left)
-        ft_rotate_left(d);
-    return (0);
+      if (d->keys.exit_key)
+        ft_exit(d, "Exit successfully", 0);
+  if (d->keys.up)
+    ft_move_forward(d);
+  if (d->keys.down)
+    ft_move_backward(d);
+  if (d->keys.right)
+    ft_move_right(d);
+  if (d->keys.left)
+    ft_move_left(d);
+  if (d->keys.rotate_right)
+    ft_rotate_right(d);
+  if (d->keys.rotate_left)
+    ft_rotate_left(d);
+  return (0);
 }

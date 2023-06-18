@@ -6,7 +6,7 @@
 /*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 14:25:30 by davidbekic        #+#    #+#             */
-/*   Updated: 2023/06/17 16:53:47 by davidbekic       ###   ########.fr       */
+/*   Updated: 2023/06/18 19:29:07 by davidbekic       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,9 +82,9 @@ void ft_parse_map(t_data *d, int fd)
     }
     printf("dying here\n");
     d->map.arr[++i] = NULL;
-    ft_check_allowed_chars(d);
     ft_check_if_map_has_player_pos_and_dir(d);
     ft_parse_player_pos(d);
+    ft_check_allowed_chars(d);
     ft_fill_spaces_with_points(d);
     ft_check_if_surrounded_by_walls(d);
     ft_check_if_first_and_last_line_is_one_or_point(d);

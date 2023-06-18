@@ -6,7 +6,7 @@
 /*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 11:36:57 by davidbekic        #+#    #+#             */
-/*   Updated: 2023/06/17 16:55:47 by davidbekic       ###   ########.fr       */
+/*   Updated: 2023/06/18 17:06:41 by davidbekic       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void ft_check_if_first_and_last_columns_is_one_or_point(t_data *d)
     i = 0;
     while (d->map.arr[i] != NULL)
     {
-        if (d->map.arr[i][strlen(d->map.arr[i]) - 1] != '1' && d->map.arr[i][strlen(d->map.arr[i]) - 1] != '.' && d->map.arr[i][strlen(d->map.arr[i]) - 1] != 10)
+        if (d->map.arr[i][ft_strlen(d->map.arr[i]) - 1] != '1' && d->map.arr[i][ft_strlen(d->map.arr[i]) - 1] != '.' && d->map.arr[i][ft_strlen(d->map.arr[i]) - 1] != 10)
             ft_exit(d, "Map is not surrounded by walls", 1);
         i++;
     }

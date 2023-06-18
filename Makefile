@@ -11,9 +11,9 @@
 
 # bold		= $(tput bold)
 
-# NAME		= cub3d
+# NAME		= cub3D
 
-# ${NAME}:	${OBJS} cub3d.h
+# ${NAME}:	${OBJS} cub3D.h
 # 			${CC}  -o ${NAME} ${LIBS} ${SRCS}
 # 			@echo "\033[92m${bold}FDF COMPILED!\033[0m"
 
@@ -49,9 +49,9 @@
 
 # bold		= $(tput bold)
 
-# NAME		= cub3d
+# NAME		= cub3D
 
-# ${NAME}:	${OBJS} cub3d.h
+# ${NAME}:	${OBJS} cub3D.h
 # 			${CC}  -o ${NAME} ${LIBS} ${SRCS}
 # 			@echo "\033[92m${bold}FDF COMPILED!\033[0m"
 
@@ -76,10 +76,11 @@
 # 			@echo "\033[92m${bol
 
 
-TARGET_EXEC := cub3d
+TARGET_EXEC := cub3D
 
 BUILD_DIR := ./build
 SRC_DIRS := ./src
+FSANITIZE := -fsanitize=address -g
 
 NAME :=	$(TARGET_EXEC)
 
@@ -110,12 +111,14 @@ SRCS		= ./src/main.c \
 				./src/parse/ft_parse_cub.c \
 				./src/parse/ft_parse_map.c \
 				./src/parse/ft_map_error_check.c \
+				./src/parse/ft_parse_utils.c \
 				./src/utils/get_next_line/get_next_line.c \
 				./src/utils/get_next_line/get_next_line_utils.c \
 				./src/utils/ft_is_digit.c \
 				./src/utils/ft_calloc.c \
 				./src/utils/ft_strcpy.c \
 				./src/utils/ft_strlen.c \
+				./src/utils/ft_strncmp.c \
 				./src/exit/ft_exit.c
 
 OBJS := $(SRCS:%=$(BUILD_DIR)/%.o)
@@ -127,16 +130,19 @@ LIBMLX_DIR	=	mlx/
 LIBMLX		=	$(addprefix $(LIBMLX_DIR), libmlx.a)
 LNK			=	 -L $(LIBMLX_DIR) -lmlx -framework OpenGL -framework AppKit
 
-CFLAGS := $(INC_FLAGS) -MMD -MP -Wall -Wextra -Werror 
+#CFLAGS := $(INC_FLAGS) -MMD -MP -Wall -Wextra -Werror
+CFLAGS := $(INC_FLAGS) -MMD -MP -Wall -Wextra -Werror $(FSANITIZE)
 
 $(NAME): $(OBJS) $(LIBMLX)
 	@echo $(Y)Linking...$(X)
-	@$(CC) $(OBJS) ${LNK} -o $../$(NAME)
+#	@$(CC) $(OBJS) ${LNK} -o $../$(NAME)
+	@$(CC) $(OBJS) ${LNK} -o $../$(NAME) $(FSANITIZE)
+  	# @$(CC) $(OBJS) ${LNK} -o $../$(NAME) $(FSANITIZE)
 	@printf $(UP)$(CUT)
 	@echo $(G)COMPILED!$(X)
 
 $(BUILD_DIR)/%.c.o: %.c
-	@echo $(Y)Compiling [$<]...$(X)
+	@echo $(Y)Compiling [$<]...$(X) 
 	@sleep 0.01
 	@mkdir -p $(dir $@)
 	@$(CC) $(CFLAGS) -c $< -o $@

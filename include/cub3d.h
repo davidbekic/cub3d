@@ -6,7 +6,7 @@
 /*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 14:00:11 by dbekic            #+#    #+#             */
-/*   Updated: 2023/06/18 13:30:11 by davidbekic       ###   ########.fr       */
+/*   Updated: 2023/06/18 19:31:50 by davidbekic       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,9 @@
 
 // MOVEMENT
 #define MOVE_SPEED 0.049
-#define ROT_SPEED 0.033
+#define ROT_SPEED 0.043
 #define CORNER_DISTANCE 0.25/2
 #define WALL_DISTANCE 0
-// #define KEY_UP 125
-// #define  125
 
 // STRUCTS
 typedef struct s_img
@@ -176,6 +174,9 @@ void ft_check_if_first_and_last_columns_is_one_or_point(t_data *d);
 void ft_check_if_map_has_player_pos_and_dir(t_data *d);
 void ft_check_allowed_chars(t_data *d);
 void ft_check_if_surrounded_by_walls(t_data *d);
+void ft_remove_isspace_from_end_of_str(char *str);
+int ft_get_map_height(t_data *d, char *path);
+void ft_check_extension(char *str);
 
 // UTILS
 char	*ft_strdup(const char *src);
@@ -192,6 +193,7 @@ int ft_is_digit(char c);
 void	*ft_calloc(size_t count, size_t size);
 char    *ft_strcpy(char *s1, char *s2);
 size_t	ft_strlen(char *s);
+int		ft_strncmp(char *s1, char *s2, unsigned int n);
 // MOVEMENT
 void ft_move_forward(t_data *d);
 void ft_move_backward(t_data *d);
