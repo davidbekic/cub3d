@@ -6,7 +6,7 @@
 /*   By: dbekic <dbekic@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 10:27:47 by davidbekic        #+#    #+#             */
-/*   Updated: 2023/06/19 10:51:45 by dbekic           ###   ########.fr       */
+/*   Updated: 2023/06/19 12:54:20 by dbekic           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ void ft_parse_tex_path(t_data *d, char *line, int index)
     int i;
 
     i = 0;
+    if (d->tex[index].ready)
+        ft_exit(d, "element duplicate", 1);
     while (line[i] == 32)
         i++;
     ft_remove_isspace_from_end_of_str(line + i);
@@ -59,9 +61,9 @@ void ft_parse_line(t_data *d, char *line, char *path, int fd)
     else if (!ft_strncmp(line, "EA ", 3))
         ft_parse_tex_path(d, line + 3, EAST_TEX_INDEX);
     else if (!ft_strncmp(line, "F ", 2))
-        ft_parse_color(line + 2, &d->floor);
+        ft_parse_color(d, line + 2, &d->floor);
     else if (!ft_strncmp(line, "C ", 2))
-        ft_parse_color(line + 2, &d->ceiling);
+        ft_parse_color(d, line + 2, &d->ceiling);
     else if ((line[0] == '1' || (line[0] == ' ')) && ((ft_is_configurated(d))))
     {
         d->map.width = 0;
@@ -110,10 +112,15 @@ int ft_parse_cub(t_data *d, char *path) {
         ft_exit(d, "Bad cub file", 1);
     }
     close(fd);
-    // int i = 0;
-    // while (i < d->map.height) {
-    //     printf("d->map.arr[%d]: %s\n", i, d->map.arr[i]);
-    //     i++;
-    // }
+
+    printf("R: %d\n", d->floor.r);
+    printf("G: %d\n", d->floor.g);
+    printf("B: %d\n", d->floor.b);
+
+    int i = 0;
+    while (i < d->map.height) {
+        printf("d->map.arr[%d]: %s\n", i, d->map.arr[i]);
+        i++;
+    }
     return (0);
 }

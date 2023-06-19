@@ -6,7 +6,7 @@
 /*   By: dbekic <dbekic@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 14:00:11 by dbekic            #+#    #+#             */
-/*   Updated: 2023/06/19 10:51:06 by dbekic           ###   ########.fr       */
+/*   Updated: 2023/06/19 11:31:07 by dbekic           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,7 +177,7 @@ void ft_check_if_surrounded_by_walls(t_data *d);
 void ft_remove_isspace_from_end_of_str(char *str);
 int ft_get_map_height(t_data *d, char *path);
 void ft_check_extension(char *str);
-void ft_parse_color(char* line, t_color *color);
+void ft_parse_color(t_data *d, char* line, t_color *color);
 
 // UTILS
 char	*ft_strdup(const char *src);
