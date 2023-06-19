@@ -1,7 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/06/19 23:01:08 by davidbekic        #+#    #+#             */
+/*   Updated: 2023/06/19 23:01:12 by davidbekic       ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "get_next_line.h"
 #include <unistd.h>
-//#include <stdio.h>
-//#include <fcntl.h>
 
 char	*ft_read_to_left_str(int fd, char *left_str)
 {
