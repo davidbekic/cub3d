@@ -1,81 +1,3 @@
-# SRCS		= ./src/main.c \
-# 				./src/events/ft_key_down.c \
-# 				./src/init/ft_init_vars.c \
-# 				./src/render/ft_cast_rays.c \
-# 				./src/render/ft_render_frame.c \
-# 				./src/render/ft_draw.c \
-# 				./src/init/ft_init_img.c \
-# 				./src/utils/ft_my_pixel_put.c
-
-# OBJS		= ${SRCS:.c=.o}
-
-# bold		= $(tput bold)
-
-# NAME		= cub3D
-
-# ${NAME}:	${OBJS} cub3D.h
-# 			${CC}  -o ${NAME} ${LIBS} ${SRCS}
-# 			@echo "\033[92m${bold}FDF COMPILED!\033[0m"
-
-# PRINTF		= ${OBJS} 
-
-# CC 		= cc
-# RM		= rm -f
-
-
-# LIBS		= -Lmlx -lmlx -framework OpenGL -framework AppKit
-
-# all:		${NAME} 
-
-# clean: 		
-# 		@echo "\033[91m${bold}CLEANING...\033[0m"
-# 		${RM} ${OBJS} 
-
-# fclean:		clean
-	
-# 		${RM} ${NAME} 
-
-# 			@echo "\033[92m${bol
-# SRCS		= ./src/main.c \
-# 				./src/events/ft_key_down.c \
-# 				./src/init/ft_init_vars.c \
-# 				./src/render/ft_cast_rays.c \
-# 				./src/render/ft_render_frame.c \
-# 				./src/render/ft_draw.c \
-# 				./src/init/ft_init_img.c \
-# 				./src/utils/ft_my_pixel_put.c
-
-# OBJS		= ${SRCS:.c=.o}
-
-# bold		= $(tput bold)
-
-# NAME		= cub3D
-
-# ${NAME}:	${OBJS} cub3D.h
-# 			${CC}  -o ${NAME} ${LIBS} ${SRCS}
-# 			@echo "\033[92m${bold}FDF COMPILED!\033[0m"
-
-# PRINTF		= ${OBJS} 
-
-# CC 		= cc
-# RM		= rm -f
-
-
-# LIBS		= -Lmlx -lmlx -framework OpenGL -framework AppKit
-
-# all:		${NAME} 
-
-# clean: 		
-# 		@echo "\033[91m${bold}CLEANING...\033[0m"
-# 		${RM} ${OBJS} 
-
-# fclean:		clean
-	
-# 		${RM} ${NAME} 
-
-# 			@echo "\033[92m${bol
-
-
 TARGET_EXEC := cub3D
 
 BUILD_DIR := ./build
@@ -112,6 +34,7 @@ SRCS		= ./src/main.c \
 				./src/parse/ft_parse_map.c \
 				./src/parse/ft_map_error_check.c \
 				./src/parse/ft_parse_utils.c \
+				./src/parse/ft_parse_color.c \
 				./src/utils/get_next_line/get_next_line.c \
 				./src/utils/get_next_line/get_next_line_utils.c \
 				./src/utils/ft_is_digit.c \
@@ -130,13 +53,13 @@ LIBMLX_DIR	=	mlx/
 LIBMLX		=	$(addprefix $(LIBMLX_DIR), libmlx.a)
 LNK			=	 -L $(LIBMLX_DIR) -lmlx -framework OpenGL -framework AppKit
 
-#CFLAGS := $(INC_FLAGS) -MMD -MP -Wall -Wextra -Werror
-CFLAGS := $(INC_FLAGS) -MMD -MP -Wall -Wextra -Werror $(FSANITIZE)
+CFLAGS := $(INC_FLAGS) -MMD -MP -Wall -Wextra -Werror
+#CFLAGS := $(INC_FLAGS) -MMD -MP -Wall -Wextra -Werror $(FSANITIZE)
 
 $(NAME): $(OBJS) $(LIBMLX)
 	@echo $(Y)Linking...$(X)
-#	@$(CC) $(OBJS) ${LNK} -o $../$(NAME)
-	@$(CC) $(OBJS) ${LNK} -o $../$(NAME) $(FSANITIZE)
+	@$(CC) $(OBJS) ${LNK} -o $../$(NAME)
+#	@$(CC) $(OBJS) ${LNK} -o $../$(NAME) $(FSANITIZE)
   	# @$(CC) $(OBJS) ${LNK} -o $../$(NAME) $(FSANITIZE)
 	@printf $(UP)$(CUT)
 	@echo $(G)COMPILED!$(X)

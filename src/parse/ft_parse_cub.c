@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse_cub.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
+/*   By: dbekic <dbekic@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 10:27:47 by davidbekic        #+#    #+#             */
-/*   Updated: 2023/06/18 19:53:05 by davidbekic       ###   ########.fr       */
+/*   Updated: 2023/06/19 10:51:45 by dbekic           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,31 +44,6 @@ void ft_parse_tex_path(t_data *d, char *line, int index)
     if (!d->tex[index].path)
         ft_exit(d, "Malloc failed\n", 1);
     d->tex[index].ready = 1;
-}
-
-void ft_parse_color(char* line, t_color *color)
-{
-    int i = 0;
-
-    while (line[i] == 32)
-        i++;
-    color->r = 0;
-    while (line[i] != ',') {
-        color->r = (color->r * 10) + (line[i] - '0');
-        i++;
-    }
-    i++;
-    color->g = 0;
-    while (line[i] != ',') {
-        color->g = (color->g * 10) + (line[i] - '0');
-        i++;
-    }
-    i++;
-    color->b = 0;
-    while (ft_is_digit(line[i])) {
-        color->b = (color->b * 10) + (line[i] - '0');
-        i++;
-    }
 }
 
 void ft_parse_line(t_data *d, char *line, char *path, int fd)
