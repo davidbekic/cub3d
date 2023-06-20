@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cast_rays.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbekic <dbekic@student.42.fr>              +#+  +:+       +#+        */
+/*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 11:00:51 by davidbekic        #+#    #+#             */
-/*   Updated: 2023/06/19 14:37:07 by dbekic           ###   ########.fr       */
+/*   Updated: 2023/06/20 10:06:07 by davidbekic       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ void	ft_map_texture(t_data *d, int x)
 		color = d->tex[dir].arr[texX][texY];
 		if (d->rc.side == 1)
 			color = (color >> 1) & 8355711;
-		ft_my_mlx_pixel_put(&d->back_img_buffer, x, y, color);
+		ft_my_mlx_pixel_put(&d->img, x, y, color);
 	}
 }
 

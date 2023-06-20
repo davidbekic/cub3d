@@ -6,7 +6,7 @@
 /*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 16:23:54 by davidbekic        #+#    #+#             */
-/*   Updated: 2023/06/19 13:41:47 by dbekic           ###   ########.fr       */
+/*   Updated: 2023/06/20 10:18:17 by davidbekic       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 static char	*ft_choose_texture(t_data *d, int i)
 {
 	if (i == 0)
-		return (d->tex[0].path);
-	if (i == 1)
-		return (d->tex[1].path);
-	if (i == 2)
 		return (d->tex[2].path);
+	if (i == 1)
+		return (d->tex[0].path);
+	if (i == 2)
+		return (d->tex[1].path);
 	else
 		return (d->tex[3].path);
 }

@@ -6,7 +6,7 @@
 /*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 11:36:57 by davidbekic        #+#    #+#             */
-/*   Updated: 2023/06/19 22:49:24 by davidbekic       ###   ########.fr       */
+/*   Updated: 2023/06/20 10:08:39 by davidbekic       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void ft_check_if_map_has_player_pos_and_dir(t_data *d)
         j = 0;
     }
     if (count != 1)
-        ft_exit(d, "Map has no player", 1);
+        ft_exit(d, "Not able to parse player", 1);
 }
 
 

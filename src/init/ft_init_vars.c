@@ -6,7 +6,7 @@
 /*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 13:42:01 by dbekic            #+#    #+#             */
-/*   Updated: 2023/06/19 17:26:00 by davidbekic       ###   ########.fr       */
+/*   Updated: 2023/06/20 10:06:31 by davidbekic       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,6 @@ void	ft_init_vars(t_data *d)
 	if (!d->img.mlx_win)
 		ft_exit(d, "Failed to create window\n", 1);
 	ft_init_img(&d->img, d->img.mlx);
-	ft_init_img(&d->back_img_buffer, d->img.mlx);
-	ft_init_img(&d->front_img_buffer, d->img.mlx);
 	ft_init_textures(d);
 	ft_init_rc(&d->rc);
 	ft_init_keys(&d->keys);

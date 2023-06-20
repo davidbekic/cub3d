@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse_cub.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbekic <dbekic@student.42.fr>              +#+  +:+       +#+        */
+/*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 10:27:47 by davidbekic        #+#    #+#             */
-/*   Updated: 2023/06/19 14:25:31 by dbekic           ###   ########.fr       */
+/*   Updated: 2023/06/20 10:10:18 by davidbekic       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void	ft_parse_line(t_data *d, char *line, char *path, int fd)
 		ft_parse_map(d, fd);
 	}
 	else if ((line[0] == '1' || (line[0] == ' ') || line[0] == '0') && ft_strlen(line))
-		ft_exit(d, "Map is not the last element in the file", 1);
+		ft_exit(d, "Bad cub format", 1);
 }
 
 int	ft_parse_cub(t_data *d, char *path)
@@ -107,7 +107,7 @@ int	ft_parse_cub(t_data *d, char *path)
 		line = get_next_line(fd);
 	}
 	if (d->map.height == 0)
-		ft_exit(d, "Bad cub file", 1);
+		ft_exit(d, "Bad cub file format or empty", 1);
 	close(fd);
 /*	int i = 0;
 	while (i < d->map.height)
