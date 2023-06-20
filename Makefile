@@ -53,13 +53,13 @@ LIBMLX_DIR	=	mlx/
 LIBMLX		=	$(addprefix $(LIBMLX_DIR), libmlx.a)
 LNK			=	 -L $(LIBMLX_DIR) -lmlx -framework OpenGL -framework AppKit
 
-CFLAGS := $(INC_FLAGS) -MMD -MP -Wall -Wextra -Werror
-#CFLAGS := $(INC_FLAGS) -MMD -MP -Wall -Wextra -Werror $(FSANITIZE)
+#CFLAGS := $(INC_FLAGS) -MMD -MP -Wall -Wextra -Werror
+CFLAGS := $(INC_FLAGS) -MMD -MP -Wall -Wextra -Werror $(FSANITIZE)
 
 $(NAME): $(OBJS) $(LIBMLX)
 	@echo $(Y)Linking...$(X)
-	@$(CC) $(OBJS) ${LNK} -o $../$(NAME)
-#	@$(CC) $(OBJS) ${LNK} -o $../$(NAME) $(FSANITIZE)
+#	@$(CC) $(OBJS) ${LNK} -o $../$(NAME)
+	@$(CC) $(OBJS) ${LNK} -o $../$(NAME) $(FSANITIZE)
   	# @$(CC) $(OBJS) ${LNK} -o $../$(NAME) $(FSANITIZE)
 	@printf $(UP)$(CUT)
 	@echo $(G)COMPILED!$(X)

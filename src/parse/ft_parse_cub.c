@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse_cub.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
+/*   By: dbekic <dbekic@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 10:27:47 by davidbekic        #+#    #+#             */
-/*   Updated: 2023/06/20 13:15:38 by dbekic           ###   ########.fr       */
+/*   Updated: 2023/06/20 14:38:06 by dbekic           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	ft_parse_line(t_data *d, char *line, char *path, int fd)
 		ft_parse_color(d, line + 2, &d->floor);
 	else if (!ft_strncmp(line, "C ", 2))
 		ft_parse_color(d, line + 2, &d->ceiling);
-	else if ((line[0] == '1' || (line[0] == ' ')) && ((ft_is_configurated(d))))
+	else if ((line[0] == '1' || (line[0] == ' ') || line[0] == '0') && ((ft_is_configurated(d))))
 	{
 		d->map.width = 0;
 		d->map.height = ft_get_map_height(d, path);

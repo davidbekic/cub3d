@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse_map.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
+/*   By: dbekic <dbekic@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 14:25:30 by davidbekic        #+#    #+#             */
-/*   Updated: 2023/06/19 14:28:24 by dbekic           ###   ########.fr       */
+/*   Updated: 2023/06/20 14:34:52 by dbekic           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void	ft_parse_map(t_data *d, int fd)
 	ft_parse_player_pos(d);
 	ft_check_allowed_chars(d);
 	ft_fill_spaces_with_points(d);
-	ft_check_if_surrounded_by_walls(d);
 	ft_check_if_first_and_last_line_is_one_or_point(d);
 	ft_check_if_first_and_last_columns_is_one_or_point(d);
+	ft_check_if_surrounded_by_walls(d);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_key_down.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
+/*   By: dbekic <dbekic@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 15:23:39 by dbekic            #+#    #+#             */
-/*   Updated: 2023/06/20 13:06:25 by dbekic           ###   ########.fr       */
+/*   Updated: 2023/06/20 14:26:09 by dbekic           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	ft_key_down(t_data *d)
 {
 	if (d->keys.exit_key)
-		ft_exit(d, "Exit successfully", 0);
+		ft_exit(d, "Exited successfully", 0);
 	if (d->keys.up)
 		ft_move_forward(d);
 	if (d->keys.down)
