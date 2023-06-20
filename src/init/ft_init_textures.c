@@ -6,7 +6,7 @@
 /*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 16:23:54 by davidbekic        #+#    #+#             */
-/*   Updated: 2023/06/20 10:18:17 by davidbekic       ###   ########.fr       */
+/*   Updated: 2023/06/21 00:04:27 by davidbekic       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ void	ft_init_textures(t_data *d)
 				&d->tex[i].img.line_length, &d->tex[i].img.endian);
 		ft_fill_texture(d, i);
 		d->tex[i].ready = 1;
-		free(d->tex[i].img.addr);
 	}
 }
 
