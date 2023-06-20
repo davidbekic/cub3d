@@ -6,13 +6,13 @@
 /*   By: dbekic <dbekic@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 10:44:00 by davidbekic        #+#    #+#             */
-/*   Updated: 2023/05/18 15:15:08 by dbekic           ###   ########.fr       */
+/*   Updated: 2023/06/20 14:03:37 by dbekic           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 
-int ft_create_trgb(int t, int r, int g, int b)
+int	ft_create_trgb(int t, int r, int g, int b)
 {
 	return (t << 24 | r << 16 | g << 8 | b);
 }

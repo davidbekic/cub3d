@@ -6,16 +6,16 @@
 /*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 17:03:48 by davidbekic        #+#    #+#             */
-/*   Updated: 2023/06/18 17:09:23 by davidbekic       ###   ########.fr       */
+/*   Updated: 2023/06/20 14:10:29 by dbekic           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 
-int		ft_strncmp(const char *s1, const char *s2, size_t n)
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
 	unsigned int		i;
-    
+
 	i = 0;
 	while (s1[i] && i < n)
 	{

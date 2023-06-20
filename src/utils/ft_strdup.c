@@ -6,7 +6,7 @@
 /*   By: dbekic <dbekic@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 12:50:38 by dbekic            #+#    #+#             */
-/*   Updated: 2023/06/12 12:50:54 by dbekic           ###   ########.fr       */
+/*   Updated: 2023/06/20 14:09:33 by dbekic           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,9 @@ char	*ft_strdup(const char *src)
 
 	size = 0;
 	while (src[size])
-		size++;
-	if (!(new = malloc(sizeof(char) * (size + 1))))
+	size++;
+	new = malloc(sizeof(char) * (size + 1));
+	if (!new)
 		return (NULL);
 	i = 0;
 	while (src[i])

@@ -3,14 +3,61 @@
 /*                                                        :::      ::::::::   */
 /*   ft_init_vars.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
+/*   By: dbekic <dbekic@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 13:42:01 by dbekic            #+#    #+#             */
-/*   Updated: 2023/06/20 10:06:31 by davidbekic       ###   ########.fr       */
+/*   Updated: 2023/06/20 13:40:41 by dbekic           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
+
+static void	ft_init_step_and_side_dist(t_data *d)
+{
+	if (d->rc.ray_dir_x < 0)
+	{
+		d->rc.step_x = -1;
+		d->rc.side_dist_x = (d->rc.pos_x - d->rc.ray_map_coor_x)
+			* d->rc.delta_dist_x;
+	}
+	else
+	{
+		d->rc.step_x = 1;
+		d->rc.side_dist_x = (d->rc.ray_map_coor_x + 1.0 - d->rc.pos_x)
+			* d->rc.delta_dist_x;
+	}
+	if (d->rc.ray_dir_y < 0)
+	{
+		d->rc.step_y = -1;
+		d->rc.side_dist_y = (d->rc.pos_y - d->rc.ray_map_coor_y)
+			* d->rc.delta_dist_y;
+	}
+	else
+	{
+		d->rc.step_y = 1;
+		d->rc.side_dist_y = (d->rc.ray_map_coor_y + 1.0 - d->rc.pos_y)
+			* d->rc.delta_dist_y;
+	}
+}
+
+void	ft_init_rc_vars(t_data *d, int x)
+{
+	d->rc.camera_x = 2 * x / (double)W - 1;
+	d->rc.ray_dir_x = d->rc.dir_x + d->rc.camera_plane_x * d->rc.camera_x;
+	d->rc.ray_dir_y = d->rc.dir_y + d->rc.camera_plane_y * d->rc.camera_x;
+	d->rc.ray_map_coor_x = (int)d->rc.pos_x;
+	d->rc.ray_map_coor_y = (int)d->rc.pos_y;
+	d->rc.hit = 0;
+	if (d->rc.ray_dir_x == 0)
+		d->rc.delta_dist_x = 1e30;
+	else
+		d->rc.delta_dist_x = fabs(1 / d->rc.ray_dir_x);
+	if (d->rc.ray_dir_y == 0)
+		d->rc.delta_dist_y = 1e30;
+	else
+		d->rc.delta_dist_y = fabs(1 / d->rc.ray_dir_y);
+	ft_init_step_and_side_dist(d);
+}
 
 static void	ft_init_keys(t_keys *keys)
 {
