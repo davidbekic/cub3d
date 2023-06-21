@@ -6,7 +6,7 @@
 /*   By: dbekic <dbekic@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 17:23:25 by davidbekic        #+#    #+#             */
-/*   Updated: 2023/06/21 12:35:12 by dbekic           ###   ########.fr       */
+/*   Updated: 2023/06/21 12:35:36 by dbekic           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void    ft_exit(t_data *d, char *message, int flag)
     else
     {
         write(2, message, ft_strlen(message));
-        write(2, "\n", 1);
+        write(1, "\n", 1);
     }
     exit(flag);
     printf("print something of d struct: %d\n", d->keys.up);
