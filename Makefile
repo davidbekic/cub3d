@@ -75,6 +75,8 @@ $(LIBMLX): $(LIBMLX_DIR)/Makefile
 	@echo $(Y)Building library...$(X)
 	@$(MAKE) -C $(LIBMLX_DIR)
 
+bonus:	$(NAME)
+
 clean:
 	@echo $(Y)Cleaning...$(X)
 	@$(MAKE) -C $(LIBMLX_DIR) clean
