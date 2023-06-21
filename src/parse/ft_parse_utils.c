@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
+/*   By: dbekic <dbekic@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 17:32:43 by davidbekic        #+#    #+#             */
-/*   Updated: 2023/06/19 14:31:08 by dbekic           ###   ########.fr       */
+/*   Updated: 2023/06/21 13:14:48 by dbekic           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,22 +24,27 @@ void	ft_remove_isspace_from_end_of_str(char *str)
 	}
 }
 
+int	ft_open_file_for_reading(char *path)
+{
+	int	fd;
+
+	fd = open(path, O_RDONLY);
+	if (fd == -1)
+		ft_exit("file didnt open", 1);
+	return (fd);
+}
+
 int	ft_get_map_height(t_data *d, char *path)
 {
 	int		n;
 	int		fd;
-	char	*buf = "ha";
+	char	*buf;
 	int		start_count;
 
 	start_count = 0;
-	fd = open(path, O_RDONLY);
-	if (fd == -1)
-	{
-		printf("file didnt open\n");
-		return (1);
-	}
 	n = 0;
-	while (buf != NULL)
+	fd = ft_open_file_for_reading(path);
+	while (1)
 	{
 		n++;
 		buf = get_next_line(fd);
@@ -69,5 +74,5 @@ void	ft_check_extension(char *str)
 		i++;
 	if (!(str[i - 1] == 'b' && str[i - 2] == 'u'
 			&& str[i - 3] == 'c' && str[i - 4] == '.'))
-		ft_exit(NULL, "Wrong file extension", 1);
+		ft_exit("Wrong file extension", 1);
 }

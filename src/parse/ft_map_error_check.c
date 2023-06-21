@@ -6,7 +6,7 @@
 /*   By: dbekic <dbekic@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 11:36:57 by davidbekic        #+#    #+#             */
-/*   Updated: 2023/06/20 14:35:43 by dbekic           ###   ########.fr       */
+/*   Updated: 2023/06/21 12:39:48 by dbekic           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	ft_check_if_first_and_last_line_is_one_or_point(t_data *d)
 	{
 		if (d->map.arr[0][i] != '1'
 			&& d->map.arr[0][i] != '.' && d->map.arr[0][i] != 10)
-			ft_exit(d, "Map is not surrounded by walls", 1);
+			ft_exit("Map is not surrounded by walls", 1);
 		i++;
 	}
 	i = 0;
@@ -30,7 +30,7 @@ void	ft_check_if_first_and_last_line_is_one_or_point(t_data *d)
 		if (d->map.arr[d->map.height - 1][i] != '1'
 				&& d->map.arr[d->map.height - 1][i] != '.'
 				&& d->map.arr[d->map.height - 1][i] != 10)
-			ft_exit(d, "Map is not surrounded by walls", 1);
+			ft_exit("Map is not surrounded by walls", 1);
 		i++;
 	}
 }
@@ -44,7 +44,7 @@ void	ft_check_if_first_and_last_columns_is_one_or_point(t_data *d)
 	{
 		if (d->map.arr[i][0] != '1'
 			&& d->map.arr[i][0] != '.' && d->map.arr[i][0] != 10)
-			ft_exit(d, "Map is not surrounded by walls", 1);
+			ft_exit("Map is not surrounded by walls", 1);
 		i++;
 	}
 	i = 0;
@@ -53,7 +53,7 @@ void	ft_check_if_first_and_last_columns_is_one_or_point(t_data *d)
 		if (d->map.arr[i][ft_strlen(d->map.arr[i]) - 1] != '1'
 				&& d->map.arr[i][ft_strlen(d->map.arr[i]) - 1] != '.'
 				&& d->map.arr[i][ft_strlen(d->map.arr[i]) - 1] != 10)
-			ft_exit(d, "Map is not surrounded by walls", 1);
+			ft_exit("Map is not surrounded by walls", 1);
 		i++;
 	}
 }
@@ -76,7 +76,7 @@ void	ft_check_if_map_has_player_pos_and_dir(t_data *d)
 			{
 				if (i == 0 || i == d->map.height - 1 || j == 0
 					|| (size_t) j == ft_strlen(d->map.arr[i]) - 1)
-					ft_exit(d, "Player position is not valid", 1);
+					ft_exit("Player position is not valid", 1);
 				count++;
 			}
 		}
@@ -84,7 +84,7 @@ void	ft_check_if_map_has_player_pos_and_dir(t_data *d)
 		j = -1;
 	}
 	if (count != 1)
-		ft_exit(d, "Not able to parse player", 1);
+		ft_exit("Not able to parse player", 1);
 }
 
 void	ft_check_allowed_chars(t_data *d)
@@ -106,7 +106,7 @@ void	ft_check_allowed_chars(t_data *d)
 			&& d->map.arr[i][j] != 'W'
 			&& d->map.arr[i][j] != 10
 			&& d->map.arr[i][j] != ' ')
-				ft_exit(d, "Invalid character in map", 1);
+				ft_exit("Invalid character in map", 1);
 			j++;
 		}
 		i++;
@@ -132,7 +132,7 @@ void	ft_check_if_surrounded_by_walls(t_data *d)
 					|| d->map.arr[i - 1][j] == '.'
 					|| d->map.arr[i + 1][j] == '.'
 					|| d->map.arr[i][j + 1] == 10)
-					ft_exit(d, "Map is not surrounded by walls", 1);
+					ft_exit("Map is not surrounded by walls", 1);
 			}
 			j++;
 		}

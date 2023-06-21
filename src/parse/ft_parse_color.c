@@ -6,7 +6,7 @@
 /*   By: dbekic <dbekic@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 10:46:29 by dbekic            #+#    #+#             */
-/*   Updated: 2023/06/19 14:22:10 by dbekic           ###   ########.fr       */
+/*   Updated: 2023/06/21 12:40:07 by dbekic           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,17 +63,17 @@ static int	ft_extract_last_color(char *line, int *color, int *index)
 	return (0);
 }
 
-void	ft_parse_color(t_data *d, char *line, t_color *color)
+void	ft_parse_color(char *line, t_color *color)
 {
 	int	i;
 
 	i = 0;
 	if (color->r >= 0)
-		ft_exit(d, "duplicate element", 1);
+		ft_exit("duplicate element", 1);
 	if (ft_extract_color(line, &color->r, &i))
-		ft_exit(d, "bad color value", 1);
+		ft_exit("bad color value", 1);
 	if (ft_extract_color(line, &color->g, &i))
-		ft_exit(d, "bad color value", 1);
+		ft_exit("bad color value", 1);
 	if (ft_extract_last_color(line, &color->b, &i))
-		ft_exit(d, "bad color value", 1);
+		ft_exit("bad color value", 1);
 }

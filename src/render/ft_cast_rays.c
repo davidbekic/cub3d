@@ -6,7 +6,7 @@
 /*   By: dbekic <dbekic@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 11:00:51 by davidbekic        #+#    #+#             */
-/*   Updated: 2023/06/20 13:37:05 by dbekic           ###   ########.fr       */
+/*   Updated: 2023/06/21 13:17:19 by dbekic           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static void	ft_dda(t_data *d)
 	}
 }
 
-void	ft_init_wall_props(t_data *d)
+static void	ft_init_wall_props(t_data *d)
 {
 	d->rc.wall_height = (int)(H / d->rc.perp_wall_dist);
 	d->rc.draw_start = -d->rc.wall_height / 2 + (H * 1) / 2;
@@ -49,7 +49,7 @@ void	ft_init_wall_props(t_data *d)
 	d->rc.wall_x -= floor((d->rc.wall_x));
 }
 
-int	ft_get_wall_direction(int side, double ray_dir_x, double ray_dir_y)
+static int	ft_get_wall_direction(int side, double ray_dir_x, double ray_dir_y)
 {
 	if (side == 0 && ray_dir_x >= 0)
 		return (0);
@@ -61,7 +61,7 @@ int	ft_get_wall_direction(int side, double ray_dir_x, double ray_dir_y)
 		return (3);
 }
 
-void	ft_map_texture(t_data *d, int x)
+static void	ft_map_texture(t_data *d, int x)
 {
 	t_i_love_norminette	var;
 

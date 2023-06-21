@@ -6,7 +6,7 @@
 /*   By: dbekic <dbekic@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 13:42:01 by dbekic            #+#    #+#             */
-/*   Updated: 2023/06/20 13:40:41 by dbekic           ###   ########.fr       */
+/*   Updated: 2023/06/21 12:39:27 by dbekic           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,10 +96,10 @@ void	ft_init_vars(t_data *d)
 {
 	d->img.mlx = mlx_init();
 	if (!d->img.mlx)
-		ft_exit(d, "Failed to init MLX\n", 1);
+		ft_exit("Failed to init MLX\n", 1);
 	d->img.mlx_win = mlx_new_window(d->img.mlx, W, H, "cub3d - dbekic");
 	if (!d->img.mlx_win)
-		ft_exit(d, "Failed to create window\n", 1);
+		ft_exit("Failed to create window\n", 1);
 	ft_init_img(&d->img, d->img.mlx);
 	ft_init_textures(d);
 	ft_init_rc(&d->rc);

@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbekic <dbekic@student.42barcelon>         +#+  +:+       +#+        */
+/*   By: dbekic <dbekic@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 13:34:27 by dbekic            #+#    #+#             */
-/*   Updated: 2023/06/19 13:35:27 by dbekic           ###   ########.fr       */
+/*   Updated: 2023/06/21 12:38:49 by dbekic           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-static int	ft_exit_bruh(t_data *d)
+static int	ft_exit_bruh(void)
 {
-	ft_exit(d, "Exited successfully\n", 0);
+	ft_exit("Exited successfully\n", 0);
 	exit (0);
 }
 

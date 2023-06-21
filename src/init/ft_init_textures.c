@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_init_textures.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
+/*   By: dbekic <dbekic@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 16:23:54 by davidbekic        #+#    #+#             */
-/*   Updated: 2023/06/21 00:04:27 by davidbekic       ###   ########.fr       */
+/*   Updated: 2023/06/21 12:39:16 by dbekic           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	ft_init_textures(t_data *d)
 				d->img.mlx, ft_choose_texture(d, i), &d->tex[i].width,
 				&d->tex[i].height);
 		if (!d->tex[i].img.img)
-			ft_exit(d, "Texture not found", 1);
+			ft_exit("Texture not found", 1);
 		d->tex[i].img.addr = mlx_get_data_addr(d->tex[i].img.img,
 				&d->tex[i].img.bits_per_pixel,
 				&d->tex[i].img.line_length, &d->tex[i].img.endian);
@@ -53,12 +53,12 @@ void	ft_fill_texture(t_data *d, int i)
 	y = -1;
 	d->tex[i].arr = malloc(d->tex[i].height * sizeof(int *));
 	if (!d->tex[i].arr)
-		ft_exit(d, "Malloc failed", 1);
+		ft_exit("Malloc failed", 1);
 	while (++y < d->tex[i].height)
 	{
 		d->tex[i].arr[y] = malloc(d->tex[i].width * sizeof(int));
 		if (!d->tex[i].arr[y])
-			ft_exit(d, "Malloc failed", 1);
+			ft_exit("Malloc failed", 1);
 		while (++x < d->tex[i].width)
 			d->tex[i].arr[y][x] = ft_my_pixel_get(&d->tex[i].img, y, x);
 		if (x == d->tex[i].width)

@@ -6,7 +6,7 @@
 /*   By: dbekic <dbekic@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 14:00:11 by dbekic            #+#    #+#             */
-/*   Updated: 2023/06/20 14:25:05 by dbekic           ###   ########.fr       */
+/*   Updated: 2023/06/21 13:32:59 by dbekic           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,7 +172,6 @@ void	ft_init_pos(t_data *d, int i, int j, char pos);
 int		ft_render_frame(t_data *d);
 void	ft_put_image(t_data *d);
 void	ft_cast_rays(t_data *d);
-void	ft_draw_buffer(t_data *d, int buffer[1080][1920]);
 void	ft_draw_ceiling_and_floor(t_data *d);
 // PARSE
 int		ft_parse_cub(t_data *d, char *path);
@@ -186,7 +185,8 @@ void	ft_check_if_surrounded_by_walls(t_data *d);
 void	ft_remove_isspace_from_end_of_str(char *str);
 int		ft_get_map_height(t_data *d, char *path);
 void	ft_check_extension(char *str);
-void	ft_parse_color(t_data *d, char *line, t_color *color);
+void	ft_parse_color(char *line, t_color *color);
+int		ft_open_file_for_reading(char *path);
 
 // UTILS
 char	*ft_strdup(const char *src);
@@ -200,10 +200,10 @@ void	*ft_calloc(size_t count, size_t size);
 char	*ft_strcpy(char *s1, char *s2);
 size_t	ft_strlen(char *s);
 int		ft_strncmp(char *s1, char *s2, unsigned int n);
-unsigned char		ft_get_t(int trgb);
-unsigned char		ft_get_r(int trgb);
-unsigned char		ft_get_g(int trgb);
-unsigned char		ft_get_b(int trgb);
+int		ft_get_t(int trgb);
+int		ft_get_r(int trgb);
+int		ft_get_g(int trgb);
+int		ft_get_b(int trgb);
 // MOVEMENT
 void	ft_move_forward(t_data *d);
 void	ft_move_backward(t_data *d);
@@ -212,6 +212,6 @@ void	ft_move_right(t_data *d);
 void	ft_rotate_left(t_data *d);
 void	ft_rotate_right(t_data *d);
 // EXIT
-void	ft_exit(t_data *d, char *message, int flag);
+void	ft_exit(char *message, int flag);
 
 #endif
