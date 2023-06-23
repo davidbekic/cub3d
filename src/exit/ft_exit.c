@@ -6,7 +6,7 @@
 /*   By: dbekic <dbekic@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 17:23:25 by davidbekic        #+#    #+#             */
-/*   Updated: 2023/06/21 12:54:41 by dbekic           ###   ########.fr       */
+/*   Updated: 2023/06/23 09:40:52 by dbekic           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	ft_exit(char *message, int flag)
 	}
 	else
 	{
-		write(2, message, ft_strlen(message));
+		write(1, message, ft_strlen(message));
 		write(1, "\n", 1);
 	}
 	exit(flag);

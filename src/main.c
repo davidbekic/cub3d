@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
+/*   By: dbekic <dbekic@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 13:34:27 by dbekic            #+#    #+#             */
-/*   Updated: 2023/06/22 17:46:59 by davidbekic       ###   ########.fr       */
+/*   Updated: 2023/06/23 09:41:21 by dbekic           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	ft_exit_bruh(void)
 {
-	ft_exit("Exited successfully\n", 0);
+	ft_exit("Exited successfully", 0);
 	exit (0);
 }
 
