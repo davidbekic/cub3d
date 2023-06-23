@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbekic <dbekic@student.42.fr>              +#+  +:+       +#+        */
+/*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 14:00:11 by dbekic            #+#    #+#             */
-/*   Updated: 2023/06/21 13:32:59 by dbekic           ###   ########.fr       */
+/*   Updated: 2023/06/23 09:21:06 by davidbekic       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,7 @@
 # include <math.h>
 # include <fcntl.h>
 # include "../mlx/mlx.h"
-# include <stdbool.h>
-# include <string.h>
-
-// UNALLOWED TEMPORARY INCLUDES
 # include <stdio.h>
-# include <time.h>
 
 // MACROS
 # define W 1300

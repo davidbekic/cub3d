@@ -6,7 +6,7 @@
 /*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 23:01:04 by davidbekic        #+#    #+#             */
-/*   Updated: 2023/06/19 23:01:05 by davidbekic       ###   ########.fr       */
+/*   Updated: 2023/06/22 18:39:08 by davidbekic       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,10 @@ char	*ft_strjoin(char *left_str, char *buff)
 		left_str[0] = '\0';
 	}
 	if (!left_str || !buff)
-		return (NULL);
+		ft_exit("Malloc failed\n", 1);
 	str = malloc(sizeof(char) * ((ft_strlen(left_str) + ft_strlen(buff)) + 1));
 	if (str == NULL)
-		return (NULL);
+		ft_exit("Malloc failed\n", 1);
 	i = -1;
 	j = 0;
 	if (left_str)
@@ -71,7 +71,7 @@ char	*ft_get_line(char *left_str)
 		i++;
 	str = (char *)malloc(sizeof(char) * (i + 2));
 	if (!str)
-		return (NULL);
+		ft_exit("Malloc failed\n", 1);
 	i = 0;
 	while (left_str[i] && left_str[i] != '\n')
 	{
@@ -103,7 +103,7 @@ char	*ft_new_left_str(char *left_str)
 	}
 	str = (char *)malloc(sizeof(char) * (ft_strlen(left_str) - i + 1));
 	if (!str)
-		return (NULL);
+		ft_exit("Malloc failed\n", 1);
 	i++;
 	j = 0;
 	while (left_str[i])

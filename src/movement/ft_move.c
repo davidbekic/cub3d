@@ -6,7 +6,7 @@
 /*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 15:39:21 by dbekic            #+#    #+#             */
-/*   Updated: 2023/06/19 14:10:38 by dbekic           ###   ########.fr       */
+/*   Updated: 2023/06/22 18:40:55 by davidbekic       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	ft_move_backward(t_data *d)
 {
 	double	move_speed;
 
-	move_speed = MOVE_SPEED;
+	move_speed = MOVE_SPEED / 2;
 	if ((d->keys.down && d->keys.right) || (d->keys.down && d->keys.left))
 		ft_slow_down(&move_speed);
 	if (d->map.arr[(int)(d->rc.pos_x - d->rc.dir_x * move_speed)]
@@ -53,7 +53,7 @@ void	ft_move_right(t_data *d)
 	double	new_pos_x;
 	double	new_pos_y;
 
-	move_speed = MOVE_SPEED;
+	move_speed = MOVE_SPEED / 1.4;
 	new_pos_x = d->rc.pos_x + d->rc.dir_y * move_speed * 0.7;
 	new_pos_y = d->rc.pos_y - d->rc.dir_x * move_speed * 0.7;
 	if ((d->keys.up && d->keys.right) || (d->keys.up && d->keys.left))
@@ -74,7 +74,7 @@ void	ft_move_left(t_data *d)
 	double	new_pos_x;
 	double	new_pos_y;
 
-	move_speed = MOVE_SPEED;
+	move_speed = MOVE_SPEED / 1.4;
 	new_pos_x = d->rc.pos_x - d->rc.dir_y * move_speed * 0.7;
 	new_pos_y = d->rc.pos_y + d->rc.dir_x * move_speed * 0.7;
 	if ((d->keys.up && d->keys.right) || (d->keys.up && d->keys.left))

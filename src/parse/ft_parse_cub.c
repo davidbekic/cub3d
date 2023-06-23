@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse_cub.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbekic <dbekic@student.42.fr>              +#+  +:+       +#+        */
+/*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 10:27:47 by davidbekic        #+#    #+#             */
-/*   Updated: 2023/06/21 13:16:14 by dbekic           ###   ########.fr       */
+/*   Updated: 2023/06/22 17:53:27 by davidbekic       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,9 @@ static void	ft_parse_tex_path(t_data *d, char *line, int index)
 		i++;
 	ft_remove_isspace_from_end_of_str(line + i);
 	d->tex[index].path = ft_strdup(line + i);
-	d->tex[index].path[ft_strlen(line) - i] = 0;
 	if (!d->tex[index].path)
 		ft_exit("Malloc failed\n", 1);
+	d->tex[index].path[ft_strlen(line) - i] = 0;
 	d->tex[index].ready = 1;
 }
 
@@ -58,7 +58,7 @@ static void	ft_preparing_map_parse(t_data *d, char *line, char *path)
 	d->map.arr[0] = (char *) ft_calloc(d->map.width + 1, sizeof(char));
 	if (!d->map.arr[0])
 		ft_exit("malloc error", 1);
-	strcpy(d->map.arr[0], line);
+	ft_strcpy(d->map.arr[0], line);
 }
 
 static void	ft_parse_line(t_data *d, char *line, char *path, int fd)

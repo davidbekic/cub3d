@@ -6,11 +6,12 @@
 /*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 23:01:08 by davidbekic        #+#    #+#             */
-/*   Updated: 2023/06/19 23:01:12 by davidbekic       ###   ########.fr       */
+/*   Updated: 2023/06/22 18:39:40 by davidbekic       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include "../../../include/cub3d.h"
 #include <unistd.h>
 
 char	*ft_read_to_left_str(int fd, char *left_str)
@@ -20,7 +21,7 @@ char	*ft_read_to_left_str(int fd, char *left_str)
 
 	buff = malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if (!buff)
-		return (NULL);
+		ft_exit("Malloc failed\n", 1);
 	rd_bytes = 1;
 	while (!ft_strchr(left_str, '\n') && rd_bytes != 0)
 	{
